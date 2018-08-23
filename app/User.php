@@ -16,7 +16,15 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone', 'address', 'city_id', 'district_id', 'street_id', 'role_id', 'active'
+        'user_name', 
+        'display_name', 
+        'email', 
+        'phone_number', 
+        'password', 
+        'address', 
+        'city_id', 
+        'role_id', 
+        'active'
     ];
 
     /**
@@ -27,4 +35,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function group(){
+        return $this->belongsToMany('App\Group');
+    }
 }

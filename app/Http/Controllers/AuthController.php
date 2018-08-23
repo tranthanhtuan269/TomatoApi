@@ -21,26 +21,28 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|min:3|max:255',
+            'user_name' => 'required|string|min:3|max:255',
+            'display_name' => 'string|max:255',
             'email' => 'required|string|email|min:6|max:255|unique:users',
             'password' => 'required|string|confirmed|min:3|max:100',
-            'phone' => 'required|string|min:10|max:11'
+            'phone_number' => 'required|string|min:10|max:11'
         ]);
         $user = new User([
-            'name' => $request->name,
+            'user_name' => $request->user_name,
+            'display_name' => $request->display_name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'phone' => $request->phone,
+            'phone_number' => $request->phone_number,
             'address' => $request->address,
             'city_id' => $request->city_id,
-            'district_id' => $request->district_id,
-            'street_id' => $request->street_id,
             'role_id' => 2,
             'active' => 1,
         ]);
         $user->save();
         return response()->json([
-            'message' => 'Successfully created user!'
+            'status_code' => 201,
+            'message' => 'Successfully created user!',
+            'user_id' => $user->id
         ], 201);
     }
   
@@ -57,14 +59,16 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|string|email',
+            'user_name' => 'required|string|min:3|max:255',
             'password' => 'required|string',
             'remember_me' => 'boolean'
         ]);
-        $credentials = request(['email', 'password']);
+        $credentials = request(['user_name', 'password']);
         if(!Auth::attempt($credentials))
             return response()->json([
-                'message' => 'Unauthorized'
+                'status_code' => 401,
+                'message' => 'Unauthorized',
+                'user_id' => null
             ], 401);
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
@@ -73,11 +77,14 @@ class AuthController extends Controller
             $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
         return response()->json([
+            'status_code' => 200,
+            'message' => 'Successfully Logined',
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse(
                 $tokenResult->token->expires_at
-            )->toDateTimeString()
+            )->toDateTimeString(),
+            'user_id' => $user->id
         ]);
     }
   
@@ -90,6 +97,7 @@ class AuthController extends Controller
     {
         $request->user()->token()->revoke();
         return response()->json([
+            'status_code' => 200,
             'message' => 'Successfully logged out'
         ]);
     }
@@ -101,6 +109,10 @@ class AuthController extends Controller
      */
     public function user(Request $request)
     {
-        return response()->json($request->user());
+        return response()->json([
+            'status_code' => 200,
+            'message' => 'Get User info success',
+            'user' => $request->user()
+        ]);
     }
 }
