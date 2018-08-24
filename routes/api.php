@@ -28,5 +28,8 @@ Route::group([
     Route::post('groups/{id}/join', 'GroupController@join');
     Route::post('groups/{id}/leave', 'GroupController@leave');
 	
+    Route::post('admin/accept', 'AdminController@accept');
+    Route::post('admin/reject', 'AdminController@reject');
+
     Route::post('logout', 'AuthController@logout');
 });

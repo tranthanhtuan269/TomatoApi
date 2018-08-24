@@ -18,17 +18,31 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = fractal()
-                ->collection(Group::get())
-                ->parseIncludes(['groups'])
-                ->transformWith(new UserTransformer)
-                ->toArray();
+        if(!isset($request->search)){
+            $users = fractal()
+                    ->collection(User::get())
+                    ->parseIncludes(['groups'])
+                    ->transformWith(new UserTransformer)
+                    ->toArray();
 
-        return response()->json([
-            'status_code' => 200,
-            'message' => 'List users',
-            'users' => $users
-        ], 200);
+            return response()->json([
+                'status_code' => 200,
+                'message' => 'List users',
+                'users' => $users
+            ], 200);
+        }else{
+            $users = fractal()
+                    ->collection(User::where('user_name', 'like', '%' . $request->search. '%')->get())
+                    ->parseIncludes(['groups'])
+                    ->transformWith(new UserTransformer)
+                    ->toArray();
+
+            return response()->json([
+                'status_code' => 200,
+                'message' => 'List users',
+                'users' => $users
+            ], 200);
+        }
     }
 
     /**

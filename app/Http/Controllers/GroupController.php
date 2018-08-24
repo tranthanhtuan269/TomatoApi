@@ -14,19 +14,33 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $groups = fractal()
-                ->collection(Group::get())
-                ->parseIncludes(['users'])
-                ->transformWith(new GroupTransformer)
-                ->toArray();
+        if(!isset($request->search)){
+            $groups = fractal()
+                    ->collection(Group::get())
+                    ->parseIncludes(['users'])
+                    ->transformWith(new GroupTransformer)
+                    ->toArray();
 
-        return response()->json([
-            'status_code' => 200,
-            'message' => 'List groups',
-            'groups' => $groups
-        ], 200);
+            return response()->json([
+                'status_code' => 200,
+                'message' => 'List groups',
+                'groups' => $groups
+            ], 200);
+        }else{
+            $groups = fractal()
+                    ->collection(Group::where('group_name', 'like', '%' . $request->search . '%')->get())
+                    ->parseIncludes(['users'])
+                    ->transformWith(new GroupTransformer)
+                    ->toArray();
+
+            return response()->json([
+                'status_code' => 200,
+                'message' => 'List groups',
+                'groups' => $groups
+            ], 200);
+        }
     }
 
     /**
