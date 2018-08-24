@@ -15,12 +15,17 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Group::get();
-        return fractal()
-                ->collection($groups)
+        $groups = fractal()
+                ->collection(Group::get())
                 ->parseIncludes(['users'])
                 ->transformWith(new GroupTransformer)
                 ->toArray();
+
+        return response()->json([
+            'status_code' => 200,
+            'message' => 'List groups',
+            'groups' => $groups
+        ], 200);
     }
 
     /**
@@ -39,10 +44,16 @@ class GroupController extends Controller
         ]);
         $group->save();
 
-        return fractal()
+        $item = fractal()
                 ->item($group)
                 ->transformWith(new GroupTransformer)
                 ->toArray();
+
+        return response()->json([
+            'status_code' => 201,
+            'message' => 'Successfully Created Group!',
+            'groups' => $item
+        ], 201);
     }
 
     /**
