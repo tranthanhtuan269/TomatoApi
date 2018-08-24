@@ -19,7 +19,14 @@ Route::post('signup', 'AuthController@signup');
 Route::group([
   'middleware' => 'auth:api'
 ], function() {
+	
+	Route::apiResource('users', 'UserController');
+    Route::get('users/{id}/groups', 'UserController@groups');
+
 	Route::apiResource('groups', 'GroupController');
-    Route::get('logout', 'AuthController@logout');
-    Route::get('user', 'AuthController@user');
+    Route::get('groups/{id}/users', 'GroupController@users');
+    Route::post('groups/{id}/join', 'GroupController@join');
+    Route::post('groups/{id}/leave', 'GroupController@leave');
+	
+    Route::post('logout', 'AuthController@logout');
 });

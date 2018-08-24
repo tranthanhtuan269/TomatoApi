@@ -20,6 +20,7 @@ class User extends Authenticatable
         'display_name', 
         'email', 
         'phone_number', 
+        'avatar', 
         'password', 
         'address', 
         'city_id', 
@@ -36,7 +37,16 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function group(){
+    public function groups(){
         return $this->belongsToMany('App\Group');
+    }
+    
+    public function checkInGroup($id){
+        foreach ($this->groups()->get() as $group) {
+            if($group->id == $id){
+                return true;
+            }
+        }
+        return false;
     }
 }

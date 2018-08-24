@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Transformers\UserTransformer;
 use Carbon\Carbon;
 use App\User;
 
@@ -30,9 +31,10 @@ class AuthController extends Controller
         $user = new User([
             'user_name' => $request->user_name,
             'display_name' => $request->display_name,
-            'email' => $request->email,
             'password' => bcrypt($request->password),
+            'email' => $request->email,
             'phone_number' => $request->phone_number,
+            'avatar' => $request->avatar,
             'address' => $request->address,
             'city_id' => $request->city_id,
             'role_id' => 2,
@@ -69,7 +71,7 @@ class AuthController extends Controller
                 'status_code' => 401,
                 'message' => 'Unauthorized',
                 'user_id' => null
-            ], 401);
+            ], 200);
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;

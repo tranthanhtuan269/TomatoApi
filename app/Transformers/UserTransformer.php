@@ -17,12 +17,13 @@ class UserTransformer extends TransformerAbstract
     public function transform(User $user)
     {
         return [
+            'user_id' => $user->id,
             'user_name' => $user->user_name,
             'display_name' => $user->display_name,
+            'avatar' => $user->avatar,
             'email' => $user->email,
             'phone_number' => $user->phone_number,
-            'role_id' => $user->role_id,
-            'role_id' => $user->role_id,
+            'role_id' => $user->role_id
         ];
     }
 
