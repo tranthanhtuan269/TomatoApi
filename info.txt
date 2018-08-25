@@ -1,0 +1,8 @@
+Hostname: ftp.gear.host
+Username: tuantt\$tuantt
+Password: nzTJQ9JHgMy4y70g9nYTG6vR4GPxcGxQEgWP07JBJqe1mxcqehWkrSPDdG9h
+
+---database
+database: den1.mysql1.gear.host
+username: tomatoapi
+password: Fq9Z6Z4v9_!e
