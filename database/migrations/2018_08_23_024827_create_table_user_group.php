@@ -16,6 +16,7 @@ class CreateTableUserGroup extends Migration
         Schema::create('group_user', function (Blueprint $table) {
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('group_id');
+            $table->unsignedInteger('accept');
         });
     }
 

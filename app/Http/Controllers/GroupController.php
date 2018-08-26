@@ -19,7 +19,7 @@ class GroupController extends Controller
         if(!isset($request->search)){
             $groups = fractal()
                     ->collection(Group::get())
-                    ->parseIncludes(['users'])
+                    ->parseIncludes(['usersActive'])
                     ->transformWith(new GroupTransformer)
                     ->toArray();
 
@@ -31,7 +31,7 @@ class GroupController extends Controller
         }else{
             $groups = fractal()
                     ->collection(Group::where('group_name', 'like', '%' . $request->search . '%')->get())
-                    ->parseIncludes(['users'])
+                    ->parseIncludes(['usersActive'])
                     ->transformWith(new GroupTransformer)
                     ->toArray();
 
@@ -51,12 +51,22 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = \Validator::make($request->all(), [
             'group_name' => 'required|string|max:255'
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                    'status_code' => 422,
+                    'message' => 'Failed to create the group.',
+                    'errors' => $validator->errors()->all()
+                ], 200);
+        }
+
         $group = new Group([
             'group_name' => $request->group_name
         ]);
+
         if($group->save()){
             $item = fractal()
                 ->item($group)
@@ -88,7 +98,7 @@ class GroupController extends Controller
         if($group){
             $finder = fractal()
                 ->item($group)
-                ->parseIncludes(['users'])
+                ->parseIncludes(['usersActive'])
                 ->transformWith(new GroupTransformer)
                 ->toArray();
 
@@ -114,11 +124,20 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $validator = \Validator::make($request->all(), [
             'group_name' => 'required|string|max:255'
         ]);
 
+        if ($validator->fails()) {
+            return response()->json([
+                    'status_code' => 422,
+                    'message' => 'Failed to update the group.',
+                    'errors' => $validator->errors()->all()
+                ], 200);
+        }
+
         $group = Group::find($id);
+
         if($group){
             $group->group_name = $request->group_name;
             
@@ -199,39 +218,33 @@ class GroupController extends Controller
 
     public function join(Request $request, $id){
         $group = Group::find($id);
-
         if($group){
             if(!$request->user()->checkInGroup($id)){
-                if($group->users()->save($request->user())){
-                    $finder = fractal()
-                        ->item($group)
-                        ->parseIncludes(['users'])
-                        ->transformWith(new GroupTransformer)
-                        ->toArray();
+                $group->users()->attach($request->user()->id, ['accept' => 0]);
+                
+                $finder = fractal()
+                    ->item($group)
+                    ->parseIncludes(['usersActive'])
+                    ->transformWith(new GroupTransformer)
+                    ->toArray();
 
-                    return response()->json([
-                        'status_code' => 200,
-                        'message' => 'OK',
-                        'group' => $finder
-                    ], 200);
-                }else{
-                    return response()->json([
-                        'status_code' => 202,
-                        'message' => 'Failed to join this group.',
-                    ], 202);
-                }
+                return response()->json([
+                    'status_code' => 200,
+                    'message' => 'OK',
+                    'group' => $finder
+                ], 200);
             }else{
                 $finder = fractal()
                         ->item($group)
-                        ->parseIncludes(['users'])
+                        ->parseIncludes(['usersActive'])
                         ->transformWith(new GroupTransformer)
                         ->toArray();
 
-                    return response()->json([
-                        'status_code' => 200,
-                        'message' => 'OK',
-                        'group' => $finder
-                    ], 200);
+                return response()->json([
+                    'status_code' => 200,
+                    'message' => 'OK',
+                    'group' => $finder
+                ], 200);
             }
         }else{
             return response()->json([
@@ -248,7 +261,7 @@ class GroupController extends Controller
             if($group->users()->detach($request->user()->id)){
                 $finder = fractal()
                     ->item($group)
-                    ->parseIncludes(['users'])
+                    ->parseIncludes(['usersActive'])
                     ->transformWith(new GroupTransformer)
                     ->toArray();
 
@@ -268,6 +281,41 @@ class GroupController extends Controller
                 'status_code' => 404,
                 'message' => 'Not found this group.',
             ], 200);
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function wait(Request $request, $id)
+    {
+        if(isset($id)){
+            $group = Group::find($id);
+            if($group){
+                $finder = fractal()
+                        ->item($group)
+                        ->parseIncludes(['usersWait'])
+                        ->transformWith(new GroupTransformer)
+                        ->toArray();
+
+                return response()->json([
+                    'status_code' => 200,
+                    'message' => 'Get Group Info',
+                    'group' => $finder
+                ], 200);
+            }else{
+                return response()->json([
+                    'status_code' => 404,
+                    'message' => 'Not found this group.',
+                ], 200);
+            }
+        }else{
+            return response()->json([
+                    'status_code' => 422,
+                    'message' => 'Group_id is null.',
+                ], 200);
         }
     }
 }

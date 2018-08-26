@@ -25,6 +25,7 @@ Route::group([
 
 	Route::apiResource('groups', 'GroupController');
     Route::get('groups/{id}/users', 'GroupController@users');
+    Route::get('groups/{id}/wait', 'GroupController@wait');
     Route::post('groups/{id}/join', 'GroupController@join');
     Route::post('groups/{id}/leave', 'GroupController@leave');
 	

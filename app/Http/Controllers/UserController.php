@@ -8,6 +8,7 @@ use App\Transformers\UserTransformer;
 use App\Transformers\GroupTransformer;
 use Carbon\Carbon;
 use App\User;
+use Validator;
 
 class UserController extends Controller
 {
@@ -94,12 +95,20 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'user_name' => 'required|string|min:3|max:255',
+        $validator = \Validator::make($request->all(), [
+            'user_name' => 'required|string|min:3|max:255|unique:users,user_name,'.$id,
             'display_name' => 'string|max:255',
             'email' => 'required|string|email|min:6|max:255|unique:users,email,'.$id,
             'phone_number' => 'required|string|min:10|max:11'
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                    'status_code' => 422,
+                    'message' => 'Failed to update the user info.',
+                    'errors' => $validator->errors()->all()
+                ], 200);
+        }
 
         $user = User::find($id);
 

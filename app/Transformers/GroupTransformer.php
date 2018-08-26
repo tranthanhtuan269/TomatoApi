@@ -8,7 +8,7 @@ use App\Transformers\UserTransformer;
 
 class GroupTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['users'];
+    protected $availableIncludes = ['users', 'usersActive', 'usersWait'];
     /**
      * A Fractal transformer.
      *
@@ -20,6 +20,16 @@ class GroupTransformer extends TransformerAbstract
             'id' => $group->id,
             'group_name' => $group->group_name
         ];
+    }
+
+    public function includeUsersActive(Group $group)
+    {
+        return $this->collection($group->users()->wherePivot('accept', 1)->get() , new UserTransformer);
+    }
+
+    public function includeUsersWait(Group $group)
+    {
+        return $this->collection($group->users()->wherePivot('accept', 0)->get(), new UserTransformer);
     }
 
     public function includeUsers(Group $group)
