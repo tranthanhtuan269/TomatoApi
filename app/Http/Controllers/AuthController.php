@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Transformers\UserTransformer;
 use Carbon\Carbon;
 use App\User;
 
@@ -20,21 +21,29 @@ class AuthController extends Controller
      */
     public function signup(Request $request)
     {
-        $request->validate([
-            'user_name' => 'required|string|min:3|max:255',
-            'display_name' => 'required|string|min:3|max:255',
-            'avatar' => 'required|string|min:3|max:255',
+        $validator = \Validator::make($request->all(), [
+            'user_name' => 'required|string|min:3|max:255|unique:users',
+            'display_name' => 'string|max:255',
             'email' => 'required|string|email|min:6|max:255|unique:users',
             'password' => 'required|string|confirmed|min:3|max:100',
             'phone_number' => 'required|string|min:10|max:11'
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                    'status_code' => 422,
+                    'message' => 'Failed to create the user.',
+                    'errors' => $validator->errors()->all()
+                ], 200);
+        }
+
         $user = new User([
             'user_name' => $request->user_name,
             'display_name' => $request->display_name,
-            'avatar' => $request->avatar,
-            'email' => $request->email,
             'password' => bcrypt($request->password),
+            'email' => $request->email,
             'phone_number' => $request->phone_number,
+            'avatar' => $request->avatar,
             'address' => $request->address,
             'city_id' => $request->city_id,
             'role_id' => 2,
@@ -60,17 +69,27 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $request->validate([
+        $validator = \Validator::make($request->all(), [
             'user_name' => 'required|string|min:3|max:255',
-            'password' => 'required|string|min:3|max:100',
+            'password' => 'required|string',
             'remember_me' => 'boolean'
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                    'status_code' => 422,
+                    'message' => 'Failed to login.',
+                    'errors' => $validator->errors()->all()
+                ], 200);
+        }
+
         $credentials = request(['user_name', 'password']);
         if(!Auth::attempt($credentials))
             return response()->json([
                 'status_code' => 401,
-                'message' => 'Unauthorized'
-            ], 401);
+                'message' => 'Unauthorized',
+                'user_id' => null
+            ], 200);
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
@@ -79,12 +98,14 @@ class AuthController extends Controller
         $token->save();
         return response()->json([
             'status_code' => 200,
+            'message' => 'Successfully Logined',
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse(
                 $tokenResult->token->expires_at
-            )->toDateTimeString()
-        ], 200);
+            )->toDateTimeString(),
+            'user_id' => $user->id
+        ]);
     }
   
     /**
@@ -96,6 +117,7 @@ class AuthController extends Controller
     {
         $request->user()->token()->revoke();
         return response()->json([
+            'status_code' => 200,
             'message' => 'Successfully logged out'
         ]);
     }
@@ -107,6 +129,10 @@ class AuthController extends Controller
      */
     public function user(Request $request)
     {
-        return response()->json($request->user());
+        return response()->json([
+            'status_code' => 200,
+            'message' => 'Get User info success',
+            'user' => $request->user()
+        ]);
     }
 }

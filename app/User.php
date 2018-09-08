@@ -18,12 +18,12 @@ class User extends Authenticatable
     protected $fillable = [
         'user_name', 
         'display_name', 
-        'avatar', 
         'email', 
-        'password', 
         'phone_number', 
-        'city_id', 
+        'avatar', 
+        'password', 
         'address', 
+        'city_id', 
         'role_id', 
         'active'
     ];
@@ -36,4 +36,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function groups(){
+        return $this->belongsToMany('App\Group');
+    }
+    
+    public function checkInGroup($id){
+        foreach ($this->groups()->get() as $group) {
+            if($group->id == $id){
+                return true;
+            }
+        }
+        return false;
+    }
 }
