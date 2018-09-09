@@ -21,8 +21,9 @@ Route::group([
 ], function() {
 	
 	Route::apiResource('users', 'UserController');
-    Route::get('users/{id}/groups', 'UserController@groups');
+    Route::get('users/{id}/jobs', 'UserController@jobs');
 
+    Route::apiResource('jobs', 'JobController');
 	Route::apiResource('groups', 'GroupController');
     Route::get('groups/{id}/users', 'GroupController@users');
     Route::get('groups/{id}/wait', 'GroupController@wait');

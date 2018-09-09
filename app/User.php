@@ -16,16 +16,18 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'user_name', 
+        'name', 
         'display_name', 
         'email', 
-        'phone_number', 
+        'phone', 
         'avatar', 
         'password', 
         'address', 
         'city_id', 
         'role_id', 
-        'active'
+        'active',
+        'presenter_id',
+        'code'
     ];
 
     /**
@@ -37,16 +39,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function groups(){
-        return $this->belongsToMany('App\Group');
-    }
-    
-    public function checkInGroup($id){
-        foreach ($this->groups()->get() as $group) {
-            if($group->id == $id){
-                return true;
-            }
-        }
-        return false;
+    public function jobs(){
+        return $this->belongsToMany('App\Job');
     }
 }

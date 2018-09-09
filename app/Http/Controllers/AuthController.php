@@ -22,11 +22,11 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
         $validator = \Validator::make($request->all(), [
-            'user_name' => 'required|string|min:3|max:255|unique:users',
+            'name' => 'required|string|min:3|max:255|unique:users',
             'display_name' => 'string|max:255',
             'email' => 'required|string|email|min:6|max:255|unique:users',
             'password' => 'required|string|confirmed|min:3|max:100',
-            'phone_number' => 'required|string|min:10|max:11'
+            'phone' => 'required|string|min:10|max:11'
         ]);
 
         if ($validator->fails()) {
@@ -38,22 +38,31 @@ class AuthController extends Controller
         }
 
         $user = new User([
-            'user_name' => $request->user_name,
+            'name' => $request->name,
             'display_name' => $request->display_name,
             'password' => bcrypt($request->password),
             'email' => $request->email,
-            'phone_number' => $request->phone_number,
+            'phone' => $request->phone,
             'avatar' => $request->avatar,
             'address' => $request->address,
             'city_id' => $request->city_id,
             'role_id' => 2,
             'active' => 1,
+            'code' => bcrypt($request->phone)
         ]);
+
+        $user->presenter_id = 0;
+        if(isset($request->presenter)){
+            $presenter = User::where('code', $request->presenter)->first();
+            if($presenter){
+                $user->presenter_id = $presenter->id;
+            }
+        }
         $user->save();
         return response()->json([
             'status_code' => 201,
             'message' => 'Successfully created user!',
-            'user_id' => $user->id
+            'user' => $user
         ], 201);
     }
   
@@ -70,9 +79,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator = \Validator::make($request->all(), [
-            'user_name' => 'required|string|min:3|max:255',
-            'password' => 'required|string',
-            'remember_me' => 'boolean'
+            'phone' => 'required|string|min:10|max:11',
+            'password' => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -83,7 +91,7 @@ class AuthController extends Controller
                 ], 200);
         }
 
-        $credentials = request(['user_name', 'password']);
+        $credentials = request(['phone', 'password']);
         if(!Auth::attempt($credentials))
             return response()->json([
                 'status_code' => 401,
@@ -93,8 +101,7 @@ class AuthController extends Controller
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
-        if ($request->remember_me)
-            $token->expires_at = Carbon::now()->addWeeks(1);
+        $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
         return response()->json([
             'status_code' => 200,
@@ -119,20 +126,6 @@ class AuthController extends Controller
         return response()->json([
             'status_code' => 200,
             'message' => 'Successfully logged out'
-        ]);
-    }
-  
-    /**
-     * Get the authenticated User
-     *
-     * @return [json] user object
-     */
-    public function user(Request $request)
-    {
-        return response()->json([
-            'status_code' => 200,
-            'message' => 'Get User info success',
-            'user' => $request->user()
         ]);
     }
 }

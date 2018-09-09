@@ -4,11 +4,11 @@ namespace App\Transformers;
 
 use App\Group;
 use League\Fractal\TransformerAbstract;
-use App\Transformers\UserTransformer;
+use App\Transformers\JobTransformer;
 
 class GroupTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['users', 'usersActive', 'usersWait'];
+    protected $availableIncludes = ['jobs'];
     /**
      * A Fractal transformer.
      *
@@ -18,22 +18,12 @@ class GroupTransformer extends TransformerAbstract
     {
         return [
             'id' => $group->id,
-            'group_name' => $group->group_name
+            'name' => $group->name
         ];
     }
 
-    public function includeUsersActive(Group $group)
+    public function includeJobs(Group $group)
     {
-        return $this->collection($group->users()->wherePivot('accept', 1)->get() , new UserTransformer);
-    }
-
-    public function includeUsersWait(Group $group)
-    {
-        return $this->collection($group->users()->wherePivot('accept', 0)->get(), new UserTransformer);
-    }
-
-    public function includeUsers(Group $group)
-    {
-        return $this->collection($group->users, new UserTransformer);
+        return $this->collection($group->jobs, new JobTransformer);
     }
 }

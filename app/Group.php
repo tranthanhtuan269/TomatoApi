@@ -12,10 +12,6 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-        'group_name'
+        'name'
     ];
-
-    public function users(){
-        return $this->belongsToMany('App\User');
-    }
 }

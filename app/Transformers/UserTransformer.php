@@ -4,11 +4,11 @@ namespace App\Transformers;
 
 use App\User;
 use League\Fractal\TransformerAbstract;
-use App\Transformers\GroupTransformer;
+use App\Transformers\JobTransformer;
 
 class UserTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['group'];
+    protected $availableIncludes = ['jobs'];
     /**
      * A Fractal transformer.
      *
@@ -17,18 +17,19 @@ class UserTransformer extends TransformerAbstract
     public function transform(User $user)
     {
         return [
-            'user_id' => $user->id,
-            'user_name' => $user->user_name,
+            'id' => $user->id,
+            'name' => $user->name,
             'display_name' => $user->display_name,
             'avatar' => $user->avatar,
             'email' => $user->email,
-            'phone_number' => $user->phone_number,
+            'phone' => $user->phone,
+            'code' => $user->code,
             'role_id' => $user->role_id
         ];
     }
 
-    public function includeGroup(User $user)
+    public function includeJobs(User $user)
     {
-        return $this->collection($user->group, new GroupTransformer);
+        return $this->collection($user->jobs, new JobTransformer);
     }
 }

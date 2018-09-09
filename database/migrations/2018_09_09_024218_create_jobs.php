@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableUserGroup extends Migration
+class CreateJobs extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,15 @@ class CreateTableUserGroup extends Migration
      */
     public function up()
     {
-        Schema::create('group_user', function (Blueprint $table) {
+        Schema::create('jobs', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('address');
+            $table->string('note');
+            $table->string('start_time');
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('group_id');
-            $table->unsignedInteger('accept');
+            $table->unsignedInteger('order_id');
+            $table->unsignedInteger('state');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +32,6 @@ class CreateTableUserGroup extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('group_user');
+        Schema::dropIfExists('jobs');
     }
 }

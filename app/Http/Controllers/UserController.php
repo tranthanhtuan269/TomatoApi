@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Transformers\UserTransformer;
-use App\Transformers\GroupTransformer;
+use App\Transformers\JobTransformer;
 use Carbon\Carbon;
 use App\User;
 use Validator;
@@ -33,7 +33,7 @@ class UserController extends Controller
             ], 200);
         }else{
             $users = fractal()
-                    ->collection(User::where('user_name', 'like', '%' . $request->search. '%')->get())
+                    ->collection(User::where('name', 'like', '%' . $request->search. '%')->get())
                     ->parseIncludes(['groups'])
                     ->transformWith(new UserTransformer)
                     ->toArray();
@@ -96,10 +96,10 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $validator = \Validator::make($request->all(), [
-            'user_name' => 'required|string|min:3|max:255|unique:users,user_name,'.$id,
+            'name' => 'required|string|min:3|max:255|unique:users,name,'.$id,
             'display_name' => 'string|max:255',
             'email' => 'required|string|email|min:6|max:255|unique:users,email,'.$id,
-            'phone_number' => 'required|string|min:10|max:11'
+            'phone' => 'required|string|min:10|max:11'
         ]);
 
         if ($validator->fails()) {
@@ -113,10 +113,10 @@ class UserController extends Controller
         $user = User::find($id);
 
         if($user){
-            $user->user_name = $request->user_name;
+            $user->name = $request->name;
             $user->display_name = $request->display_name;
             $user->email = $request->email;
-            $user->phone_number = $request->phone_number;
+            $user->phone = $request->phone;
             $user->avatar = $request->avatar;
             $user->address = $request->address;
             $user->city_id = $request->city_id;
@@ -180,17 +180,17 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function groups(Request $request, $id)
+    public function jobs(Request $request, $id)
     {
-        $groups = fractal()
-                ->collection($request->user()->groups()->get())
-                ->transformWith(new GroupTransformer)
+        $jobs = fractal()
+                ->collection($request->user()->jobs()->get())
+                ->transformWith(new JobTransformer)
                 ->toArray();
 
         return response()->json([
             'status_code' => 200,
-            'message' => 'List groups',
-            'groups' => $groups
+            'message' => 'List jobs',
+            'jobs' => $jobs
         ], 200);
     }
 }
