@@ -111,6 +111,7 @@ class PackageController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($request);
         $validator = \Validator::make($request->all(), [
             'details' => 'required|string|max:1000',
             'service_id' => 'required'
