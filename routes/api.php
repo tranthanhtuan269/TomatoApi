@@ -25,8 +25,8 @@ Route::group([
 
     Route::apiResource('jobs', 'JobController');
     Route::apiResource('groups', 'GroupController');
-    Route::apiResource('package', 'PackageController');
-	Route::apiResource('service', 'ServiceController');
+    Route::apiResource('packages', 'PackageController');
+	Route::apiResource('services', 'ServiceController');
     Route::get('groups/{id}/users', 'GroupController@users');
 	
     Route::post('admin/accept', 'AdminController@accept');
