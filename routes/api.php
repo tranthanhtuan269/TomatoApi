@@ -24,11 +24,10 @@ Route::group([
     Route::get('users/{id}/jobs', 'UserController@jobs');
 
     Route::apiResource('jobs', 'JobController');
-	Route::apiResource('groups', 'GroupController');
+    Route::apiResource('groups', 'GroupController');
+    Route::apiResource('package', 'PackageController');
+	Route::apiResource('service', 'ServiceController');
     Route::get('groups/{id}/users', 'GroupController@users');
-    Route::get('groups/{id}/wait', 'GroupController@wait');
-    Route::post('groups/{id}/join', 'GroupController@join');
-    Route::post('groups/{id}/leave', 'GroupController@leave');
 	
     Route::post('admin/accept', 'AdminController@accept');
     Route::post('admin/reject', 'AdminController@reject');
