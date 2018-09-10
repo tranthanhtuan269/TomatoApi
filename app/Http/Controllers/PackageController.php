@@ -37,7 +37,7 @@ class PackageController extends Controller
     public function store(Request $request)
     {
         $validator = \Validator::make($request->all(), [
-            'details' => 'required|string|max:255',
+            'details' => 'required|string|max:1000',
             'service' => 'required'
         ]);
 
@@ -112,7 +112,7 @@ class PackageController extends Controller
     public function update(Request $request, $id)
     {
         $validator = \Validator::make($request->all(), [
-            'details' => 'required|string|max:255',
+            'details' => 'required|string|max:1000',
             'service' => 'required'
         ]);
 
