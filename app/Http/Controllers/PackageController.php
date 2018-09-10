@@ -38,7 +38,7 @@ class PackageController extends Controller
     {
         $validator = \Validator::make($request->all(), [
             'details' => 'required|string|max:1000',
-            'service' => 'required'
+            'service_id' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -51,7 +51,7 @@ class PackageController extends Controller
 
         $package = new Package([
             'details' => $request->details,
-            'service' => $request->service
+            'service_id' => $request->service_id
         ]);
 
         if($package->save()){
@@ -113,7 +113,7 @@ class PackageController extends Controller
     {
         $validator = \Validator::make($request->all(), [
             'details' => 'required|string|max:1000',
-            'service' => 'required'
+            'service_id' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -128,7 +128,7 @@ class PackageController extends Controller
 
         if($package){
             $package->details = $request->details;
-            $package->service = $request->service;
+            $package->service_id = $request->service_id;
             if($package->save()){
                 $item = fractal()
                     ->item($package)
