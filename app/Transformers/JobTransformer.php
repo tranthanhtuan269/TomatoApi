@@ -23,6 +23,7 @@ class JobTransformer extends TransformerAbstract
             'address' => $job->address,
             'note' => $job->note,
             'start_time' => $job->start_time,
+            'end_time' => $job->end_time,
             'state' => $job->state,
             'user' => $job->user,
             'package' => $job->packages

@@ -12,7 +12,7 @@ class Job extends Model
      * @var array
      */
     protected $fillable = [
-        'address', 'note', 'start_time', 'user_id', 'state'
+        'address', 'note', 'start_time', 'end_time', 'user_id', 'state'
     ];
 
     /**

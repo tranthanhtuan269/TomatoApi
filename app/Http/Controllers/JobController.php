@@ -43,6 +43,7 @@ class JobController extends Controller
             'address' => 'required|string|max:255',
             'note' => 'required|string|max:255',
             'start_time' => 'required|string|max:255',
+            'end_time' => 'required|string|max:255',
             'price' => 'required',
             'package' => 'required'
         ]);
@@ -59,6 +60,7 @@ class JobController extends Controller
             'address' => $request->address,
             'note' => $request->note,
             'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
             'user_id' => $request->user()->id,
             'state' => 0
         ]);
@@ -135,6 +137,7 @@ class JobController extends Controller
             'address' => 'required|string|max:255',
             'note' => 'required|string|max:255',
             'start_time' => 'required|string|max:255',
+            'end_time' => 'required|string|max:255',
             'price' => 'required',
             'package' => 'required'
         ]);
@@ -153,6 +156,7 @@ class JobController extends Controller
             $job->address = $request->address;
             $job->note = $request->note;
             $job->start_time = $request->start_time;
+            $job->end_time = $request->end_time;
             $job->user_id = $request->user()->id;
             $job->state = 0;
 

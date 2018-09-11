@@ -18,6 +18,7 @@ class CreateJobs extends Migration
             $table->string('address');
             $table->string('note');
             $table->string('start_time');
+            $table->string('end_time');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('state');
             $table->timestamps();
