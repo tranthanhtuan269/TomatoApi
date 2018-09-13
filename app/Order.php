@@ -12,7 +12,14 @@ class Order extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'job_id', 'price', 'pay_type'
+        'user_id',
+        'address',
+        'note',
+        'start_time',
+        'stop_time',
+        'state',
+        'price',
+        'pay_type'
     ];
 
     /**
@@ -26,8 +33,8 @@ class Order extends Model
     /**
      * Get the post that owns the comment.
      */
-    public function job()
+    public function packages()
     {
-        return $this->belongsTo('App\Job');
+        return $this->belongsToMany('App\Package');
     }
 }

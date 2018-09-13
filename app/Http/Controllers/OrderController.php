@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Transformers\UserTransformer;
-use App\Transformers\JobTransformer;
-use App\Job;
+use App\Transformers\OrderTransformer;
 use App\Order;
 
-class JobController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,16 +16,16 @@ class JobController extends Controller
      */
     public function index(Request $request)
     {
-        $jobs = fractal()
-                ->collection(Job::get())
+        $orders = fractal()
+                ->collection(Order::get())
                 ->parseIncludes(['user'])
-                ->transformWith(new JobTransformer)
+                ->transformWith(new OrderTransformer)
                 ->toArray();
 
         return response()->json([
             'status_code' => 200,
-            'message' => 'List jobs',
-            'jobs' => $jobs
+            'message' => 'List orders',
+            'orders' => $orders
         ], 200);
     }
 
@@ -38,14 +37,13 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->user()->id);
         $validator = \Validator::make($request->all(), [
             'address' => 'required|string|max:255',
             'note' => 'required|string|max:255',
             'start_time' => 'required|string|max:255',
             'end_time' => 'required|string|max:255',
             'price' => 'required',
-            'package' => 'required'
+            'list_packages' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -56,27 +54,22 @@ class JobController extends Controller
                 ], 200);
         }
 
-        $job = new Job([
+        $order = new Order([
+            'user_id' => $request->user()->id,
             'address' => $request->address,
             'note' => $request->note,
             'start_time' => $request->start_time,
             'end_time' => $request->end_time,
             'user_id' => $request->user()->id,
-            'state' => 0
-        ]);
-
-        $job->save();
-
-        $order = new Order([
-            'user_id' => $request->user()->id,
-            'job_id' => $job->id,
+            'state' => 0,
             'price' => $request->price,
             'pay_type' => $request->pay_type
         ]);
 
         if($order->save()){
-            $request->user()->jobs()->attach($job->id);
-            $job->packages()->attach($request->package);
+            $list_package = json_decode($request->list_packages);
+            
+            $order->packages()->attach($request->package);
             $item = fractal()
                 ->item($job)
                 ->transformWith(new JobTransformer)

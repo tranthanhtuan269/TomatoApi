@@ -16,6 +16,7 @@ class CreateServices extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->unsignedInteger('parent_id');
         });
     }
 

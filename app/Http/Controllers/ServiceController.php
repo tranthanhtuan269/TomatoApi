@@ -48,7 +48,8 @@ class ServiceController extends Controller
         }
 
         $service = new Service([
-            'name' => $request->name
+            'name' => $request->name,
+            'parent_id' => isset($request->parent_id) ? $request->parent_id : 0,
         ]);
 
         if($service->save()){
@@ -123,6 +124,7 @@ class ServiceController extends Controller
 
         if($service){
             $service->name = $request->name;
+            $service->parent_id = isset($request->parent_id) ? $request->parent_id : 0;
             if($service->save()){
                 $item = fractal()
                     ->item($service)

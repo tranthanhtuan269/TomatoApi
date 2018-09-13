@@ -37,7 +37,9 @@ class PackageController extends Controller
     public function store(Request $request)
     {
         $validator = \Validator::make($request->all(), [
-            'details' => 'required|string|max:1000',
+            'name' => 'required|string|max:255',
+            'price' => 'required|string|max:15',
+            'image' => 'required|string|max:255',
             'service_id' => 'required'
         ]);
 
@@ -50,7 +52,9 @@ class PackageController extends Controller
         }
 
         $package = new Package([
-            'details' => $request->details,
+            'name' => $request->name,
+            'price' => $request->price,
+            'image' => $request->image,
             'service_id' => $request->service_id
         ]);
 
@@ -111,9 +115,10 @@ class PackageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request);
         $validator = \Validator::make($request->all(), [
-            'details' => 'required|string|max:1000',
+            'name' => 'required|string|max:255',
+            'price' => 'required|string|max:15',
+            'image' => 'required|string|max:255',
             'service_id' => 'required'
         ]);
 
@@ -128,7 +133,9 @@ class PackageController extends Controller
         $package = Package::find($id);
 
         if($package){
-            $package->details = $request->details;
+            $package->name = $request->name;
+            $package->price = $request->price;
+            $package->image = $request->image;
             $package->service_id = $request->service_id;
             if($package->save()){
                 $item = fractal()

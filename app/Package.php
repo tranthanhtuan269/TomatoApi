@@ -18,7 +18,10 @@ class Package extends Model
      * @var array
      */
     protected $fillable = [
-        'details', 'service_id'
+        'name', 
+        'price', 
+        'image', 
+        'service_id'
     ];
 
     /**
@@ -29,11 +32,8 @@ class Package extends Model
         return $this->belongsTo('App\Service');
     }
 
-    /**
-     * The roles that belong to the user.
-     */
-    public function jobs()
+    public function orders()
     {
-        return $this->belongsToMany('App\Job');
+        return $this->belongsToMany('App\Order');
     }
 }

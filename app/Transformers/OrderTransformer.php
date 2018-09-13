@@ -4,7 +4,6 @@ namespace App\Transformers;
 
 use App\Job;
 use League\Fractal\TransformerAbstract;
-use App\Transformers\GroupTransformer;
 use App\Transformers\UserTransformer;
 use App\Transformers\PackageTransformer;
 
@@ -16,31 +15,28 @@ class OrderTransformer extends TransformerAbstract
      *
      * @return array
      */
-    public function transform(Job $job)
+    public function transform(Order $order)
     {
         return [
-            'id' => $job->id,
-            'address' => $job->address,
-            'note' => $job->note,
-            'start_time' => $job->start_time,
-            'state' => $job->state,
-            'user' => $job->user,
-            'order' => $job->order,
-            'package' => $job->package
+            'id' => $order->id,
+            'address' => $order->address,
+            'note' => $order->note,
+            'start_time' => $order->start_time,
+            'stop_time' => $order->stop_time,
+            'state' => $order->state,
+            'user' => $order->user,
+            'price' => $order->price,
+            'pay_type' => $order->pay_type,
+            'package' => $order->package
         ];
     }
 
-    public function includeGroup(Job $job)
-    {
-        return $this->item($job->group, new GroupTransformer);
-    }
-
-    public function includeUser(Job $job)
+    public function includeUser(Order $order)
     {
         return $this->item($job->user, new UserTransformer);
     }
 
-    public function includePackage(Job $job)
+    public function includePackages(Order $order)
     {
         return $this->item($job->packages, new PackageTransformer);
     }
