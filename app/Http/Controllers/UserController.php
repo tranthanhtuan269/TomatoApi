@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Transformers\UserTransformer;
-use App\Transformers\JobTransformer;
+use App\Transformers\OrderTransformer;
 use Carbon\Carbon;
 use App\User;
 use Validator;
@@ -180,17 +180,17 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function jobs(Request $request, $id)
+    public function orders(Request $request, $id)
     {
-        $jobs = fractal()
-                ->collection($request->user()->jobs()->get())
-                ->transformWith(new JobTransformer)
+        $orders = fractal()
+                ->collection($request->user()->orders()->get())
+                ->transformWith(new OrderTransformer)
                 ->toArray();
 
         return response()->json([
             'status_code' => 200,
-            'message' => 'List jobs',
-            'jobs' => $jobs
+            'message' => 'List orders',
+            'orders' => $orders
         ], 200);
     }
 }

@@ -21,9 +21,9 @@ Route::group([
 ], function() {
 	
 	Route::apiResource('users', 'UserController');
-    Route::get('users/{id}/jobs', 'UserController@jobs');
+    Route::get('users/{id}/orders', 'UserController@orders');
 
-    Route::apiResource('jobs', 'JobController');
+    Route::apiResource('orders', 'OrderController');
     Route::apiResource('groups', 'GroupController');
     Route::apiResource('packages', 'PackageController');
 	Route::apiResource('services', 'ServiceController');

@@ -4,11 +4,11 @@ namespace App\Transformers;
 
 use App\User;
 use League\Fractal\TransformerAbstract;
-use App\Transformers\JobTransformer;
+use App\Transformers\OrderTransformer;
 
 class UserTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['jobs'];
+    protected $availableIncludes = ['orders'];
     /**
      * A Fractal transformer.
      *
@@ -28,8 +28,8 @@ class UserTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeJobs(User $user)
+    public function includeOrders(User $user)
     {
-        return $this->collection($user->jobs, new JobTransformer);
+        return $this->collection($user->orders, new OrderTransformer);
     }
 }

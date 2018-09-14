@@ -18,7 +18,9 @@ class PackageTransformer extends TransformerAbstract
     {
         return [
             'id' => $package->id,
-            'details' => $package->details,
+            'name' => $package->name,
+            'price' => $package->price,
+            'image' => $package->image,
             'service' => $package->service
         ];
     }

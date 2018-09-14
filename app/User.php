@@ -39,7 +39,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function jobs(){
-        return $this->belongsToMany('App\Job');
+    public function orders(){
+        return $this->belongsTo('App\Order');
     }
 }

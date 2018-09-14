@@ -16,7 +16,7 @@ class Order extends Model
         'address',
         'note',
         'start_time',
-        'stop_time',
+        'end_time',
         'state',
         'price',
         'pay_type'

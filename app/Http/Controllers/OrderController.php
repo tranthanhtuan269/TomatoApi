@@ -43,13 +43,13 @@ class OrderController extends Controller
             'start_time' => 'required|string|max:255',
             'end_time' => 'required|string|max:255',
             'price' => 'required',
-            'list_packages' => 'required'
+            'list_packages' => 'required|string|max:5000'
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                     'status_code' => 422,
-                    'message' => 'Failed to create the job.',
+                    'message' => 'Failed to create the order.',
                     'errors' => $validator->errors()->all()
                 ], 200);
         }
@@ -67,23 +67,25 @@ class OrderController extends Controller
         ]);
 
         if($order->save()){
+            // add packages
             $list_package = json_decode($request->list_packages);
-            
-            $order->packages()->attach($request->package);
+            foreach ($list_package as $package) {
+                $order->packages()->attach($package->package, ['number' => $package->number]);
+            }
             $item = fractal()
-                ->item($job)
-                ->transformWith(new JobTransformer)
+                ->item($order)
+                ->transformWith(new OrderTransformer)
                 ->toArray();
 
             return response()->json([
                 'status_code' => 201,
-                'message' => 'The job has been created',
-                'job' => $item
+                'message' => 'The order has been created',
+                'order' => $item
             ], 201);    
         }else{
             return response()->json([
                 'status_code' => 204,
-                'message' => 'Failed to create a new job.',
+                'message' => 'Failed to create a new order.',
             ], 200);
         }
     }
@@ -96,23 +98,23 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $job = Job::find($id);
-        if($job){
+        $order = Order::find($id);
+        if($order){
             $finder = fractal()
-                ->item($job)
+                ->item($order)
                 ->parseIncludes(['user'])
-                ->transformWith(new JobTransformer)
+                ->transformWith(new OrderTransformer)
                 ->toArray();
 
             return response()->json([
                 'status_code' => 200,
                 'message' => 'OK',
-                'job' => $finder
+                'order' => $finder
             ], 200);
         }else{
             return response()->json([
                 'status_code' => 204,
-                'message' => 'Not found this job.'
+                'message' => 'Not found this order.'
             ], 200);
         }
     }
@@ -132,71 +134,59 @@ class OrderController extends Controller
             'start_time' => 'required|string|max:255',
             'end_time' => 'required|string|max:255',
             'price' => 'required',
-            'package' => 'required'
+            'list_packages' => 'required|string|max:5000'
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                     'status_code' => 422,
-                    'message' => 'Failed to update the job.',
+                    'message' => 'Failed to update the order.',
                     'errors' => $validator->errors()->all()
                 ], 200);
         }
 
-        $job = Job::find($id);
+        $order = Order::find($id);
 
-        if($job){
-            $job->address = $request->address;
-            $job->note = $request->note;
-            $job->start_time = $request->start_time;
-            $job->end_time = $request->end_time;
-            $job->user_id = $request->user()->id;
-            $job->state = 0;
+        if($order){
+            $order->address = $request->address;
+            $order->note = $request->note;
+            $order->start_time = $request->start_time;
+            $order->end_time = $request->end_time;
+            $order->user_id = $request->user()->id;
+            $order->state = 0;
+            $order->price = $request->price;
+            $order->pay_type = $request->pay_type;
+                
+            if($order->save()){
+                // remove package
+                $order->packages()->detach();
 
-            $job->save();
-
-            $order = Order::where('user_id', $request->user()->id)
-                            ->where('job_id', $id)
-                            ->first();
-
-            if(isset($order)){
-                $order->price = $request->price;
-                $order->pay_type = $request->pay_type;
-                if($order->save()){
-                    $request->user()->jobs()->attach($job->id);
-                    $job->packages()->attach($request->package);
-                    $item = fractal()
-                        ->item($job)
-                        ->transformWith(new JobTransformer)
-                        ->toArray();
-
-                    return response()->json([
-                        'status_code' => 201,
-                        'message' => 'The job has been updated',
-                        'job' => $item
-                    ], 201);    
-                }else{
-                    return response()->json([
-                        'status_code' => 202,
-                        'message' => 'Failed to update a job',
-                    ], 200);
+                // add packages
+                $list_package = json_decode($request->list_packages);
+                foreach ($list_package as $package) {
+                    $order->packages()->attach($package->package, ['number' => $package->number]);
                 }
-            }else{
-                $item = fractal()
-                        ->item($job)
-                        ->transformWith(new JobTransformer)
-                        ->toArray();
 
-                    return response()->json([
-                        'status_code' => 201,
-                        'message' => 'The job has been updated',
-                        'job' => $item
-                    ], 201); 
+                $item = fractal()
+                    ->item($order)
+                    ->transformWith(new OrderTransformer)
+                    ->toArray();
+
+                return response()->json([
+                    'status_code' => 201,
+                    'message' => 'The order has been updated',
+                    'order' => $item
+                ], 201);    
+            }else{
+                return response()->json([
+                    'status_code' => 202,
+                    'message' => 'Failed to update a order',
+                ], 200);
             }
         }else{
             return response()->json([
                 'status_code' => 404,
-                'message' => 'Not found this job.',
+                'message' => 'Not found this order.',
             ], 200);
         }
     }
@@ -209,23 +199,23 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        $job = Job::find($id);
-        if($job){
-            if($job->delete()){
+        $order = Order::find($id);
+        if($order){
+            if($order->delete()){
                 return response()->json([
                     'status_code' => 200,
-                    'message' => 'Delete this job successfully.'
+                    'message' => 'Delete this order successfully.'
                 ], 200);
             }else{
                 return response()->json([
                     'status_code' => 202,
-                    'message' => 'Failed to delete this job.',
+                    'message' => 'Failed to delete this order.'
                 ], 202);
             }
         }else{
             return response()->json([
                 'status_code' => 404,
-                'message' => 'Not found this job.',
+                'message' => 'Not found this order.',
             ], 200);
         }
     }

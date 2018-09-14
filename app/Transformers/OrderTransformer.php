@@ -2,10 +2,10 @@
 
 namespace App\Transformers;
 
-use App\Job;
 use League\Fractal\TransformerAbstract;
 use App\Transformers\UserTransformer;
 use App\Transformers\PackageTransformer;
+use App\Order;
 
 class OrderTransformer extends TransformerAbstract
 {
@@ -22,12 +22,12 @@ class OrderTransformer extends TransformerAbstract
             'address' => $order->address,
             'note' => $order->note,
             'start_time' => $order->start_time,
-            'stop_time' => $order->stop_time,
+            'end_time' => $order->end_time,
             'state' => $order->state,
             'user' => $order->user,
             'price' => $order->price,
             'pay_type' => $order->pay_type,
-            'package' => $order->package
+            'package' => $order->packages
         ];
     }
 
