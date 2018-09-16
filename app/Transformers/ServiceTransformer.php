@@ -24,6 +24,6 @@ class ServiceTransformer extends TransformerAbstract
 
     public function includePackages(Service $service)
     {
-        return $this->collection($service->package, new PackageTransformer);
+        return $this->collection($service->packages, new PackageTransformer);
     }
 }
