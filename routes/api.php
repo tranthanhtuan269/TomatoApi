@@ -15,6 +15,14 @@ use Illuminate\Http\Request;
 
 Route::post('login', 'AuthController@login');
 Route::post('signup', 'AuthController@signup');
+Route::get('services', 'ServiceController@index');
+Route::get('services/{id}', 'ServiceController@show');
+Route::get('packages', 'PackageController@index');
+Route::get('packages/{id}', 'PackageController@show');
+Route::get('orders', 'OrderController@index');
+Route::get('orders/{id}', 'OrderController@show');
+Route::get('groups', 'GroupController@index');
+Route::get('groups/{id}', 'GroupController@show');
 
 Route::group([
   'middleware' => 'auth:api'
