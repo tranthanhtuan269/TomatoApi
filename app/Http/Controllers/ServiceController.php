@@ -48,6 +48,7 @@ class ServiceController extends Controller
         }
 
         $service = new Service([
+            'icon' => $request->icon,
             'name' => $request->name,
             'parent_id' => isset($request->parent_id) ? $request->parent_id : 0,
         ]);
@@ -123,6 +124,7 @@ class ServiceController extends Controller
         $service = Service::find($id);
 
         if($service){
+            $service->icon = $request->icon;
             $service->name = $request->name;
             $service->parent_id = isset($request->parent_id) ? $request->parent_id : 0;
             if($service->save()){

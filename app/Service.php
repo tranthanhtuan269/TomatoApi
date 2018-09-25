@@ -18,6 +18,7 @@ class Service extends Model
      * @var array
      */
     protected $fillable = [
+        'icon',
         'name',
         'parent_id'
     ];
