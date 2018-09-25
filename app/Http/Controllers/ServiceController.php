@@ -101,6 +101,28 @@ class ServiceController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function subservice($id)
+    {
+        $services = Service::where('parent_id', '=', $id)->get();
+
+        $finder = fractal()
+            ->collection($services)
+            ->transformWith(new ServiceTransformer)
+            ->toArray();
+
+        return response()->json([
+            'status_code' => 200,
+            'message' => 'OK',
+            'service' => $finder
+        ], 200);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

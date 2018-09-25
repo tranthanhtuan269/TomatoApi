@@ -37,6 +37,7 @@ Route::group([
 
 Route::get('services', 'ServiceController@index');
 Route::get('services/{id}', 'ServiceController@show');
+Route::get('services/{id}/subservice', 'ServiceController@subservice');
 Route::get('packages', 'PackageController@index');
 Route::get('packages/{id}', 'PackageController@show');
 Route::get('orders', 'OrderController@index');
@@ -44,3 +45,11 @@ Route::get('orders/{id}', 'OrderController@show');
 Route::get('groups', 'GroupController@index');
 Route::get('groups/{id}', 'GroupController@show');
 
+Route::get('why-use', 'HomeController@whyUse');
+Route::get('best-practices', 'HomeController@bestPractices');
+Route::get('faqs', 'HomeController@faqs');
+Route::get('report-and-feedback', 'HomeController@reportAndFeedback');
+Route::get('contact', 'HomeController@contact');
+Route::get('legal', 'HomeController@legal');
+Route::get('about', 'HomeController@about');
+Route::get('favorite-tasker', 'HomeController@favoriteTasker');
