@@ -53,9 +53,3 @@ Route::get('contact', 'HomeController@contact');
 Route::get('legal', 'HomeController@legal');
 Route::get('about', 'HomeController@about');
 Route::get('favorite-tasker', 'HomeController@favoriteTasker');
-Route::get('terms', function () {
-    return view('terms');
-});
-Route::get('privacy', function () {
-    return view('privacy');
-});
