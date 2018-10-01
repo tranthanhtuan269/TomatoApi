@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Transformers\UserTransformer;
 use App\Transformers\OrderTransformer;
+use App\Common\Helper;
 use App\Order;
 
 class OrderController extends Controller
@@ -43,7 +44,9 @@ class OrderController extends Controller
             'start_time' => 'required|string|max:255',
             'end_time' => 'required|string|max:255',
             'price' => 'required',
-            'list_packages' => 'required|string|max:5000'
+            'list_packages' => 'required|string|max:5000', 
+            'phone' => 'required|string|min:10|max:15',
+            'access_token' => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -54,38 +57,45 @@ class OrderController extends Controller
                 ], 200);
         }
 
-        $order = new Order([
-            'user_id' => $request->user()->id,
-            'address' => $request->address,
-            'note' => $request->note,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
-            'user_id' => $request->user()->id,
-            'state' => 0,
-            'price' => $request->price,
-            'pay_type' => $request->pay_type
-        ]);
+        $user = Helper::checkAuth($request->phone, $request->access_token);
+        if($user){
+            $order = new Order([
+                'user_id' => $user->id,
+                'address' => $request->address,
+                'note' => $request->note,
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
+                'state' => 0,
+                'price' => $request->price,
+                'pay_type' => $request->pay_type
+            ]);
 
-        if($order->save()){
-            // add packages
-            $list_package = json_decode($request->list_packages);
-            foreach ($list_package as $package) {
-                $order->packages()->attach($package->package, ['number' => $package->number]);
+            if($order->save()){
+                // add packages
+                $list_package = json_decode($request->list_packages);
+                foreach ($list_package as $package) {
+                    $order->packages()->attach($package->package, ['number' => $package->number]);
+                }
+                $item = fractal()
+                    ->item($order)
+                    ->transformWith(new OrderTransformer)
+                    ->toArray();
+
+                return response()->json([
+                    'status_code' => 201,
+                    'message' => 'The order has been created',
+                    'order' => $item
+                ], 201);    
+            }else{
+                return response()->json([
+                    'status_code' => 204,
+                    'message' => 'Failed to create a new order.',
+                ], 200);
             }
-            $item = fractal()
-                ->item($order)
-                ->transformWith(new OrderTransformer)
-                ->toArray();
-
-            return response()->json([
-                'status_code' => 201,
-                'message' => 'The order has been created',
-                'order' => $item
-            ], 201);    
         }else{
             return response()->json([
-                'status_code' => 204,
-                'message' => 'Failed to create a new order.',
+                'status_code' => 404,
+                'message' => 'Not found the user.',
             ], 200);
         }
     }
@@ -134,7 +144,9 @@ class OrderController extends Controller
             'start_time' => 'required|string|max:255',
             'end_time' => 'required|string|max:255',
             'price' => 'required',
-            'list_packages' => 'required|string|max:5000'
+            'list_packages' => 'required|string|max:5000',
+            'phone' => 'required|string|min:10|max:15',
+            'access_token' => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -145,48 +157,56 @@ class OrderController extends Controller
                 ], 200);
         }
 
-        $order = Order::find($id);
+        $user = Helper::checkAuth($request->phone, $request->access_token);
+        if($user){
+            $order = Order::where('user_id', $user->id)->find($id);
 
-        if($order){
-            $order->address = $request->address;
-            $order->note = $request->note;
-            $order->start_time = $request->start_time;
-            $order->end_time = $request->end_time;
-            $order->user_id = $request->user()->id;
-            $order->state = 0;
-            $order->price = $request->price;
-            $order->pay_type = $request->pay_type;
-                
-            if($order->save()){
-                // remove package
-                $order->packages()->detach();
+            if($order){
+                $order->address = $request->address;
+                $order->note = $request->note;
+                $order->start_time = $request->start_time;
+                $order->end_time = $request->end_time;
+                $order->user_id = $user->id;
+                $order->state = 0;
+                $order->price = $request->price;
+                $order->pay_type = $request->pay_type;
+                    
+                if($order->save()){
+                    // remove package
+                    $order->packages()->detach();
 
-                // add packages
-                $list_package = json_decode($request->list_packages);
-                foreach ($list_package as $package) {
-                    $order->packages()->attach($package->package, ['number' => $package->number]);
+                    // add packages
+                    $list_package = json_decode($request->list_packages);
+                    foreach ($list_package as $package) {
+                        $order->packages()->attach($package->package, ['number' => $package->number]);
+                    }
+
+                    $item = fractal()
+                        ->item($order)
+                        ->transformWith(new OrderTransformer)
+                        ->toArray();
+
+                    return response()->json([
+                        'status_code' => 201,
+                        'message' => 'The order has been updated',
+                        'order' => $item
+                    ], 201);    
+                }else{
+                    return response()->json([
+                        'status_code' => 202,
+                        'message' => 'Failed to update a order',
+                    ], 200);
                 }
-
-                $item = fractal()
-                    ->item($order)
-                    ->transformWith(new OrderTransformer)
-                    ->toArray();
-
-                return response()->json([
-                    'status_code' => 201,
-                    'message' => 'The order has been updated',
-                    'order' => $item
-                ], 201);    
             }else{
                 return response()->json([
-                    'status_code' => 202,
-                    'message' => 'Failed to update a order',
+                    'status_code' => 404,
+                    'message' => 'Not found this order.',
                 ], 200);
             }
         }else{
             return response()->json([
                 'status_code' => 404,
-                'message' => 'Not found this order.',
+                'message' => 'Not found the user.',
             ], 200);
         }
     }
@@ -197,25 +217,33 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $order = Order::find($id);
-        if($order){
-            if($order->delete()){
-                return response()->json([
-                    'status_code' => 200,
-                    'message' => 'Delete this order successfully.'
-                ], 200);
+        $user = Helper::checkAuth($request->phone, $request->access_token);
+        if($user){
+            $order = Order::find($id);
+            if($order){
+                if($order->delete()){
+                    return response()->json([
+                        'status_code' => 200,
+                        'message' => 'Delete this order successfully.'
+                    ], 200);
+                }else{
+                    return response()->json([
+                        'status_code' => 202,
+                        'message' => 'Failed to delete this order.'
+                    ], 202);
+                }
             }else{
                 return response()->json([
-                    'status_code' => 202,
-                    'message' => 'Failed to delete this order.'
-                ], 202);
+                    'status_code' => 404,
+                    'message' => 'Not found this order.',
+                ], 200);
             }
         }else{
             return response()->json([
                 'status_code' => 404,
-                'message' => 'Not found this order.',
+                'message' => 'Not found the user.',
             ], 200);
         }
     }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Transformers\UserTransformer;
 use App\Transformers\OrderTransformer;
+use App\Common\Helper;
 use Carbon\Carbon;
 use App\User;
 use Validator;
@@ -19,7 +20,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        if(!isset($request->search)){
             $users = fractal()
                     ->collection(User::get())
                     ->parseIncludes(['groups'])
@@ -31,19 +31,6 @@ class UserController extends Controller
                 'message' => 'List users',
                 'users' => $users
             ], 200);
-        }else{
-            $users = fractal()
-                    ->collection(User::where('name', 'like', '%' . $request->search. '%')->get())
-                    ->parseIncludes(['groups'])
-                    ->transformWith(new UserTransformer)
-                    ->toArray();
-
-            return response()->json([
-                'status_code' => 200,
-                'message' => 'List users',
-                'users' => $users
-            ], 200);
-        }
     }
 
     /**
@@ -99,7 +86,8 @@ class UserController extends Controller
             'name' => 'required|string|min:3|max:255|unique:users,name,'.$id,
             'display_name' => 'string|max:255',
             'email' => 'required|string|email|min:6|max:255|unique:users,email,'.$id,
-            'phone' => 'required|string|min:10|max:11'
+            'phone' => 'required|string|min:10|max:15',
+            'access_token' => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -110,13 +98,12 @@ class UserController extends Controller
                 ], 200);
         }
 
-        $user = User::find($id);
+        $user = Helper::checkAuth($request->phone, $request->access_token);
 
         if($user){
             $user->name = $request->name;
             $user->display_name = $request->display_name;
             $user->email = $request->email;
-            $user->phone = $request->phone;
             $user->avatar = $request->avatar;
             $user->address = $request->address;
             $user->city_id = $request->city_id;
@@ -152,9 +139,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $user = User::find($id);
+        $user = Helper::checkAuth($request->phone, $request->access_token);
         if($user){
             if($user->delete()){
                 return response()->json([
@@ -182,10 +169,14 @@ class UserController extends Controller
      */
     public function orders(Request $request, $id)
     {
-        $orders = fractal()
+        $user = Helper::checkAuth($request->phone, $request->access_token);
+        $orders = [];
+        if(!isset($user)){
+            $orders = fractal()
                 ->collection($request->user()->orders()->get())
                 ->transformWith(new OrderTransformer)
-                ->toArray();
+                ->toArray();    
+        }
 
         return response()->json([
             'status_code' => 200,
