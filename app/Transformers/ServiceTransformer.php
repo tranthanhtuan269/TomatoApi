@@ -4,6 +4,7 @@ namespace App\Transformers;
 
 use App\Service;
 use League\Fractal\TransformerAbstract;
+use App\Transformers\ServiceTransformer;
 use App\Transformers\PackageTransformer;
 
 class ServiceTransformer extends TransformerAbstract
