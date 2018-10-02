@@ -29,6 +29,8 @@ Route::get('groups', 'GroupController@index');
 Route::get('groups/{id}', 'GroupController@show');
 
 Route::get('users/{id}/orders', 'UserController@orders');
+Route::get('users/{id}/neworders', 'UserController@newOrders');
+Route::get('users/{id}/oldorders', 'UserController@oldOrders');
 Route::get('groups/{id}/users', 'GroupController@users');
     
 Route::post('users', 'UserController@store');

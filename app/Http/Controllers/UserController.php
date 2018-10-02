@@ -173,7 +173,57 @@ class UserController extends Controller
         $orders = [];
         if(!isset($user)){
             $orders = fractal()
-                ->collection($request->user()->orders()->get())
+                ->collection($user->orders()->get())
+                ->transformWith(new OrderTransformer)
+                ->toArray();    
+        }
+
+        return response()->json([
+            'status_code' => 200,
+            'message' => 'List orders',
+            'orders' => $orders
+        ], 200);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function newOrders(Request $request, $id)
+    {
+        $user = Helper::checkAuth($request->phone, $request->access_token);
+        $orders = [];
+        if(!isset($user)){
+            $orders = fractal()
+                ->collection(Order::where("user_id", $user->id)->whereDate('datetime', '>', Carbon::now())
+                    ->orderBy('datetime', 'asc')
+                    ->get())
+                ->transformWith(new OrderTransformer)
+                ->toArray();    
+        }
+
+        return response()->json([
+            'status_code' => 200,
+            'message' => 'List orders',
+            'orders' => $orders
+        ], 200);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function oldOrders(Request $request, $id)
+    {
+        $user = Helper::checkAuth($request->phone, $request->access_token);
+        $orders = [];
+        if(!isset($user)){
+            $orders = fractal()
+                ->collection(Order::where("user_id", $user->id)->whereDate('datetime', '<', Carbon::now())
+                    ->orderBy('datetime', 'asc')
+                    ->get())
                 ->transformWith(new OrderTransformer)
                 ->toArray();    
         }
