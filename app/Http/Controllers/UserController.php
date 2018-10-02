@@ -196,8 +196,8 @@ class UserController extends Controller
         $orders = [];
         if(!isset($user)){
             $orders = fractal()
-                ->collection(Order::where("user_id", $user->id)->whereDate('datetime', '>', Carbon::now())
-                    ->orderBy('datetime', 'asc')
+                ->collection(Order::where("user_id", $user->id)->whereDate('created_at', '>', Carbon::now())
+                    ->orderBy('created_at', 'asc')
                     ->get())
                 ->transformWith(new OrderTransformer)
                 ->toArray();    
@@ -221,8 +221,8 @@ class UserController extends Controller
         $orders = [];
         if(!isset($user)){
             $orders = fractal()
-                ->collection(Order::where("user_id", $user->id)->whereDate('datetime', '<', Carbon::now())
-                    ->orderBy('datetime', 'asc')
+                ->collection(Order::where("user_id", $user->id)->whereDate('created_at', '<', Carbon::now())
+                    ->orderBy('created_at', 'asc')
                     ->get())
                 ->transformWith(new OrderTransformer)
                 ->toArray();    
