@@ -6,6 +6,9 @@ use App\User;
 Class Helper{
 
     	public static function checkAuth($phone, $access_token){
+            if (strpos($phone, '+') !== false) {
+                $phone = str_replace("+", "", $phone);
+            }
     		$user = User::where("phone", $phone)->first();
     		if(!isset($user)){
     			$user = new User;

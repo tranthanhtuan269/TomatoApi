@@ -17,6 +17,9 @@ Route::post('login', 'AuthController@login');
 Route::post('signup', 'AuthController@signup');
 
 Route::get('users', 'UserController@index');
+Route::get('users/orders', 'UserController@orders');
+Route::get('users/neworders', 'UserController@newOrders');
+Route::get('users/oldorders', 'UserController@oldOrders');
 Route::get('users/{id}', 'UserController@show');
 Route::get('services', 'ServiceController@index');
 Route::get('services/{id}', 'ServiceController@show');
@@ -27,10 +30,6 @@ Route::get('orders', 'OrderController@index');
 Route::get('orders/{id}', 'OrderController@show');
 Route::get('groups', 'GroupController@index');
 Route::get('groups/{id}', 'GroupController@show');
-
-Route::get('users/{id}/orders', 'UserController@orders');
-Route::get('users/{id}/neworders', 'UserController@newOrders');
-Route::get('users/{id}/oldorders', 'UserController@oldOrders');
 Route::get('groups/{id}/users', 'GroupController@users');
     
 Route::post('users', 'UserController@store');

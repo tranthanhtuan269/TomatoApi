@@ -8,6 +8,7 @@ use App\Transformers\UserTransformer;
 use App\Transformers\OrderTransformer;
 use App\Common\Helper;
 use Carbon\Carbon;
+use App\Order;
 use App\User;
 use Validator;
 
@@ -167,13 +168,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function orders(Request $request, $id)
+    public function orders(Request $request)
     {
         $user = Helper::checkAuth($request->phone, $request->access_token);
         $orders = [];
-        if(!isset($user)){
+        if(isset($user)){
             $orders = fractal()
-                ->collection($user->orders()->get())
+                ->collection(Order::where("user_id", $user->id)->get())
                 ->transformWith(new OrderTransformer)
                 ->toArray();    
         }
@@ -190,15 +191,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function newOrders(Request $request, $id)
+    public function newOrders(Request $request)
     {
         $user = Helper::checkAuth($request->phone, $request->access_token);
         $orders = [];
-        if(!isset($user)){
+        if(isset($user)){
             $orders = fractal()
-                ->collection(Order::where("user_id", $user->id)->whereDate('created_at', '>', Carbon::now())
-                    ->orderBy('created_at', 'asc')
-                    ->get())
+                ->collection(Order::where("user_id", $user->id)->where('created_at', '>=', date('Y-m-d').' 00:00:00')->get())
                 ->transformWith(new OrderTransformer)
                 ->toArray();    
         }
@@ -215,15 +214,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function oldOrders(Request $request, $id)
+    public function oldOrders(Request $request)
     {
         $user = Helper::checkAuth($request->phone, $request->access_token);
         $orders = [];
-        if(!isset($user)){
+        if(isset($user)){
             $orders = fractal()
-                ->collection(Order::where("user_id", $user->id)->whereDate('created_at', '<', Carbon::now())
-                    ->orderBy('created_at', 'asc')
-                    ->get())
+                ->collection(Order::where("user_id", $user->id)->where('created_at', '<', date('Y-m-d').' 00:00:00')->get())
                 ->transformWith(new OrderTransformer)
                 ->toArray();    
         }
