@@ -112,6 +112,7 @@ class ServiceController extends Controller
 
         $finder = fractal()
             ->collection($services)
+            ->parseIncludes(['packages'])
             ->transformWith(new ServiceTransformer)
             ->toArray();
 

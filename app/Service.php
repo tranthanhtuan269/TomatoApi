@@ -24,6 +24,6 @@ class Service extends Model
     ];
 
     public function packages(){
-        return $this->belongsToMany('App\Package');
+        return $this->hasMany('App\Package');
     }
 }
