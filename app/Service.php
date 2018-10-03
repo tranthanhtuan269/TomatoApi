@@ -22,11 +22,7 @@ class Service extends Model
         'name',
         'parent_id'
     ];
-
-    public function services(){
-        return $this->hasMany('App\Service', 'parent_id');
-    }
-
+    
     public function packages(){
         return $this->hasMany('App\Package');
     }

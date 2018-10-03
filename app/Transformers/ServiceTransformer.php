@@ -4,12 +4,11 @@ namespace App\Transformers;
 
 use App\Service;
 use League\Fractal\TransformerAbstract;
-use App\Transformers\ServiceTransformer;
 use App\Transformers\PackageTransformer;
 
 class ServiceTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['packages', 'services'];
+    protected $availableIncludes = ['packages'];
     /* A Fractal transformer.
      *
      * @return array
@@ -26,10 +25,5 @@ class ServiceTransformer extends TransformerAbstract
     public function includePackages(Service $service)
     {
         return $this->collection($service->packages, new PackageTransformer);
-    }
-
-    public function includeServices(Service $service)
-    {
-        return $this->collection($service->services, new ServiceTransformer);
     }
 }

@@ -31,41 +31,12 @@
         </div>
         <div class="col-sm-9"> 
             <div class="panel panel-primary">
-                <div class="panel-heading">Register</div>
-                <div class="panel-body">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#header" aria-controls="header" role="tab" data-toggle="tab">Header</a></li>
-                        <li role="presentation"><a href="#Params" aria-controls="Params" role="tab" data-toggle="tab">Params</a></li>
-                        <li role="presentation"><a href="#output" aria-controls="output" role="tab" data-toggle="tab">Output</a></li>
-                    </ul>
-
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="header">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-sm-3">Accept: </div>
-                                    <div class="col-sm-9">application/json</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3">Content-Type: </div>
-                                    <div class="col-sm-9">application/json</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="Params">Params</div>
-                        <div role="tabpanel" class="tab-pane" id="output">Output</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">Panel title</h3>
                 </div>
                 <div class="panel-body">
                     Panel content
+                    <img src="{{ url('/') }}/images/dicho.png">
                 </div>
             </div>
         </div>

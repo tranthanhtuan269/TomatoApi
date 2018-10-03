@@ -21,6 +21,7 @@ class Package extends Model
         'name', 
         'price', 
         'image', 
+        'group_id',
         'service_id'
     ];
 
@@ -30,6 +31,11 @@ class Package extends Model
     public function service()
     {
         return $this->belongsTo('App\Service');
+    }
+
+    public function group()
+    {
+        return $this->belongsTo('App\Group');
     }
 
     public function orders()
