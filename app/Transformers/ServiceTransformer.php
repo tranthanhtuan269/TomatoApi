@@ -8,7 +8,7 @@ use App\Transformers\PackageTransformer;
 
 class ServiceTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['packages'];
+    protected $availableIncludes = ['packages', 'services'];
     /* A Fractal transformer.
      *
      * @return array
@@ -27,5 +27,10 @@ class ServiceTransformer extends TransformerAbstract
     public function includePackages(Service $service)
     {
         return $this->collection($service->packages, new PackageTransformer);
+    }
+
+    public function includeServices(Service $service)
+    {
+        return $this->collection($service->services, new ServiceTransformer);
     }
 }
