@@ -18,7 +18,9 @@ class ServiceTransformer extends TransformerAbstract
         return [
             'id' => $service->id,
             'name' => $service->name,
-            'icon' => $service->icon
+            'icon' => $service->icon,
+            'services' => $service->services,
+            'packages' => $service->packages
         ];
     }
 
