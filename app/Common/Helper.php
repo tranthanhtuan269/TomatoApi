@@ -6,9 +6,7 @@ use App\User;
 Class Helper{
 
     	public static function checkAuth($phone, $access_token){
-            if (strpos($phone, '+') !== false) {
-                $phone = str_replace("+", "", $phone);
-            }
+            $phone = Helper::removePlusInPhone($phone);
     		$user = User::where("phone", $phone)->first();
     		if(!isset($user)){
     			$user = new User;
@@ -27,4 +25,8 @@ Class Helper{
     		}
         		return $user;
     	}
+
+        public static function removePlusInPhone($phone){
+            return str_replace("+", "", $phone);
+        }
 }

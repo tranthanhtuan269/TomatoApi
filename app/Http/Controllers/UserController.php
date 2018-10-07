@@ -19,8 +19,21 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if(isset($request->phone)){
+            $users = fractal()
+                    ->item(User::where('phone', Helper::removePlusInPhone($request->phone))->first())
+                    ->parseIncludes(['groups'])
+                    ->transformWith(new UserTransformer)
+                    ->toArray();
+
+            return response()->json([
+                'status_code' => 200,
+                'message' => 'List users',
+                'users' => $users
+            ], 200);
+        }else{
             $users = fractal()
                     ->collection(User::get())
                     ->parseIncludes(['groups'])
@@ -32,6 +45,7 @@ class UserController extends Controller
                 'message' => 'List users',
                 'users' => $users
             ], 200);
+        }
     }
 
     /**
