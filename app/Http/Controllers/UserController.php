@@ -22,17 +22,25 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if(isset($request->phone)){
-            $users = fractal()
-                    ->item(User::where('phone', Helper::removePlusInPhone($request->phone))->first())
-                    ->parseIncludes(['groups'])
-                    ->transformWith(new UserTransformer)
-                    ->toArray();
+            $find = User::where('phone', Helper::removePlusInPhone($request->phone))->first();
+            if($find){
+                $users = fractal()
+                        ->item($find)
+                        ->parseIncludes(['groups'])
+                        ->transformWith(new UserTransformer)
+                        ->toArray();
 
-            return response()->json([
-                'status_code' => 200,
-                'message' => 'List users',
-                'users' => $users
-            ], 200);
+                return response()->json([
+                    'status_code' => 200,
+                    'message' => 'List users',
+                    'users' => $users
+                ], 200);
+            }else{
+                return response()->json([
+                    'status_code' => 204,
+                    'message' => 'Not found this user.'
+                ], 200);
+            }
         }else{
             $users = fractal()
                     ->collection(User::get())
