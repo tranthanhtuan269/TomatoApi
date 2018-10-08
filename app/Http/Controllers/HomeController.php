@@ -71,7 +71,16 @@ class HomeController extends Controller
     }
 
     public function favoriteTasker(){
-    	$content = "abc test";
+        $content = "abc test";
+        return response()->json([
+                'status_code' => 200,
+                'message' => 'Success',
+                'content' => $content
+            ], 200);
+    }
+
+    public function hspinfo(){
+    	$content = "hspinfo";
     	return response()->json([
 	            'status_code' => 200,
 	            'message' => 'Success',
