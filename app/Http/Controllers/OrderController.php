@@ -67,6 +67,9 @@ class OrderController extends Controller
                 'end_time' => $request->end_time,
                 'state' => 0,
                 'price' => $request->price,
+                'username' => $request->username,
+                'email' => $request->email,
+                'promotion_code' => $request->promotion_code,
                 'pay_type' => $request->pay_type
             ]);
 
@@ -170,6 +173,9 @@ class OrderController extends Controller
                 $order->state = 0;
                 $order->price = $request->price;
                 $order->pay_type = $request->pay_type;
+                $order->username = $request->username;
+                $order->email = $request->email;
+                $order->promotion_code = $request->promotion_code;
                     
                 if($order->save()){
                     // remove package

@@ -27,6 +27,9 @@ class OrderTransformer extends TransformerAbstract
             'user' => $order->user,
             'price' => $order->price,
             'pay_type' => $order->pay_type,
+            'username' => $order->username,
+            'email' => $order->email,
+            'promotion_code' => $order->promotion_code,
             'package' => $order->packages
         ];
     }

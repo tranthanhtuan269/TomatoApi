@@ -19,7 +19,10 @@ class Order extends Model
         'end_time',
         'state',
         'price',
-        'pay_type'
+        'pay_type',
+        'username',
+        'email',
+        'promotion_code'
     ];
 
     /**
