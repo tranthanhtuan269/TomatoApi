@@ -40,7 +40,6 @@ class OrderController extends Controller
     {
         $validator = \Validator::make($request->all(), [
             'address' => 'required|string|max:255',
-            'note' => 'required|string|max:255',
             'start_time' => 'required|string|max:255',
             'end_time' => 'required|string|max:255',
             'price' => 'required',
@@ -143,7 +142,6 @@ class OrderController extends Controller
     {
         $validator = \Validator::make($request->all(), [
             'address' => 'required|string|max:255',
-            'note' => 'required|string|max:255',
             'start_time' => 'required|string|max:255',
             'end_time' => 'required|string|max:255',
             'price' => 'required',
