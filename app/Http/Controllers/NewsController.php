@@ -136,7 +136,7 @@ class NewsController extends Controller
         if ($validator->fails()) {
             return response()->json([
                     'status_code' => 422,
-                    'message' => 'Failed to create the news.',
+                    'message' => 'Failed to update the news.',
                     'errors' => $validator->errors()->all()
                 ], 200);
         }
