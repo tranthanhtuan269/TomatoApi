@@ -178,7 +178,7 @@ class OrderController extends Controller
                     // add packages
                     $list_package = json_decode($request->list_packages);
                     foreach ($list_package as $package) {
-                        $order->packages()->attach($package->package, ['number' => $package->number]);
+                        $order->packages()->attach($package->package_id, ['number' => $package->number]);
                     }
 
                     $item = fractal()
