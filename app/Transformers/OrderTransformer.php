@@ -30,6 +30,7 @@ class OrderTransformer extends TransformerAbstract
             'username' => $order->username,
             'email' => $order->email,
             'promotion_code' => $order->promotion_code,
+            'list_package' => $order->list_packages
             'package' => $order->packages
         ];
     }

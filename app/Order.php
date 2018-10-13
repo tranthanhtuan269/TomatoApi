@@ -22,7 +22,8 @@ class Order extends Model
         'pay_type',
         'username',
         'email',
-        'promotion_code'
+        'promotion_code',
+        'list_packages'
     ];
 
     /**

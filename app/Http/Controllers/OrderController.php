@@ -69,6 +69,7 @@ class OrderController extends Controller
                 'username' => $request->username,
                 'email' => $request->email,
                 'promotion_code' => $request->promotion_code,
+                'list_packages' => $request->list_packages,
                 'pay_type' => $request->pay_type
             ]);
 
@@ -174,6 +175,7 @@ class OrderController extends Controller
                 $order->username = $request->username;
                 $order->email = $request->email;
                 $order->promotion_code = $request->promotion_code;
+                $order->list_packages = $request->list_packages;
                     
                 if($order->save()){
                     // remove package
