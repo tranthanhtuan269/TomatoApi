@@ -38,11 +38,11 @@ class OrderTransformer extends TransformerAbstract
 
     public function includeUser(Order $order)
     {
-        return $this->item($job->user, new UserTransformer);
+        return $this->item($order->user, new UserTransformer);
     }
 
     public function includePackages(Order $order)
     {
-        return $this->item($job->packages, new PackageTransformer);
+        return $this->collection($order->packages, new PackageTransformer);
     }
 }
