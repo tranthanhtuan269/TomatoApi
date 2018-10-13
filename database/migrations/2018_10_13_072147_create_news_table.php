@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJobPackage extends Migration
+class CreateNewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateJobPackage extends Migration
      */
     public function up()
     {
-        Schema::create('job_package', function (Blueprint $table) {
-            $table->unsignedInteger('package_id');
-            $table->unsignedInteger('job_id');
+        Schema::create('news', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title');
+            $table->longText('content');
+            $table->string('author');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +29,6 @@ class CreateJobPackage extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('job_package');
+        Schema::dropIfExists('news');
     }
 }

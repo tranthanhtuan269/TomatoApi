@@ -21,13 +21,20 @@ Route::get('users/orders', 'UserController@orders');
 Route::get('users/neworders', 'UserController@newOrders');
 Route::get('users/oldorders', 'UserController@oldOrders');
 Route::get('users/{id}', 'UserController@show');
+
 Route::get('services', 'ServiceController@index');
 Route::get('services/{id}', 'ServiceController@show');
 Route::get('services/{id}/subservice', 'ServiceController@subservice');
+
 Route::get('packages', 'PackageController@index');
 Route::get('packages/{id}', 'PackageController@show');
+
 Route::get('orders', 'OrderController@index');
 Route::get('orders/{id}', 'OrderController@show');
+
+Route::get('news', 'NewsController@index');
+Route::get('news/{id}', 'NewsController@show');
+
 Route::get('groups', 'GroupController@index');
 Route::get('groups/{id}', 'GroupController@show');
 Route::get('groups/{id}/users', 'GroupController@users');
@@ -35,18 +42,26 @@ Route::get('groups/{id}/users', 'GroupController@users');
 Route::post('users', 'UserController@store');
 Route::put('users/{id}', 'UserController@update');
 Route::delete('users/{id}', 'UserController@destroy');
+
 Route::post('orders', 'OrderController@store');
 Route::put('orders/{id}', 'OrderController@update');
 Route::delete('orders/{id}', 'OrderController@destroy');
+
 Route::post('groups', 'GroupController@store');
 Route::put('groups/{id}', 'GroupController@update');
 Route::delete('groups/{id}', 'GroupController@destroy');
+
 Route::post('packages', 'PackageController@store');
 Route::put('packages/{id}', 'PackageController@update');
 Route::delete('packages/{id}', 'PackageController@destroy');
+
 Route::post('services', 'ServiceController@store');
 Route::put('services/{id}', 'ServiceController@update');
 Route::delete('services/{id}', 'ServiceController@destroy');
+
+Route::post('news', 'NewsController@store');
+Route::put('news/{id}', 'NewsController@update');
+Route::delete('news/{id}', 'NewsController@destroy');
 
 Route::post('admin/accept', 'AdminController@accept');
 Route::post('admin/reject', 'AdminController@reject');

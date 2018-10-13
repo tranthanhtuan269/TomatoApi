@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJobUser extends Migration
+class CreateOrderPackage extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateJobUser extends Migration
      */
     public function up()
     {
-        Schema::create('job_user', function (Blueprint $table) {
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('job_id');
-        });
+        // Schema::create('order_package', function (Blueprint $table) {
+        //     $table->unsignedInteger('package_id');
+        //     $table->unsignedInteger('order_id');
+        //     $table->unsignedInteger('number');
+        // });
     }
 
     /**
@@ -26,6 +27,6 @@ class CreateJobUser extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('job_user');
+        Schema::dropIfExists('order_package');
     }
 }
