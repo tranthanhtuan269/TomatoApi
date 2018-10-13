@@ -61,6 +61,7 @@ class OrderController extends Controller
             $order = new Order([
                 'user_id' => $user->id,
                 'address' => $request->address,
+                'number_address' => $request->number_address,
                 'note' => $request->note,
                 'start_time' => $request->start_time,
                 'end_time' => $request->end_time,
@@ -165,6 +166,7 @@ class OrderController extends Controller
 
             if($order){
                 $order->address = $request->address;
+                $order->number_address = $request->number_address;
                 $order->note = $request->note;
                 $order->start_time = $request->start_time;
                 $order->end_time = $request->end_time;
