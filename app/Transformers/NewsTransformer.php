@@ -18,8 +18,8 @@ class NewsTransformer extends TransformerAbstract
             'title' => $news->title,
             'content' => $news->content,
             'author' => $news->author,
-            'created_at' => $news->created_at,
-            'updated_at' => $news->updated_at
+            'created_at' => $news->created_at->format('d-m-y'),
+            'updated_at' => $news->updated_at->format('d-m-y')
         ];
     }
 }
