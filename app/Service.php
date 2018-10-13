@@ -30,4 +30,15 @@ class Service extends Model
     public function services(){
         return $this->hasMany('App\Service', 'parent_id');
     }
+
+    public static function getServiceParent($serviceID){
+        $service = Service::find($serviceID);
+        if(isset($service)){
+            if($service->parent_id != 0){
+                return Service::getServiceParent($service->parent_id);
+            }else{
+                return $service;
+            }
+        }
+    }
 }

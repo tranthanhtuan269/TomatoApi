@@ -32,6 +32,7 @@ class OrderTransformer extends TransformerAbstract
             'email' => $order->email,
             'promotion_code' => $order->promotion_code,
             'list_package' => $order->list_packages,
+            'service' => Order::getServiceInfo($order->id),
             'package' => $order->packages
         ];
     }

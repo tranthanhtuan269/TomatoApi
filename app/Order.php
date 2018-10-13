@@ -42,4 +42,15 @@ class Order extends Model
     {
         return $this->belongsToMany('App\Package');
     }
+
+    public static function getServiceInfo($id)
+    {
+        $order = Order::find($id);
+
+        if(isset($order)){
+            $object = $order->packages()->first();
+            $objectService = $object->service()->first();
+            dd(Service::getServiceParent($objectService->parent_id));
+        }
+    }
 }
