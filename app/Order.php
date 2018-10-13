@@ -50,7 +50,7 @@ class Order extends Model
         if(isset($order)){
             $object = $order->packages()->first();
             $objectService = $object->service()->first();
-            dd(Service::getServiceParent($objectService->parent_id));
+            return Service::getServiceParent($objectService->parent_id);
         }
     }
 }
