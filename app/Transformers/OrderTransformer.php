@@ -20,6 +20,7 @@ class OrderTransformer extends TransformerAbstract
         return [
             'id' => $order->id,
             'address' => $order->address,
+            'number_address' => $order->number_address,
             'note' => $order->note,
             'start_time' => $order->start_time,
             'end_time' => $order->end_time,
