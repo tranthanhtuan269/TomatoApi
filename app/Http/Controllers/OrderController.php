@@ -45,7 +45,7 @@ class OrderController extends Controller
             'price' => 'required',
             'list_packages' => 'required|string|max:5000', 
             'phone' => 'required|string|min:10|max:15',
-            'access_token' => 'required|string'
+            // 'access_token' => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -149,7 +149,7 @@ class OrderController extends Controller
             'price' => 'required',
             'list_packages' => 'required|string|max:5000',
             'phone' => 'required|string|min:10|max:15',
-            'access_token' => 'required|string'
+            // 'access_token' => 'required|string'
         ]);
 
         if ($validator->fails()) {
