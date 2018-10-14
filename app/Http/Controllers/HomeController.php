@@ -8,7 +8,7 @@ class HomeController extends Controller
 {
     //
     public function whyUse(){
-    	$content = "abc test";
+    	$content = "<div>whyUse</div><div>def</div>";
     	return response()->json([
 	            'status_code' => 200,
 	            'message' => 'Success',
@@ -17,7 +17,7 @@ class HomeController extends Controller
     }
     
     public function bestPractices(){
-    	$content = "abc test";
+    	$content = "<div>bestPractices</div><div>def</div>";
     	return response()->json([
 	            'status_code' => 200,
 	            'message' => 'Success',
@@ -26,7 +26,7 @@ class HomeController extends Controller
     }
     
     public function faqs(){
-    	$content = "abc test";
+    	$content = "<div>faqs</div><div>def</div>";
     	return response()->json([
 	            'status_code' => 200,
 	            'message' => 'Success',
@@ -35,7 +35,7 @@ class HomeController extends Controller
     }
     
     public function reportAndFeedback(){
-    	$content = "abc test";
+    	$content = "<div>reportAndFeedback</div><div>def</div>";
     	return response()->json([
 	            'status_code' => 200,
 	            'message' => 'Success',
@@ -44,7 +44,7 @@ class HomeController extends Controller
     }
     
     public function contact(){
-    	$content = "abc test";
+    	$content = "<div>contact</div><div>def</div>";
     	return response()->json([
 	            'status_code' => 200,
 	            'message' => 'Success',
@@ -53,7 +53,7 @@ class HomeController extends Controller
     }
     
     public function legal(){
-    	$content = "abc test";
+    	$content = "<div>legal</div><div>def</div>";
     	return response()->json([
 	            'status_code' => 200,
 	            'message' => 'Success',
@@ -62,7 +62,7 @@ class HomeController extends Controller
     }
     
     public function about(){
-    	$content = "abc test";
+    	$content = "<div>about</div><div>def</div>";
     	return response()->json([
 	            'status_code' => 200,
 	            'message' => 'Success',
