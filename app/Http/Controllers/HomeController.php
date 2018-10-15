@@ -80,7 +80,59 @@ class HomeController extends Controller
     }
 
     public function hspinfo(){
-    	$content = "hspinfo";
+        $content = "hspinfo";
+        return response()->json([
+                'status_code' => 200,
+                'message' => 'Success',
+                'content' => $content
+            ], 200);
+    }
+
+    public function getContent(Request $request){
+            if(isset($request->type)){
+                switch ($request->type) {
+                    case 'whyUse':
+                        $content = "whyUse";
+                        break;
+                        
+                    case 'bestPractices':
+                        $content = "bestPractices";
+                        break;
+                        
+                    case 'faqs':
+                        $content = "faqs";
+                        break;
+                        
+                    case 'reportAndFeedback':
+                        $content = "reportAndFeedback";
+                        break;
+                        
+                    case 'contact':
+                        $content = "contact";
+                        break;
+                        
+                    case 'legal':
+                        $content = "legal";
+                        break;
+                        
+                    case 'about':
+                        $content = "about";
+                        break;
+                        
+                    case 'favoriteTasker':
+                        $content = "favoriteTasker";
+                        break;
+                        
+                    case 'hspinfo':
+                        $content = "hspinfo";
+                        break;
+                    
+                    default:
+                        $content = "hspinfo";
+                        break;
+                }
+            }
+    	
     	return response()->json([
 	            'status_code' => 200,
 	            'message' => 'Success',

@@ -78,3 +78,7 @@ Route::get('legal', 'HomeController@legal');
 Route::get('about', 'HomeController@about');
 Route::get('favorite-tasker', 'HomeController@favoriteTasker');
 Route::get('hspinfo', 'HomeController@hspinfo');
+
+Route::get('get-content', 'HomeController@getContent');
+
+
