@@ -50,6 +50,7 @@ Route::delete('orders/{id}', 'OrderController@destroy');
 Route::post('groups', 'GroupController@store');
 Route::put('groups/{id}', 'GroupController@update');
 Route::delete('groups/{id}', 'GroupController@destroy');
+Route::post('groups/{id}', 'GroupController@destroy');
 
 Route::post('packages', 'PackageController@store');
 Route::put('packages/{id}', 'PackageController@update');
