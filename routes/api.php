@@ -45,6 +45,7 @@ Route::delete('users/{id}', 'UserController@destroy');
 
 Route::post('orders', 'OrderController@store');
 Route::put('orders/{id}', 'OrderController@update');
+Route::post('orders/{id}', 'OrderController@destroy');
 Route::delete('orders/{id}', 'OrderController@destroy');
 
 Route::post('groups', 'GroupController@store');
