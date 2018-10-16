@@ -40,7 +40,7 @@ Route::get('groups/{id}', 'GroupController@show');
 Route::get('groups/{id}/users', 'GroupController@users');
     
 Route::post('users', 'UserController@store');
-Route::put('users/{id}', 'UserController@update');
+Route::post('users/{id}', 'UserController@update');
 Route::delete('users/{id}', 'UserController@destroy');
 
 Route::post('orders', 'OrderController@store');
