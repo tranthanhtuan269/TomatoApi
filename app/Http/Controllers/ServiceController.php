@@ -39,7 +39,12 @@ class ServiceController extends Controller
 
     public function edit($id){
         $service = Service::find($id);
-        return view('service.edit', ['service' => $service]);
+        $parentList = Service::where('parent_id', 0)->pluck('name', 'id');
+        return view('service.edit', ['service' => $service, 'parentList' => $parentList]);
+    }
+
+    public function storeWeb(Request $request){
+        dd($request);
     }
 
     /**
@@ -136,6 +141,15 @@ class ServiceController extends Controller
             'message' => 'OK',
             'service' => $finder
         ], 200);
+    }
+
+    public function updateWeb(Request $request, $id){
+        $service = Service::find($id);
+        $service->name = $request->name;
+        $service->parent_id = $request->parent_id;
+        $service->save();
+        return redirect('/services');
+        return back();
     }
 
     /**

@@ -23,3 +23,9 @@ Route::get('/privacy', function () {
 
 Route::get('/services', 'ServiceController@index2');
 Route::get('/services/{id}/edit', 'ServiceController@edit');
+
+Route::put('/services/{id}', 'ServiceController@updateWeb');
+
+Route::get('/packages', 'PackageController@index2');
+Route::get('/packages/{id}/edit', 'PackageController@edit');
+Route::put('/packages/{id}', 'PackageController@updatePackage');

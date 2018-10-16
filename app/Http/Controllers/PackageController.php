@@ -28,6 +28,17 @@ class PackageController extends Controller
         ], 200);
     }
 
+    public function index2(){
+        return view('package.index');
+    }
+
+    public function edit($id){
+
+        $package = Package::find($id);
+
+        return view('package.edit', ['package' => $package]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -161,6 +172,15 @@ class PackageController extends Controller
             ], 200);
         }
     }
+
+    public function updatePackage(Request $request, $id){
+        $package = Package::find($id);
+        $package->name = $request->$name;
+        $package->price = $request->$price;
+        $package->service_id = $request->$service_id;
+        return redirect('/packages');
+    }
+
 
     /**
      * Remove the specified resource from storage.
