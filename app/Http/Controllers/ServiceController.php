@@ -37,6 +37,11 @@ class ServiceController extends Controller
         return view('service.index');
     }
 
+    public function edit($id){
+        $service = Service::find($id);
+        return view('service.edit', ['service' => $service]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

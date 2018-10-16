@@ -33,13 +33,13 @@
 
 .service-parent .group-control{
 	position: absolute;
-    right: 15px;
-    top: 22px;
-    font-size: 16px;
+    	right: 15px;
+    	top: 22px;
+    	font-size: 16px;
 }
 
 .service-child{
-	background-color: #eee;
+	background-color: #ddd;
 	margin:15px 0px 10px 30px;
 	padding: 8px;
 	border-radius: 8px;
@@ -53,7 +53,25 @@
 
 .service-child .group-control{
 	position: absolute;
-    right: 15px;
-    top: 22px;
-    font-size: 16px;
+    	right: 15px;
+    	top: 22px;
+    	font-size: 16px;
+}
+
+.delete-btn{
+	border: none;
+}
+
+.group-control{
+	width: 40px;
+}
+
+.group-control a{
+	float: left;
+	width: 20px;
+}
+
+.group-control form{
+	width: 20px;
+	float: left;
 }

@@ -22,3 +22,4 @@ Route::get('/privacy', function () {
 });
 
 Route::get('/services', 'ServiceController@index2');
+Route::get('/services/{id}/edit', 'ServiceController@edit');

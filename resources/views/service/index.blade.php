@@ -27,7 +27,7 @@
 						            {{ csrf_field() }}
 						            {{ method_field('DELETE') }}
 
-						            <button type="submit">
+						            <button type="submit" class="delete-btn">
 						                <i class="fas fa-trash-alt"></i>
 						            </button>
 						        </form>
@@ -41,13 +41,13 @@
             					<div class="group-control">
             						<a href="{{ url('/') }}/services/{{ $child->id }}/edit"><i class="fas fa-edit"></i></a>
             						<form action="{{ url('services/'.$child->id) }}" method="POST">
-							            {{ csrf_field() }}
-							            {{ method_field('DELETE') }}
+						            {{ csrf_field() }}
+						            {{ method_field('DELETE') }}
 
-							            <button type="submit">
-							                <i class="fas fa-trash-alt"></i>
-							            </button>
-							        </form>
+						            <button type="submit" class="delete-btn">
+						                <i class="fas fa-trash-alt"></i>
+						            </button>
+						</form>
             					</div>
 	            			</div>
             				<?php
