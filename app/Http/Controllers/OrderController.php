@@ -143,11 +143,11 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         $validator = \Validator::make($request->all(), [
-            'address' => 'required|string|max:255',
+            // 'address' => 'required|string|max:255',
             'start_time' => 'required|string|max:255',
             'end_time' => 'required|string|max:255',
-            'price' => 'required',
-            'list_packages' => 'required|string|max:5000',
+            // 'price' => 'required',
+            // 'list_packages' => 'required|string|max:5000',
             'phone' => 'required|string|min:10|max:15',
             'access_token' => 'required|string'
         ]);
@@ -165,19 +165,19 @@ class OrderController extends Controller
             $order = Order::find($id);
 
             if($order){
-                $order->address = $request->address;
-                $order->number_address = $request->number_address;
-                $order->note = $request->note;
+                // $order->address = $request->address;
+                // $order->number_address = $request->number_address;
+                // $order->note = $request->note;
                 $order->start_time = $request->start_time;
                 $order->end_time = $request->end_time;
-                $order->user_id = $user->id;
-                $order->state = 0;
-                $order->price = $request->price;
-                $order->pay_type = $request->pay_type;
-                $order->username = $request->username;
-                $order->email = $request->email;
-                $order->promotion_code = $request->promotion_code;
-                $order->list_packages = $request->list_packages;
+                // $order->user_id = $user->id;
+                // $order->state = 0;
+                // $order->price = $request->price;
+                // $order->pay_type = $request->pay_type;
+                // $order->username = $request->username;
+                // $order->email = $request->email;
+                // $order->promotion_code = $request->promotion_code;
+                // $order->list_packages = $request->list_packages;
                     
                 if($order->save()){
                     // remove package
