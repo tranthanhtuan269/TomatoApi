@@ -162,7 +162,7 @@ class OrderController extends Controller
 
         $user = Helper::checkAuth($request->phone, $request->access_token);
         if($user){
-            $order = Order::where('user_id', $user->id)->find($id);
+            $order = Order::find($id);
 
             if($order){
                 $order->address = $request->address;
