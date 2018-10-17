@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Transformers\PackageTransformer;
 use App\Package;
+use App\Service;
 
 class PackageController extends Controller
 {
@@ -36,7 +37,9 @@ class PackageController extends Controller
 
         $package = Package::find($id);
 
-        return view('package.edit', ['package' => $package]);
+        $serviceList = Service::where('parent_id', 0)->get();
+
+        return view('package.edit', ['package' => $package, 'serviceList' => $serviceList]);
     }
 
     /**
@@ -173,7 +176,7 @@ class PackageController extends Controller
         }
     }
 
-    public function updatePackage(Request $request, $id){
+    public function updateWeb(Request $request, $id){
         $package = Package::find($id);
         $package->name = $request->$name;
         $package->price = $request->$price;

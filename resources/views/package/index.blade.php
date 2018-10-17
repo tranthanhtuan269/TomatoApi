@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="col-sm-12"><h2 class="text-center">TRANG QUẢN LÝ</h2></div>
+    <div class="col-sm-12"><h2 class="text-center">HSP Administrator</h2></div>
     <div class="clearfix"></div>
     <div class="col-sm-3">
         @component('components.menuleft', ['active' => 'packages'])
@@ -11,7 +11,7 @@
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Danh sách các gói</h3>
+                <h3 class="panel-title">List Package</h3>
             </div>
             <div class="panel-body">
             	<?php

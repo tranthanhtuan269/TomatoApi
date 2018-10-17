@@ -105,6 +105,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($request);
         $validator = \Validator::make($request->all(), [
             'name' => 'required|string|min:3|max:255|unique:users,name,'.$id,
             'display_name' => 'string|max:255',
