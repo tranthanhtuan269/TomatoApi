@@ -24,6 +24,7 @@ class UserTransformer extends TransformerAbstract
             'email' => $user->email,
             'phone' => $user->phone,
             'code' => $user->code,
+            'presenter_id' => $user->presenter_id,
             'role_id' => $user->role_id
         ];
     }
