@@ -125,20 +125,23 @@ class UserController extends Controller
         $user = Helper::checkAuth($request->phone, $request->access_token);
 
         if($user){
-            if(isset($request->name))
+            if(isset($request->name)){
                 $user->name = $request->name;
-            if(isset($request->display_name))
-                $user->display_name = $request->display_name;
-            if(isset($request->email))
+            }
+            // if(isset($request->display_name))
+            //     $user->display_name = $request->display_name;
+            if(isset($request->email)){
                 $user->email = $request->email;
-            if(isset($request->presenter_id))
+            }
+            if(isset($request->presenter_id)){
                 $user->presenter_id = $request->presenter_id;
-            if(isset($request->avatar))
-                $user->avatar = $request->avatar;
-            if(isset($request->address))
-                $user->address = $request->address;
-            if(isset($request->city_id))
-                $user->city_id = $request->city_id;
+            }
+            // if(isset($request->avatar))
+            //     $user->avatar = $request->avatar;
+            // if(isset($request->address))
+            //     $user->address = $request->address;
+            // if(isset($request->city_id))
+            //     $user->city_id = $request->city_id;
             
             if($user->save()){
                 $updated = fractal()
