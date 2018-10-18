@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Page;
 
 class HomeController extends Controller
 {
@@ -87,6 +88,18 @@ class HomeController extends Controller
 	            'content' => $content
 	        ], 200);
     }  
+
+    public function pages(Request $request){
+        $page = Page::where('key', $request->type)->first();
+        return view('page.edit', ['page' => $page]);
+    }
+
+    public function updatePage(Request $request, $id){
+        $page = Page::find($id);
+        $page->content = $request->content;
+        $page->save();
+        return back();
+    }
 
     public function uploadImage(Request $request){
         $img_file = '';

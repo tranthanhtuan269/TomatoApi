@@ -246,4 +246,12 @@ class ServiceController extends Controller
         $packages = Package::where("service_id", $id)->get();
         return view('service.show', ['id' => $id, 'packages' => $packages]);
     }
+
+    public function destroyWeb($id){
+        $service = Service::find($id);
+        if(isset($service)){
+            $service->delete();
+        }
+        return back();
+    }
 }

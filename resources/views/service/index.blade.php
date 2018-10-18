@@ -21,17 +21,17 @@
             			?>
             			<div class="row service-parent">
             				<img src="{{ url('/') }}/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild1->name }}
-                                                    <div class="group-control">
-                                                    <a href="{{ url('/') }}/services/{{ $serviceChild1->id }}/edit"><i class="fas fa-edit"></i></a>
-                                                    <form action="{{ url('services/'.$serviceChild1->id) }}" method="PÓT">
-                                                               {{ csrf_field() }}
-                                                                {{ method_field('DELETE') }}
+                            <div class="group-control">
+                            <a href="{{ url('/') }}/services/{{ $serviceChild1->id }}/edit"><i class="fas fa-edit"></i></a>
+                            <form action="{{ url('services/'.$serviceChild1->id) }}" method="POST">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
 
-                                                                <button type="submit" class="delete-btn">
-                                                                                <i class="fas fa-trash-alt"></i>
-                                                                </button>
-                                                    </form>
-                                                    </div>
+                                <button type="submit" class="delete-btn">
+                                                <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                            </div>
             			</div>
             			<?php
             			foreach($listChild1 as $serviceChild2){
@@ -44,33 +44,32 @@
             						<form action="{{ url('services/'.$serviceChild2->id) }}" method="POST">
 						            {{ csrf_field() }}
 						            {{ method_field('DELETE') }}
-
-						            <button type="submit" class="delete-btn">
-						                <i class="fas fa-trash-alt"></i>
-						            </button>
-						</form>
+    						            <button type="submit" class="delete-btn">
+    						                <i class="fas fa-trash-alt"></i>
+    						            </button>
+            						</form>
             					</div>
 	            			</div>
             				<?php
-                                                    foreach($listChild2 as $serviceChild3){
-                                                        ?>
-                                                    <div class="row service-child2">
-                                                                <img src="{{ url('/') }}/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild3->name }}
-                                                                <div class="group-control">
-                                                                                                              <a href="{{ url('/') }}/services/{{ $serviceChild3->id }}"><i class="fas fa-list"></i></a>
-                                                                    <a href="{{ url('/') }}/services/{{ $serviceChild3->id }}/edit"><i class="fas fa-edit"></i></a>
-                                                                    <form action="{{ url('services/'.$serviceChild3->id) }}" method="POST">
-                                                                                {{ csrf_field() }}
-                                                                                {{ method_field('DELETE') }}
+                            foreach($listChild2 as $serviceChild3){
+                                ?>
+                                <div class="row service-child2">
+                                    <img src="{{ url('/') }}/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild3->name }}
+                                    <div class="group-control">
+                                        <a href="{{ url('/') }}/services/{{ $serviceChild3->id }}"><i class="fas fa-list"></i></a>
+                                        <a href="{{ url('/') }}/services/{{ $serviceChild3->id }}/edit"><i class="fas fa-edit"></i></a>
+                                        <form action="{{ url('services/'.$serviceChild3->id) }}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
 
-                                                                                <button type="submit" class="delete-btn">
-                                                                                    <i class="fas fa-trash-alt"></i>
-                                                                                </button>
-                                                                    </form>
-                                                                </div>
-                                                    </div>
-                                                        <?php
-                                                    }
+                                            <button type="submit" class="delete-btn">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <?php
+                            }
             			}
             		}
             	?>

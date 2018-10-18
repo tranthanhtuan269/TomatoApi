@@ -12,10 +12,10 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <?php $service = \App\Service::find($id); ?>
-                <h3 class="panel-title">List Package of "{{ $service->name }}" of "{{ $service->parent()->first()->name }}"</h3>
+                <h3 class="panel-title">List Package of "{{ $service->name }}" of "{{ $service->parent()->first()->name }}" <a href="{{ url('/') }}/packages/create" class="pull-right"><i class="fas fa-plus"></i> Add package</a></h3>
             </div>
             <div class="panel-body">
-            <a href="{{ url('/') }}/packages/create">Create a new package</a> 
+            
             	<?php
             		foreach($packages as $packageView){
             			?>
@@ -34,7 +34,6 @@
         					</div>
             			</div>
             			<?php
-            			
             		}
             	?>
             </div>

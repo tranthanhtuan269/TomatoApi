@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="http://jcrop-cdn.tapmodo.com/v0.9.12/js/jquery.Jcrop.min.js"></script>
 <div class="container-fluid">
     <div class="col-sm-12"><h2 class="text-center">HSP Administrator</h2></div>
@@ -26,9 +24,9 @@
                                 <input type="hidden" id="avatar" name="image" value="{{ $package->image }}">
                                 <img id="image-loading" src="{{ asset('images/general/bx_loader.gif') }}" width="50" height="50" style="display: none;">
                                 @if(strlen($package->image) > 0)
-                                    <img src="{{ url('/') }}/images/{{ $package->image }}" id="avatar-image" class="img" width="150">
+                                    <img src="{{ url('/') }}/images/{{ $package->image }}" id="avatar-image" class="img" width="150" height="150">
                                 @else
-                                    <img src="{{ url('/') }}/images/avartar_default.png" id="avatar-image" class="img">
+                                    <img src="{{ url('/') }}/images/noimage.png" width="150" height="150" id="avatar-image" class="img">
                                 @endif
                             </div>
                             <div class="btn btn-primary" id="change-avatar-btn">Change Image</div>

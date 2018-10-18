@@ -1,33 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="http://jcrop-cdn.tapmodo.com/v0.9.12/js/jquery.Jcrop.min.js"></script>
 <div class="container-fluid">
     <div class="col-sm-12"><h2 class="text-center">HSP Administrator</h2></div>
     <div class="clearfix"></div>
     <div class="col-sm-3">
-        @component('components.menuleft', ['active' => 'services'])
+        @component('components.menuleft', ['active' => 'packages'])
         @endcomponent
     </div>
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Edit Service</h3>
+                <h3 class="panel-title">Add Package</h3>
             </div>
             <div class="panel-body">
-                {!! Form::open(['url' => 'services/' . $service->id, 'class' => 'form-horizontal']) !!}
-                    @method('PUT')
+                {!! Form::open(['url' => 'packages', 'class' => 'form-horizontal']) !!}
+                    @method('POST')
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label">Image</label>
                         <div class="col-sm-10">
                             <div class="avatar">
-                                <input type="hidden" id="avatar" name="icon" value="{{ $service->icon }}">
+                                <input type="hidden" id="avatar" name="image" value="">
                                 <img id="image-loading" src="{{ asset('images/general/bx_loader.gif') }}" width="50" height="50" style="display: none;">
-                                @if(strlen($service->icon) > 0)
-                                    <img src="{{ url('/') }}/images/{{ $service->icon }}" id="avatar-image" class="img" width="150" height="150">
-                                @else
-                                    <img src="{{ url('/') }}/images/noimage.png" width="150" height="150" id="avatar-image" class="img">
-                                @endif
+                                <img src="{{ url('/') }}/images/noimage.png" width="150" height="150" id="avatar-image" class="img">
                             </div>
                             <div class="btn btn-primary" id="change-avatar-btn">Change Image</div>
                             <div class="text-warning"><b>Note: </b>Image should be between 160 x 160 — 3,000 x 3,000 pixels.</div>
@@ -37,40 +35,40 @@
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="name" placeholder="Name" value="{{ $service->name }}">
+                            <input type="text" class="form-control" name="name" placeholder="Name" value="">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Parent Id</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Price</label>
                         <div class="col-sm-10">
-                            <select name="parent_id" id="service" class="form-control">
+                            <input type="text" class="form-control" name="price" placeholder="Price" value="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Service</label>
+                        <div class="col-sm-10">
+                            <select name="service_id" id="service" class="form-control">
                             <?php 
-                                if($service->parent_id == 0){
-                                    echo '<option value="0" selected>No parent</option>';
-                                }else{
-                                    echo '<option value="0">No parent</option>';
-                                }
-                                foreach ($parentList as $serviceObj) {
-                                    if($serviceObj->id == $service->parent_id){
-                                        echo '<option value="'.$serviceObj->id.'" selected>--- '.$serviceObj->name.'</option>';
-                                    }else{
-                                        echo '<option value="'.$serviceObj->id.'">--- '.$serviceObj->name.'</option>';
-                                    }
+                                foreach ($serviceList as $serviceObj) {
+                                    echo '<optgroup label="'.$serviceObj->name.'">';
                                     $serviceChildList = \App\Service::where('parent_id', $serviceObj->id)->get();
                                     foreach($serviceChildList as $serviceChild){
-                                        if($serviceChild->id == $service->parent_id){
-                                            echo '<option value="'.$serviceChild->id.'" selected>--- --- '.$serviceChild->name.'</option>';
-                                        }else{
-                                            echo '<option value="'.$serviceChild->id.'">--- --- '.$serviceChild->name.'</option>';
+                                        echo '<optgroup label="--- '.$serviceChild->name.'">';
+                                        $serviceChildList2 = \App\Service::where('parent_id', $serviceChild->id)->get();
+                                        foreach($serviceChildList2 as $serviceChild2){
+                                            echo '<option value="'.$serviceChild2->id.'">--- '.$serviceChild2->name.'</option>';
                                         }
+                                        echo '</optgroup>';
                                     }
+                                    echo '</optgroup>';
                                 }
                             ?>
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button type="submit" class="btn btn-default">Save</button>
@@ -90,7 +88,7 @@
         <form id="form" >
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Select new avatar</h4>
+                <h4 class="modal-title">Select new image</h4>
             </div>
             <div class="modal-body">
                 <div class="progress">
