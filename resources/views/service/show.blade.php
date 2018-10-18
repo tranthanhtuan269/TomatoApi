@@ -15,10 +15,7 @@
             </div>
             <div class="panel-body">
             	<?php
-            		
-                    $packages = App\Package::all();
             		foreach($packages as $packageView){
-            			
             			?>
             			<div class="row service-parent">
             				<img src="{{ url('/') }}/images/{{ $packageView->icon }}" width="50px">{{ $packageView->name }}

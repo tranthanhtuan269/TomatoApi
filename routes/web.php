@@ -21,8 +21,9 @@ Route::get('/privacy', function () {
     return view('privacy');
 });
 
-Route::get('/services', 'ServiceController@index2');
-Route::get('/services/{id}/edit', 'ServiceController@edit');
+Route::get('/services', 'ServiceController@indexWeb');
+Route::get('/services/{id}/edit', 'ServiceController@editWeb');
+Route::get('/services/{id}', 'ServiceController@viewWeb');
 Route::put('/services/{id}', 'ServiceController@updateWeb');
 
 Route::get('/packages', 'PackageController@index2');

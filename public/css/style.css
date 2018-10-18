@@ -58,17 +58,39 @@
     	font-size: 16px;
 }
 
+.service-child2{
+	background-color: #ddd;
+	margin:15px 0px 10px 60px;
+	padding: 8px;
+	border-radius: 8px;
+	position: relative;
+	font-size: 16px;
+}
+
+.service-child2 img{
+	margin-right: 10px;
+}
+
+.service-child2 .group-control{
+	position: absolute;
+    	right: 15px;
+    	top: 22px;
+    	font-size: 16px;
+}
+
 .delete-btn{
 	border: none;
 }
 
 .group-control{
-	width: 40px;
+	width: 95px;
 }
 
 .group-control a{
 	float: left;
 	width: 20px;
+	margin-right: 5px;
+    	margin-left: 10px;
 }
 
 .group-control form{

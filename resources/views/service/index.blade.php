@@ -16,31 +16,32 @@
             <div class="panel-body">
             	<?php
             		$services = App\Service::where('parent_id', 0)->get();
-            		foreach($services as $serviceParent){
-            			$listChild = App\Service::where('parent_id', $serviceParent->id)->get();
+            		foreach($services as $serviceChild1){
+            			$listChild1 = App\Service::where('parent_id', $serviceChild1->id)->get();
             			?>
             			<div class="row service-parent">
-            				<img src="{{ url('/') }}/images/{{ $serviceParent->icon }}" width="50px">{{ $serviceParent->name }}
-        					<div class="group-control">
-        						<a href="{{ url('/') }}/services/{{ $serviceParent->id }}/edit"><i class="fas fa-edit"></i></a>
-        						<form action="{{ url('services/'.$serviceParent->id) }}" method="POST">
-						            {{ csrf_field() }}
-						            {{ method_field('DELETE') }}
+            				<img src="{{ url('/') }}/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild1->name }}
+                                                    <div class="group-control">
+                                                    <a href="{{ url('/') }}/services/{{ $serviceChild1->id }}/edit"><i class="fas fa-edit"></i></a>
+                                                    <form action="{{ url('services/'.$serviceChild1->id) }}" method="PÓT">
+                                                               {{ csrf_field() }}
+                                                                {{ method_field('DELETE') }}
 
-						            <button type="submit" class="delete-btn">
-						                <i class="fas fa-trash-alt"></i>
-						            </button>
-						        </form>
-        					</div>
+                                                                <button type="submit" class="delete-btn">
+                                                                                <i class="fas fa-trash-alt"></i>
+                                                                </button>
+                                                    </form>
+                                                    </div>
             			</div>
             			<?php
-            			foreach($listChild as $child){
-            				?>
+            			foreach($listChild1 as $serviceChild2){
+                                                    $listChild2 = App\Service::where('parent_id', $serviceChild2->id)->get();
+                                       ?>
             				<div class="row service-child">
-            					<img src="{{ url('/') }}/images/{{ $child->icon }}" width="50px">{{ $child->name }}
+            					<img src="{{ url('/') }}/images/{{ $serviceChild2->icon }}" width="50px">{{ $serviceChild2->name }}
             					<div class="group-control">
-            						<a href="{{ url('/') }}/services/{{ $child->id }}/edit"><i class="fas fa-edit"></i></a>
-            						<form action="{{ url('services/'.$child->id) }}" method="POST">
+            						<a href="{{ url('/') }}/services/{{ $serviceChild2->id }}/edit"><i class="fas fa-edit"></i></a>
+            						<form action="{{ url('services/'.$serviceChild2->id) }}" method="POST">
 						            {{ csrf_field() }}
 						            {{ method_field('DELETE') }}
 
@@ -51,6 +52,25 @@
             					</div>
 	            			</div>
             				<?php
+                                                    foreach($listChild2 as $serviceChild3){
+                                                        ?>
+                                                    <div class="row service-child2">
+                                                                <img src="{{ url('/') }}/images/{{ $serviceChild3->icon }}" width="50px">{{ $serviceChild3->name }}
+                                                                <div class="group-control">
+                                                                                                              <a href="{{ url('/') }}/services/{{ $serviceChild3->id }}"><i class="fas fa-list"></i></a>
+                                                                    <a href="{{ url('/') }}/services/{{ $serviceChild3->id }}/edit"><i class="fas fa-edit"></i></a>
+                                                                    <form action="{{ url('services/'.$serviceChild3->id) }}" method="POST">
+                                                                                {{ csrf_field() }}
+                                                                                {{ method_field('DELETE') }}
+
+                                                                                <button type="submit" class="delete-btn">
+                                                                                    <i class="fas fa-trash-alt"></i>
+                                                                                </button>
+                                                                    </form>
+                                                                </div>
+                                                    </div>
+                                                        <?php
+                                                    }
             			}
             		}
             	?>

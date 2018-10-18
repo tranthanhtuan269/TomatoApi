@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Transformers\ServiceTransformer;
 use App\Service;
+use App\Package;
 
 class ServiceController extends Controller
 {
@@ -25,26 +26,6 @@ class ServiceController extends Controller
             'message' => 'List service',
             'service' => $service
         ], 200);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index2()
-    {
-        return view('service.index');
-    }
-
-    public function edit($id){
-        $service = Service::find($id);
-        $parentList = Service::where('parent_id', 0)->pluck('name', 'id');
-        return view('service.edit', ['service' => $service, 'parentList' => $parentList]);
-    }
-
-    public function storeWeb(Request $request){
-        dd($request);
     }
 
     /**
@@ -143,15 +124,6 @@ class ServiceController extends Controller
         ], 200);
     }
 
-    public function updateWeb(Request $request, $id){
-        $service = Service::find($id);
-        $service->name = $request->name;
-        $service->parent_id = $request->parent_id;
-        $service->save();
-        return redirect('/services');
-        return back();
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -231,5 +203,42 @@ class ServiceController extends Controller
                 'message' => 'Not found this service.',
             ], 200);
         }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexWeb()
+    {
+        return view('service.index');
+    }
+
+    public function createWeb(){
+        return view('service.create');
+    }
+
+    public function storeWeb(Request $request){
+        dd($request);
+    }
+
+    public function editWeb($id){
+        $service = Service::find($id);
+        $parentList = Service::where('parent_id', 0)->pluck('name', 'id');
+        return view('service.edit', ['service' => $service, 'parentList' => $parentList]);
+    }
+
+    public function updateWeb(Request $request, $id){
+        $service = Service::find($id);
+        $service->name = $request->name;
+        $service->parent_id = $request->parent_id;
+        $service->save();
+        return redirect('/services');
+    }
+
+    public function viewWeb($id){
+        $packages = Package::where("service_id", $id)->get();
+        return view('service.show', ['packages' => $packages]);
     }
 }
