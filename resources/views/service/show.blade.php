@@ -11,7 +11,8 @@
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">List Package</h3>
+                <?php $service = \App\Service::find($id); ?>
+                <h3 class="panel-title">List Package of "{{ $service->name }}" of "{{ $service->parent()->first()->name }}"</h3>
             </div>
             <div class="panel-body">
             <a href="{{ url('/') }}/packages/create">Create a new package</a> 
@@ -19,7 +20,7 @@
             		foreach($packages as $packageView){
             			?>
             			<div class="row service-parent">
-            				<img src="{{ url('/') }}/images/{{ $packageView->icon }}" width="50px">{{ $packageView->name }}
+            				<img src="{{ url('/') }}/images/{{ $packageView->image }}" width="50px">{{ $packageView->name }}
         					<div class="group-control">
         						<a href="{{ url('/') }}/packages/{{ $packageView->id }}/edit"><i class="fas fa-edit"></i></a>
         						<form action="{{ url('packages/'.$packageView->id) }}" method="POST">

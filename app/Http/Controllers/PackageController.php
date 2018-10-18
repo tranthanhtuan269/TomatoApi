@@ -29,19 +29,6 @@ class PackageController extends Controller
         ], 200);
     }
 
-    public function index2(){
-        return view('package.index');
-    }
-
-    public function edit($id){
-
-        $package = Package::find($id);
-
-        $serviceList = Service::where('parent_id', 0)->get();
-
-        return view('package.edit', ['package' => $package, 'serviceList' => $serviceList]);
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -176,14 +163,6 @@ class PackageController extends Controller
         }
     }
 
-    public function updateWeb(Request $request, $id){
-        $package = Package::find($id);
-        $package->name = $request->$name;
-        $package->price = $request->$price;
-        $package->service_id = $request->$service_id;
-        return redirect('/packages');
-    }
-
 
     /**
      * Remove the specified resource from storage.
@@ -212,5 +191,28 @@ class PackageController extends Controller
                 'message' => 'Not found this package.',
             ], 200);
         }
+    }
+
+    public function indexWeb(){
+        return view('package.index');
+    }
+
+    public function editWeb($id){
+
+        $package = Package::find($id);
+
+        $serviceList = Service::where('parent_id', 0)->get();
+
+        return view('package.edit', ['package' => $package, 'serviceList' => $serviceList]);
+    }
+
+    public function updateWeb(Request $request, $id){
+        $package = Package::find($id);
+        $package->name = $request->name;
+        $package->price = $request->price;
+        $package->image = $request->image;
+        $package->service_id = $request->service_id;
+        $package->save();
+        return redirect('/services/' . $package->service_id);
     }
 }

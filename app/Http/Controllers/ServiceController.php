@@ -244,6 +244,6 @@ class ServiceController extends Controller
 
     public function viewWeb($id){
         $packages = Package::where("service_id", $id)->get();
-        return view('service.show', ['packages' => $packages]);
+        return view('service.show', ['id' => $id, 'packages' => $packages]);
     }
 }

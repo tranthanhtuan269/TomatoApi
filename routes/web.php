@@ -28,6 +28,9 @@ Route::get('/services/create', 'ServiceController@createWeb');
 Route::get('/services/{id}', 'ServiceController@viewWeb');
 Route::put('/services/{id}', 'ServiceController@updateWeb');
 
-Route::get('/packages', 'PackageController@index2');
-Route::get('/packages/{id}/edit', 'PackageController@edit');
+Route::get('/packages', 'PackageController@indexWeb');
+Route::get('/packages/{id}/edit', 'PackageController@editWeb');
 Route::put('/packages/{id}', 'PackageController@updateWeb');
+
+Route::post('/images/uploadImage', 'HomeController@uploadImage');
+
