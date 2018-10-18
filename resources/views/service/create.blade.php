@@ -250,7 +250,7 @@
             }
           });
           $.ajax({
-            url: "http://api.timtruyen.online/public/images/uploadImage",
+            url: "http://api.timtruyen.online/images/uploadImage",
             type: "POST",
             data: formData,
             contentType: false,
