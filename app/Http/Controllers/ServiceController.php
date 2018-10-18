@@ -216,16 +216,21 @@ class ServiceController extends Controller
     }
 
     public function createWeb(){
-        return view('service.create');
+        $parentList = Service::where('parent_id', 0)->get();
+        return view('service.create', ['parentList' => $parentList]);
     }
 
     public function storeWeb(Request $request){
-        dd($request);
+        $service = new Service;
+        $service->name = $request->name;
+        $service->parent_id = $request->parent_id;
+        $service->save();
+        return redirect('/services');
     }
 
     public function editWeb($id){
         $service = Service::find($id);
-        $parentList = Service::where('parent_id', 0)->pluck('name', 'id');
+        $parentList = Service::where('parent_id', 0)->get();
         return view('service.edit', ['service' => $service, 'parentList' => $parentList]);
     }
 

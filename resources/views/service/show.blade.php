@@ -14,6 +14,7 @@
                 <h3 class="panel-title">List Package</h3>
             </div>
             <div class="panel-body">
+            <a href="{{ url('/') }}/packages/create">Create a new package</a> 
             	<?php
             		foreach($packages as $packageView){
             			?>

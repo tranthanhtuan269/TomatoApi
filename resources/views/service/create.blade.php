@@ -11,15 +11,15 @@
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Edit Service</h3>
+                <h3 class="panel-title">Add Service</h3>
             </div>
             <div class="panel-body">
-                {!! Form::open(['url' => 'services/' . $service->id, 'class' => 'form-horizontal']) !!}
-                    @method('PUT')
+                {!! Form::open(['url' => 'services', 'class' => 'form-horizontal']) !!}
+                    @method('POST')
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="name" placeholder="Name" value="{{ $service->name }}">
+                            <input type="text" class="form-control" name="name" placeholder="Name" value="">
                         </div>
                     </div>
                     <div class="form-group">
@@ -27,26 +27,14 @@
                         <div class="col-sm-10">
                             <select name="parent_id" id="service" class="form-control">
                             <?php 
-                                if($service->parent_id == 0){
-                                    echo '<option value="0" selected>No parent</option>';
-                                }else{
                                     echo '<option value="0">No parent</option>';
-                                }
-                                foreach ($parentList as $serviceObj) {
-                                    if($serviceObj->id == $service->parent_id){
-                                        echo '<option value="'.$serviceObj->id.'" selected>--- '.$serviceObj->name.'</option>';
-                                    }else{
+                                    foreach ($parentList as $serviceObj) {
                                         echo '<option value="'.$serviceObj->id.'">--- '.$serviceObj->name.'</option>';
-                                    }
-                                    $serviceChildList = \App\Service::where('parent_id', $serviceObj->id)->get();
-                                    foreach($serviceChildList as $serviceChild){
-                                        if($serviceChild->id == $service->parent_id){
-                                            echo '<option value="'.$serviceChild->id.'" selected>--- --- '.$serviceChild->name.'</option>';
-                                        }else{
-                                            echo '<option value="'.$serviceChild->id.'">--- --- '.$serviceChild->name.'</option>';
+                                        $serviceChildList = \App\Service::where('parent_id', $serviceObj->id)->get();
+                                        foreach($serviceChildList as $serviceChild){
+                                                echo '<option value="'.$serviceChild->id.'">--- --- '.$serviceChild->name.'</option>';
                                         }
                                     }
-                                }
                             ?>
                             </select>
                         </div>

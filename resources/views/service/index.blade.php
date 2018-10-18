@@ -11,7 +11,7 @@
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">List Service</h3>
+                <h3 class="panel-title">List Service <a href="{{ url('/') }}/services/create" class="pull-right"><i class="fas fa-plus"></i> Add Service</a> </h3>
             </div>
             <div class="panel-body">
             	<?php
@@ -38,7 +38,7 @@
                                                     $listChild2 = App\Service::where('parent_id', $serviceChild2->id)->get();
                                        ?>
             				<div class="row service-child">
-            					<img src="{{ url('/') }}/images/{{ $serviceChild2->icon }}" width="50px">{{ $serviceChild2->name }}
+            					<img src="{{ url('/') }}/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild2->name }}
             					<div class="group-control">
             						<a href="{{ url('/') }}/services/{{ $serviceChild2->id }}/edit"><i class="fas fa-edit"></i></a>
             						<form action="{{ url('services/'.$serviceChild2->id) }}" method="POST">
@@ -55,7 +55,7 @@
                                                     foreach($listChild2 as $serviceChild3){
                                                         ?>
                                                     <div class="row service-child2">
-                                                                <img src="{{ url('/') }}/images/{{ $serviceChild3->icon }}" width="50px">{{ $serviceChild3->name }}
+                                                                <img src="{{ url('/') }}/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild3->name }}
                                                                 <div class="group-control">
                                                                                                               <a href="{{ url('/') }}/services/{{ $serviceChild3->id }}"><i class="fas fa-list"></i></a>
                                                                     <a href="{{ url('/') }}/services/{{ $serviceChild3->id }}/edit"><i class="fas fa-edit"></i></a>

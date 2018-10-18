@@ -22,7 +22,9 @@ Route::get('/privacy', function () {
 });
 
 Route::get('/services', 'ServiceController@indexWeb');
+Route::post('/services', 'ServiceController@storeWeb');
 Route::get('/services/{id}/edit', 'ServiceController@editWeb');
+Route::get('/services/create', 'ServiceController@createWeb');
 Route::get('/services/{id}', 'ServiceController@viewWeb');
 Route::put('/services/{id}', 'ServiceController@updateWeb');
 
