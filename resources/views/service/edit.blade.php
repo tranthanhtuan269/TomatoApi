@@ -24,9 +24,9 @@
                                 <input type="hidden" id="avatar" name="icon" value="{{ $service->icon }}">
                                 <img id="image-loading" src="{{ asset('images/general/bx_loader.gif') }}" width="50" height="50" style="display: none;">
                                 @if(strlen($service->icon) > 0)
-                                    <img src="{{ url('/') }}/images/{{ $service->icon }}" id="avatar-image" class="img" width="150" height="150">
+                                    <img src="http://api.timtruyen.online/images/{{ $service->icon }}" id="avatar-image" class="img" width="150" height="150">
                                 @else
-                                    <img src="{{ url('/') }}/images/noimage.png" width="150" height="150" id="avatar-image" class="img">
+                                    <img src="http://api.timtruyen.online/images/noimage.png" width="150" height="150" id="avatar-image" class="img">
                                 @endif
                             </div>
                             <div class="btn btn-primary" id="change-avatar-btn">Change Image</div>
@@ -268,7 +268,7 @@
             }
           });
           $.ajax({
-            url: "{{ url('/') }}/images/uploadImage",
+            url: "http://api.timtruyen.online/images/uploadImage",
             type: "POST",
             data: formData,
             contentType: false,
@@ -279,7 +279,7 @@
             success: function(data) {
                 $("#image-loading").hide();
                 if(data.code == 200){
-                    $('#avatar-image').attr('src', "{{ url('/') }}/images/" + data.image_url);
+                    $('#avatar-image').attr('src', "http://api.timtruyen.online/images/" + data.image_url);
                     $('#avatar').val(data.image_url);
                     $('#change-avatar').modal('hide');
                     $("#views").empty();
