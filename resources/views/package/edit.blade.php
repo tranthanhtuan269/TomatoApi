@@ -24,9 +24,9 @@
                                 <input type="hidden" id="avatar" name="image" value="{{ $package->image }}">
                                 <img id="image-loading" src="{{ asset('images/general/bx_loader.gif') }}" width="50" height="50" style="display: none;">
                                 @if(strlen($package->image) > 0)
-                                    <img src="{{ url('/') }}/images/{{ $package->image }}" id="avatar-image" class="img" width="150" height="150">
+                                    <img src="{{ url('/') }}/public/images/{{ $package->image }}" id="avatar-image" class="img" width="150" height="150">
                                 @else
-                                    <img src="{{ url('/') }}/images/noimage.png" width="150" height="150" id="avatar-image" class="img">
+                                    <img src="{{ url('/') }}/public/images/noimage.png" width="150" height="150" id="avatar-image" class="img">
                                 @endif
                             </div>
                             <div class="btn btn-primary" id="change-avatar-btn">Change Image</div>
@@ -283,7 +283,7 @@
             success: function(data) {
                 $("#image-loading").hide();
                 if(data.code == 200){
-                    $('#avatar-image').attr('src', "{{ url('/') }}/images/" + data.image_url);
+                    $('#avatar-image').attr('src', "{{ url('/') }}/public/images/" + data.image_url);
                     $('#avatar').val(data.image_url);
                     $('#change-avatar').modal('hide');
                     $("#views").empty();

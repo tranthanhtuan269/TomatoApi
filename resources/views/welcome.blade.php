@@ -15,7 +15,7 @@
             </div>
             <div class="panel-body">
                 Panel content
-                <img src="{{ url('/') }}/images/dicho.png">
+                <img src="{{ url('/') }}/public/images/dicho.png">
             </div>
         </div>
     </div>

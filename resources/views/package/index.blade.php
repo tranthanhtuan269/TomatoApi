@@ -21,7 +21,7 @@
             			
             			?>
             			<div class="row service-parent">
-            				<img src="{{ url('/') }}/images/{{ $packageView->icon }}" width="50px">{{ $packageView->name }}
+            				<img src="{{ url('/') }}/public/images/{{ $packageView->icon }}" width="50px">{{ $packageView->name }}
         					<div class="group-control">
         						<a href="{{ url('/') }}/packages/{{ $packageView->id }}/edit"><i class="fas fa-edit"></i></a>
         						<form action="{{ url('packages/'.$packageView->id) }}" method="POST">
