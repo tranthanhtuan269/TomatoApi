@@ -20,3 +20,5 @@ Route::get('/terms', function () {
 Route::get('/privacy', function () {
     return view('privacy');
 });
+
+Route::post('/images/uploadImage', 'HomeController@uploadImage');
