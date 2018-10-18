@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Transformers\ServiceTransformer;
 use App\Service;
+use App\Package;
 
 class ServiceController extends Controller
 {
@@ -202,5 +203,55 @@ class ServiceController extends Controller
                 'message' => 'Not found this service.',
             ], 200);
         }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexWeb()
+    {
+        return view('service.index');
+    }
+
+    public function createWeb(){
+        $parentList = Service::where('parent_id', 0)->get();
+        return view('service.create', ['parentList' => $parentList]);
+    }
+
+    public function storeWeb(Request $request){
+        $service = new Service;
+        $service->name = $request->name;
+        $service->parent_id = $request->parent_id;
+        $service->save();
+        return redirect('/services');
+    }
+
+    public function editWeb($id){
+        $service = Service::find($id);
+        $parentList = Service::where('parent_id', 0)->get();
+        return view('service.edit', ['service' => $service, 'parentList' => $parentList]);
+    }
+
+    public function updateWeb(Request $request, $id){
+        $service = Service::find($id);
+        $service->name = $request->name;
+        $service->parent_id = $request->parent_id;
+        $service->save();
+        return redirect('/services');
+    }
+
+    public function viewWeb($id){
+        $packages = Package::where("service_id", $id)->get();
+        return view('service.show', ['id' => $id, 'packages' => $packages]);
+    }
+
+    public function destroyWeb($id){
+        $service = Service::find($id);
+        if(isset($service)){
+            $service->delete();
+        }
+        return back();
     }
 }

@@ -26,6 +26,10 @@ class Service extends Model
     public function packages(){
         return $this->hasMany('App\Package');
     }
+
+    public function parent(){
+        return $this->belongsTo('App\Service', 'parent_id');
+    }
     
     public function services(){
         return $this->hasMany('App\Service', 'parent_id');

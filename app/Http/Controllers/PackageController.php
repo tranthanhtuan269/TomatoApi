@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Transformers\PackageTransformer;
 use App\Package;
+use App\Service;
 
 class PackageController extends Controller
 {
@@ -162,6 +163,7 @@ class PackageController extends Controller
         }
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
@@ -189,5 +191,48 @@ class PackageController extends Controller
                 'message' => 'Not found this package.',
             ], 200);
         }
+    }
+
+    public function indexWeb(){
+        return view('package.index');
+    }
+
+    public function createWeb(){
+        $serviceList = Service::where('parent_id', 0)->get();
+        return view('package.create', ['serviceList' => $serviceList]);
+    }
+
+    public function storeWeb(Request $request){
+        $package = new Package;
+        $package->name = $request->name;
+        $package->price = $request->price;
+        $package->image = $request->image;
+        $package->service_id = $request->service_id;
+        $package->save();
+        return redirect('/services/'.$package->service_id);
+    }
+
+    public function editWeb($id){
+        $package = Package::find($id);
+        $serviceList = Service::where('parent_id', 0)->get();
+        return view('package.edit', ['package' => $package, 'serviceList' => $serviceList]);
+    }
+
+    public function updateWeb(Request $request, $id){
+        $package = Package::find($id);
+        $package->name = $request->name;
+        $package->price = $request->price;
+        $package->image = $request->image;
+        $package->service_id = $request->service_id;
+        $package->save();
+        return redirect('/services/' . $package->service_id);
+    }
+
+    public function destroyWeb($id){
+        $package = Package::find($id);
+        if(isset($package)){
+            $package->delete();
+        }
+        return back();
     }
 }
