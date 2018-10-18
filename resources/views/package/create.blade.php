@@ -266,7 +266,7 @@
             }
           });
           $.ajax({
-            url: "http://api.timtruyen.online/images/uploadImage",
+            url: "http://api.timtruyen.online/public/images/uploadImage",
             type: "POST",
             data: formData,
             contentType: false,
@@ -277,7 +277,7 @@
             success: function(data) {
                 $("#image-loading").hide();
                 if(data.code == 200){
-                    $('#avatar-image').attr('src', "http://api.timtruyen.online/images/" + data.image_url);
+                    $('#avatar-image').attr('src', "http://api.timtruyen.online/public/images/" + data.image_url);
                     $('#avatar').val(data.image_url);
                     $('#change-avatar').modal('hide');
                     $("#views").empty();

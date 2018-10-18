@@ -20,7 +20,7 @@
             		foreach($packages as $packageView){
             			?>
             			<div class="row service-parent">
-            				<img src="http://api.timtruyen.online/images/{{ $packageView->image }}" width="50px">{{ $packageView->name }}
+            				<img src="http://api.timtruyen.online/public/images/{{ $packageView->image }}" width="50px">{{ $packageView->name }}
         					<div class="group-control">
         						<a href="{{ url('/') }}/packages/{{ $packageView->id }}/edit"><i class="fas fa-edit"></i></a>
         						<form action="{{ url('packages/'.$packageView->id) }}" method="POST">
