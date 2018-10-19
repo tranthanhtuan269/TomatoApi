@@ -91,53 +91,13 @@ class HomeController extends Controller
 
     public function getContent(Request $request){
             if(isset($request->type)){
-                switch ($request->type) {
-                    case 'whyUse':
-                        $content = "whyUse";
-                        break;
-                        
-                    case 'bestPractices':
-                        $content = "bestPractices";
-                        break;
-                        
-                    case 'faqs':
-                        $content = "faqs";
-                        break;
-                        
-                    case 'reportAndFeedback':
-                        $content = "reportAndFeedback";
-                        break;
-                        
-                    case 'contact':
-                        $content = "contact";
-                        break;
-                        
-                    case 'legal':
-                        $content = "legal";
-                        break;
-                        
-                    case 'about':
-                        $content = "about";
-                        break;
-                        
-                    case 'favoriteTasker':
-                        $content = "favoriteTasker";
-                        break;
-                        
-                    case 'hspinfo':
-                        $content = "hspinfo";
-                        break;
-                    
-                    default:
-                        $content = "hspinfo";
-                        break;
-                }
+                $page = Page::where('key', $request->type)->first();
             }
     	
     	return response()->json([
 	            'status_code' => 200,
 	            'message' => 'Success',
-	            'content' => $content
+	            'content' => $page->content
 	        ], 200);
     }  
 
