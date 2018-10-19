@@ -7,6 +7,87 @@ use App\Page;
 
 class HomeController extends Controller
 {
+    //
+    public function whyUse(){
+            $page = Page::where('key', 'whyUse')->first();
+    	return response()->json([
+	            'status_code' => 200,
+	            'message' => 'Success',
+	            'content' => $page->content
+	        ], 200);
+    }
+    
+    public function bestPractices(){
+    	$page = Page::where('key', 'bestPractices')->first();
+    	return response()->json([
+	            'status_code' => 200,
+	            'message' => 'Success',
+	            'content' => $page->content
+	        ], 200);
+    }
+    
+    public function faqs(){
+    	$page = Page::where('key', 'faqs')->first();
+    	return response()->json([
+	            'status_code' => 200,
+	            'message' => 'Success',
+	            'content' => $page->content
+	        ], 200);
+    }
+    
+    public function reportAndFeedback(){
+    	$page = Page::where('key', 'contact')->first();
+    	return response()->json([
+	            'status_code' => 200,
+	            'message' => 'Success',
+	            'content' => $page->content
+	        ], 200);
+    }
+    
+    public function contact(){
+    	$page = Page::where('key', 'contact')->first();
+    	return response()->json([
+	            'status_code' => 200,
+	            'message' => 'Success',
+	            'content' => $page->content
+	        ], 200);
+    }
+    
+    public function legal(){
+    	$page = Page::where('key', 'legal')->first();
+    	return response()->json([
+	            'status_code' => 200,
+	            'message' => 'Success',
+	            'content' => $page->content
+	        ], 200);
+    }
+    
+    public function about(){
+    	$page = Page::where('key', 'about')->first();
+    	return response()->json([
+	            'status_code' => 200,
+	            'message' => 'Success',
+	            'content' => $page->content
+	        ], 200);
+    }
+
+    public function favoriteTasker(){
+        $page = Page::where('key', 'favoriteTasker')->first();
+        return response()->json([
+                'status_code' => 200,
+                'message' => 'Success',
+                'content' => $page->content
+            ], 200);
+    }
+
+    public function hspinfo(){
+        $page = Page::where('key', 'hspinfo')->first();
+        return response()->json([
+                'status_code' => 200,
+                'message' => 'Success',
+                'content' => $page->content
+            ], 200);
+    }
 
     public function getContent(Request $request){
             if(isset($request->type)){
