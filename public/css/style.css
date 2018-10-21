@@ -18,6 +18,31 @@
 	text-decoration: none;
 }
 
+
+.news-row .title-news{
+	width: 85%;
+}
+
+.news-row{
+	position: relative;
+	background-color: #ddd;
+	margin:10px 0px;
+	padding: 8px;
+	border-radius: 8px;
+	font-size: 16px;
+}
+
+.news-row .group-control{
+	position: absolute;
+	right: 0px;
+	top: 9px;
+	font-size: 16px;
+}
+
+
+
+
+
 .service-parent{
 	position: relative;
 	background-color: #ddd;
@@ -33,9 +58,9 @@
 
 .service-parent .group-control{
 	position: absolute;
-    	right: 15px;
-    	top: 22px;
-    	font-size: 16px;
+	right: 15px;
+	top: 22px;
+	font-size: 16px;
 }
 
 .service-child{
