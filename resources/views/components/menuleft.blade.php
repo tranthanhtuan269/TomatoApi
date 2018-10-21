@@ -1,6 +1,6 @@
 <?php
 
-	$list = ['services', 'news',/*, 'orders', 'users'*/];
+	$list = ['services', 'news', 'orders'/*, 'users'*/];
 
 ?>
 <ul class="list-group">

@@ -44,6 +44,14 @@ Route::get('/news/{id}', 'NewsController@viewWeb');
 Route::put('/news/{id}', 'NewsController@updateWeb');
 Route::delete('/news/{id}', 'NewsController@destroyWeb');
 
+Route::get('/orders', 'OrderController@indexWeb');
+Route::post('/orders', 'OrderController@storeWeb');
+Route::get('/orders/{id}/edit', 'OrderController@editWeb');
+Route::get('/orders/create', 'OrderController@createWeb');
+Route::get('/orders/{id}', 'OrderController@viewWeb');
+Route::put('/orders/{id}', 'OrderController@updateWeb');
+Route::delete('/orders/{id}', 'OrderController@destroyWeb');
+
 Route::get('/pages', 'HomeController@pages');
 Route::put('/pages/{id}', 'HomeController@updatePage');
 

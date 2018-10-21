@@ -255,4 +255,23 @@ class OrderController extends Controller
             ], 200);
         }
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexWeb()
+    {
+        $orders = Order::all();
+        return view('order.index', ['orders' => $orders]);
+    }
+
+    public function destroyWeb($id){
+        $news = News::find($id);
+        if(isset($news)){
+            $news->delete();
+        }
+        return back();
+    }
 }
