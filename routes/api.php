@@ -82,5 +82,4 @@ Route::get('favorite-tasker', 'HomeController@favoriteTasker');
 Route::get('hspinfo', 'HomeController@hspinfo');
 
 Route::get('get-content', 'HomeController@getContent');
-
-
+Route::post('uploadImage', 'HomeController@uploadImageApi');
