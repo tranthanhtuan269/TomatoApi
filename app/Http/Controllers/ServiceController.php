@@ -228,6 +228,21 @@ class ServiceController extends Controller
         return redirect('/services');
     }
 
+    public function sortWeb(Request $request){
+        dd(json_decode($request->content));
+        $dataList = json_decode($request->content);
+        $count = 0;
+        $parent1 = 0;
+        $parent2 = 0;
+        foreach($dataList as $obj){
+            if($parent1 != $obj->parent1){
+                $count = 0;
+                $parent1 = $obj->parent1;
+            }
+            echo $obj->id;
+        }
+    }
+
     public function editWeb($id){
         $service = Service::find($id);
         $parentList = Service::where('parent_id', 0)->get();

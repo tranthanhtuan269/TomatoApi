@@ -24,10 +24,16 @@ $( function() {
             service_list.push(obj);
         });
 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         var request = $.ajax({
           url: "{{ url('/') }}/services/sort",
           method: "POST",
-          data: { id : serialize(service_list) },
+          data: { content : JSON.stringify(service_list) },
           dataType: "json"
         });
          
