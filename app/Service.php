@@ -20,7 +20,8 @@ class Service extends Model
     protected $fillable = [
         'icon',
         'name',
-        'parent_id'
+        'parent_id',
+        'index'
     ];
     
     public function packages(){
@@ -32,7 +33,7 @@ class Service extends Model
     }
     
     public function services(){
-        return $this->hasMany('App\Service', 'parent_id');
+        return $this->hasMany('App\Service', 'parent_id')->orderBy('index', 'asc');
     }
 
     public static function getServiceParent($serviceID){

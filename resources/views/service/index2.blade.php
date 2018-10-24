@@ -83,7 +83,7 @@ $( function() {
             			</div>
             			<?php
             			foreach($listChild1 as $serviceChild2){
-                                                    $listChild2 = App\Service::where('parent_id', $serviceChild2->id)->get();
+                                                    $listChild2 = App\Service::where('parent_id', $serviceChild2->id)->orderBy('index', 'asc')->get();
                                        ?>
             				<div class="row service-child">
             					<img src="{{ url('/') }}/public/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild2->name }}

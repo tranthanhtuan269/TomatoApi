@@ -229,7 +229,7 @@ class ServiceController extends Controller
     }
 
     public function sortWeb(Request $request){
-        dd(json_decode($request->content));
+        // dd(json_decode($request->content));
         $dataList = json_decode($request->content);
         $count = 0;
         $parent1 = 0;
@@ -239,8 +239,15 @@ class ServiceController extends Controller
                 $count = 0;
                 $parent1 = $obj->parent1;
             }
-            echo $obj->id;
+            $service = Service::find($obj->id);
+            $service->index = $count;
+            $service->save();
+            $count++;
         }
+        return response()->json([
+                    'status_code' => 200,
+                    'message' => 'Sort services successfully.'
+                ], 200);
     }
 
     public function editWeb($id){
