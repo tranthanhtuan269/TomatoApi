@@ -102,7 +102,7 @@ $( function() {
         @component('components.menuleft', ['active' => 'services'])
         @endcomponent
     </div>
-    <div class="col-sm-9"> 
+    <div class="col-sm-9 page-content"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">List Service <a href="{{ url('/') }}/services/create" class="pull-right"><i class="fas fa-plus"></i> Add Service</a> </h3>
