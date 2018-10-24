@@ -17,7 +17,7 @@ class ServiceController extends Controller
     public function index(Request $request)
     {
         $service = fractal()
-                ->collection(Service::get())
+                ->collection(Service::where('active', 1)->get())
                 ->transformWith(new ServiceTransformer)
                 ->toArray();
 
@@ -109,7 +109,7 @@ class ServiceController extends Controller
      */
     public function subservice($id)
     {
-        $services = Service::where('parent_id', '=', $id)->get();
+        $services = Service::where('parent_id', '=', $id)->where('active', 1)->get();
 
         $finder = fractal()
             ->collection($services)
@@ -226,6 +226,22 @@ class ServiceController extends Controller
         $service->parent_id = $request->parent_id;
         $service->save();
         return redirect('/services');
+    }
+
+    public function activeWeb(Request $request){
+        $service = Service::find($request->id);
+        $service->active = !$request->type;
+        if($service->save()){
+            return response()->json([
+                    'status_code' => 200,
+                    'message' => 'Active this service successfully.'
+                ], 200);
+        }else{
+            return response()->json([
+                'status_code' => 404,
+                'message' => 'Not found this service.',
+            ], 200);    
+        }
     }
 
     public function sortWeb(Request $request){

@@ -5,6 +5,12 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 $( function() {
     $( ".service-child2-group" ).sortable({
         stop: function( event, ui ) {
@@ -24,12 +30,6 @@ $( function() {
             service_list.push(obj);
         });
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         var request = $.ajax({
           url: "{{ url('/') }}/services/sort",
           method: "POST",
@@ -44,9 +44,55 @@ $( function() {
         request.fail(function( jqXHR, textStatus ) {
           alert( "Request failed: " + textStatus );
         });
-
-        console.log(service_list);
     }
+
+    $('.active').click(function(){
+        var id = $(this).attr('data-id');
+        $('#active-' + id).addClass('hidden');
+        $('#unactive-' + id).removeClass('hidden');
+
+        var request2 = $.ajax({
+          url: "{{ url('/') }}/services/active",
+          method: "POST",
+          data: { 
+            id : id,
+            type : 1
+          },
+          dataType: "json"
+        });
+         
+        request2.done(function( msg ) {
+          $( "#log" ).html( msg );
+        });
+         
+        request2.fail(function( jqXHR, textStatus ) {
+          alert( "Request failed: " + textStatus );
+        });
+    });
+
+    $('.unactive').click(function(){
+        var id = $(this).attr('data-id');
+        $('#active-' + id).removeClass('hidden');
+        $('#unactive-' + id).addClass('hidden');
+
+        var request2 = $.ajax({
+          url: "{{ url('/') }}/services/active",
+          method: "POST",
+          data: { 
+            id : id,
+            type : 0
+          },
+          dataType: "json"
+        });
+         
+        request2.done(function( msg ) {
+          $( "#log" ).html( msg );
+        });
+         
+        request2.fail(function( jqXHR, textStatus ) {
+          alert( "Request failed: " + textStatus );
+        });
+    });
 } );
 </script>
 <div class="container-fluid">
@@ -70,6 +116,9 @@ $( function() {
             			<div class="row service-parent">
             				<img src="{{ url('/') }}/public/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild1->name }}
                             <div class="group-control">
+
+                            <span id="active-{{ $serviceChild1->id }}" data-id="{{ $serviceChild1->id }}" class="active @if($serviceChild1->active == 0) hidden @endif"><i class="fas fa-check" style="color:#00cc00"></i></span>
+                            <span id="unactive-{{ $serviceChild1->id }}" data-id="{{ $serviceChild1->id }}" class="unactive @if($serviceChild1->active == 1) hidden @endif"><i class="fas fa-check"></i></span>
                             <a href="{{ url('/') }}/services/{{ $serviceChild1->id }}/edit"><i class="fas fa-edit"></i></a>
                             <form action="{{ url('services/'.$serviceChild1->id) }}" method="POST">
                                 {{ csrf_field() }}
@@ -88,6 +137,8 @@ $( function() {
             				<div class="row service-child">
             					<img src="{{ url('/') }}/public/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild2->name }}
             					<div class="group-control">
+                                                                                    <span id="active-{{ $serviceChild2->id }}" data-id="{{ $serviceChild2->id }}" class="active  @if($serviceChild2->active == 0) hidden @endif"><i class="fas fa-check" style="color:#00cc00"></i></span>
+                                                                                    <span id="unactive-{{ $serviceChild2->id }}" data-id="{{ $serviceChild2->id }}" class="unactive  @if($serviceChild2->active == 1) hidden @endif"><i class="fas fa-check"></i></span>
             						<a href="{{ url('/') }}/services/{{ $serviceChild2->id }}/edit"><i class="fas fa-edit"></i></a>
             						<form action="{{ url('services/'.$serviceChild2->id) }}" method="POST">
 						            {{ csrf_field() }}
@@ -105,6 +156,8 @@ $( function() {
                                     <div class="row service-object service-child2" data-parent-1="{{ $serviceChild1->id }}" data-parent-2="{{ $serviceChild2->id }}" data-id="{{ $serviceChild3->id }}">
                                         <img src="{{ url('/') }}/public/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild3->name }}
                                         <div class="group-control">
+                                            <span id="active-{{ $serviceChild3->id }}" data-id="{{ $serviceChild3->id }}" class="active  @if($serviceChild3->active == 0) hidden @endif"><i class="fas fa-check" style="color:#00cc00"></i></span>
+                                            <span id="unactive-{{ $serviceChild3->id }}" data-id="{{ $serviceChild3->id }}" class="unactive  @if($serviceChild3->active == 1) hidden @endif"><i class="fas fa-check"></i></span>
                                             <a href="{{ url('/') }}/services/{{ $serviceChild3->id }}"><i class="fas fa-list"></i></a>
                                             <a href="{{ url('/') }}/services/{{ $serviceChild3->id }}/edit"><i class="fas fa-edit"></i></a>
                                             <form action="{{ url('services/'.$serviceChild3->id) }}" method="POST">

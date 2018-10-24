@@ -21,7 +21,8 @@ class Service extends Model
         'icon',
         'name',
         'parent_id',
-        'index'
+        'index',
+        'active'
     ];
     
     public function packages(){
@@ -33,7 +34,7 @@ class Service extends Model
     }
     
     public function services(){
-        return $this->hasMany('App\Service', 'parent_id')->orderBy('index', 'asc');
+        return $this->hasMany('App\Service', 'parent_id')->where('active', 1)->orderBy('index', 'asc');
     }
 
     public static function getServiceParent($serviceID){

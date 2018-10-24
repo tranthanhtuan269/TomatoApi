@@ -108,7 +108,7 @@
 }
 
 .group-control{
-	width: 95px;
+	width: 115px;
 }
 
 .group-control a{
@@ -126,4 +126,9 @@
 .child-2{
 	margin-left: 30px;
 	color:#000;
+}
+
+.active, .unactive{
+	float: left;
+	cursor: pointer;
 }
