@@ -54,7 +54,16 @@ class HomeController extends Controller
     }
     
     public function legal(){
-    	$page = Page::where('key', 'legal')->first();
+        $page = Page::where('key', 'legal')->first();
+        return response()->json([
+                'status_code' => 200,
+                'message' => 'Success',
+                'content' => $page->content
+            ], 200);
+    }
+    
+    public function coupon(){
+    	$page = Page::where('key', 'coupon')->first();
     	return response()->json([
 	            'status_code' => 200,
 	            'message' => 'Success',

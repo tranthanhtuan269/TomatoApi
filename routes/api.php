@@ -74,6 +74,7 @@ Route::post('logout', 'AuthController@logout');
 Route::get('why-use', 'HomeController@whyUse');
 Route::get('best-practices', 'HomeController@bestPractices');
 Route::get('faqs', 'HomeController@faqs');
+Route::get('coupon', 'HomeController@coupon');
 Route::get('report-and-feedback', 'HomeController@reportAndFeedback');
 Route::get('contact', 'HomeController@contact');
 Route::get('legal', 'HomeController@legal');
