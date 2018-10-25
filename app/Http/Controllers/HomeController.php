@@ -156,4 +156,25 @@ class HomeController extends Controller
             return \Response::json(array('code' => '404', 'message' => 'unsuccess', 'image_url' => ""));
         }
     }
+
+    public function uploadImageApi2(Request $request){
+        $part = base_path('public/images/');
+        $filename = rand()."_".time().'.jpeg';
+
+        if($_SERVER['REQUEST_METHOD'] == "POST")
+        {
+            $image = $_POST['image'];
+            $destinationfile = $part.$filename;
+            if(file_put_contents($destinationfile, base64_decode($image)))
+            {
+                return \Response::json(array('code' => '200', 'message' => 'success', 'image_url' => $filename));
+            }else
+            {
+                return \Response::json(array('code' => '403', 'message' => 'unsuccess', 'image_url' => ""));
+            }
+        }else
+        {
+            return \Response::json(array('code' => '404', 'message' => 'unsuccess', 'image_url' => ""));
+        }
+    }
 }

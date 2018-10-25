@@ -133,11 +133,22 @@ class UserController extends Controller
             if(isset($request->email)){
                 $user->email = $request->email;
             }
+
             if(isset($request->presenter_id)){
                 $user->presenter_id = $request->presenter_id;
             }
-            // if(isset($request->avatar))
-            //     $user->avatar = $request->avatar;
+
+            if(isset($request->avatar)){
+                $part = base_path('public/images/');
+                $filename = rand()."_".time().'.jpeg';
+                $destinationfile = $part.$filename;
+                
+                $image = $request->avatar;
+                if(file_put_contents($destinationfile, base64_decode($image)))
+                {
+                    $user->avatar = $filename;
+                }
+            }
             // if(isset($request->address))
             //     $user->address = $request->address;
             // if(isset($request->city_id))
