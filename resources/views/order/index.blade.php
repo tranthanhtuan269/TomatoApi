@@ -27,7 +27,7 @@
                     <div class="promotion_code">{{ $order->promotion_code }}</div>
                     <div class="list_packages">{{ $order->list_packages }}</div>
 
-                    <div class="group-control-order">
+                    <div>
                         <a href="{{ url('/') }}/order/{{ $order->id }}/edit" class="btn btn-primary"><i class="fas fa-edit"></i> Duyệt </a>
                         <form action="{{ url('order/'.$order->id) }}" method="POST">
                             {{ csrf_field() }}
