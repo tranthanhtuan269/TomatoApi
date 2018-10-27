@@ -18,6 +18,7 @@
         	       foreach($orders as $order){
         	    ?>
         	    <div class="row order-row">
+                    {{ dd($order->user()) }}
                     <div class="title-order">ORD{{ date("Ymd") }}{{ $order->id }}</div>
                     <div class="starttime">{{ date('H:i:s d-m-Y', intval($order->start_time) / 1000) }}</div>
                     <div class="username">{{ $order->username }}</div>
