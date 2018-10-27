@@ -22,7 +22,7 @@
                     <div class="username">{{ $order->username }}</div>
                     <div class="userphone">{{ $order->phone }}</div>
                     <div class="address">{{ $order->number_address }} - {{ $order->address }}</div>
-                    <div class="starttime">{{ $order->start_time }}</div>
+                    <div class="starttime">{{ date('Y-m-d H:i:s', $order->start_time) }}</div>
                     <div class="state">{{ $order->state }}</div>
                     <div class="promotion_code">{{ $order->promotion_code }}</div>
                     <div class="list_packages">{{ $order->list_packages }}</div>
@@ -38,6 +38,7 @@
                             </button>
                         </form>
                     </div>
+                    <hr />
                 </div>
                 <?php	
 	               }
