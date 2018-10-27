@@ -31,7 +31,7 @@
                         <ul>
                             @foreach($order->packages as $package)
                             <?php
-                                dd($package->pivot);
+                                dd($package->pivot->number);
                             ?>
                             <li>{{ $package->name }} - {{ $package->pivot->number }}</li>
                             @endforeach
