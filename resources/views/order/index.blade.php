@@ -28,7 +28,7 @@
                     <div class="list_packages">
                         <ul>
                             @foreach($order->packages as $package)
-                            <li>{{ $package->name }}</li>
+                            <li>{{ $package->name }} - {{ $package->number }}</li>
                             @endforeach
                         </ul>
                     </div>
