@@ -15,25 +15,32 @@
             </div>
             <div class="panel-body">
             	<?php
-	foreach($orders as $order){
-	?>
-	<div class="row order-row">
-                <div class="title-order">ORD{{ date("Ymd") }}{{ $order->id }}</div>
+        	       foreach($orders as $order){
+        	    ?>
+        	    <div class="row order-row">
+                    <div class="title-order">ORD{{ date("Ymd") }}{{ $order->id }}</div>
+                    <div class="username">{{ $order->username }}</div>
+                    <div class="userphone">{{ $order->phone }}</div>
+                    <div class="address">{{ $order->number_address }} - {{ $order->address }}</div>
+                    <div class="starttime">{{ $order->start_time }}</div>
+                    <div class="state">{{ $order->state }}</div>
+                    <div class="promotion_code">{{ $order->promotion_code }}</div>
+                    <div class="list_packages">{{ $order->list_packages }}</div>
 
-                <div class="group-control">
-                <a href="{{ url('/') }}/order/{{ $order->id }}/edit"><i class="fas fa-edit"></i></a>
-                <form action="{{ url('order/'.$order->id) }}" method="POST">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
+                    <div class="group-control">
+                        <a href="{{ url('/') }}/order/{{ $order->id }}/edit"><i class="fas fa-edit"></i></a>
+                        <form action="{{ url('order/'.$order->id) }}" method="POST">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
 
-                    <button type="submit" class="delete-btn">
-                                    <i class="fas fa-trash-alt"></i>
-                    </button>
-                </form>
+                            <button type="submit" class="delete-btn">
+                                            <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
-	</div>
-              <?php	
-	}
+                <?php	
+	               }
             	?>
             </div>
         </div>
