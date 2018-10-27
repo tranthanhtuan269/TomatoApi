@@ -261,11 +261,11 @@ class OrderController extends Controller
                     }
                 }
             }
-            
+
             if($order->save()){
                 $updated = fractal()
                     ->item($order)
-                    ->transformWith(new UserTransformer)
+                    ->transformWith(new OrderTransformer)
                     ->toArray();
 
                 return response()->json([
