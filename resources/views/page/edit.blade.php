@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<script src="https://cdn.ckeditor.com/ckeditor5/11.1.1/classic/ckeditor.js"></script>
+
 <div class="container-fluid">
     <div class="col-sm-12"><h2 class="text-center">HSP Administrator</h2></div>
     <div class="clearfix"></div>
@@ -33,6 +33,7 @@
         {!! Form::close() !!}
     </div>
 </div>
+<script src="https://cdn.ckeditor.com/ckeditor5/11.1.1/classic/ckeditor.js"></script>
 <script type="text/javascript">
     ClassicEditor.create( document.querySelector( '#editor' ) );
 </script>
