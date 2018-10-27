@@ -50,7 +50,7 @@ class Order extends Model
 
         if(isset($order)){
             $object = $order->packages()->first();
-            if(isset($object)){
+            if(!isset($object)){
                 return Service::find(1);
             }else{
                 $objectService = $object->service;
