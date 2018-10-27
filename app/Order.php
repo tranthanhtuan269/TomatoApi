@@ -24,6 +24,7 @@ class Order extends Model
         'username',
         'email',
         'promotion_code',
+        'image',
         'list_packages'
     ];
 
