@@ -16,6 +16,7 @@
             <div class="panel-body">
             	<?php
         	       foreach($orders as $order){
+                    dd($package->pivot);
         	    ?>
         	    <div class="row order-row">
                     <div class="title-order">ORD{{ date("Ymd") }}{{ $order->id }}</div>

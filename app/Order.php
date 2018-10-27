@@ -41,7 +41,7 @@ class Order extends Model
      */
     public function packages()
     {
-        return $this->belongsToMany('App\Package')->withPivot('number');;
+        return $this->belongsToMany('App\Package')->withPivot('number');
     }
 
     public static function getServiceInfo($id)
