@@ -263,7 +263,7 @@ class OrderController extends Controller
      */
     public function indexWeb()
     {
-        $orders = Order::all();
+        $orders = Order::orderBy('created_at')->paginate(15);
         return view('order.index', ['orders' => $orders]);
     }
 

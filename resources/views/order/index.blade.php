@@ -43,6 +43,7 @@
                 <?php	
 	               }
             	?>
+                {{ $orders->links() }}
             </div>
         </div>
     </div>
