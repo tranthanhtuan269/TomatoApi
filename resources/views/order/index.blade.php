@@ -19,10 +19,10 @@
         	    ?>
         	    <div class="row order-row">
                     <div class="title-order">ORD{{ date("Ymd") }}{{ $order->id }}</div>
-                    <div class="username">{{ $order->username }}</div>
-                    <div class="userphone">{{ $order->phone }}</div>
-                    <div class="address">{{ $order->number_address }} - {{ $order->address }}</div>
                     <div class="starttime">{{ date('H:i:s d-m-Y', intval($order->start_time) / 1000) }}</div>
+                    <div class="username">{{ $order->username }}</div>
+                    <div class="userphone">{{ $order->user()->phone }}</div>
+                    <div class="address">{{ $order->number_address }} - {{ $order->address }}</div>
                     <div class="state">@if($order->state == 0) Chưa duyệt @elseif($order->state == 1) Đã duyệt @else Đã hủy @endif</div>
                     <div class="promotion_code">{{ $order->promotion_code }}</div>
                     <div class="list_packages">{{ $order->list_packages }}</div>
