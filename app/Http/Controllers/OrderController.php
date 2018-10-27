@@ -260,29 +260,34 @@ class OrderController extends Controller
                         $order->image = $filename;
                     }
                 }
-            }
 
-            if($order->save()){
-                $updated = fractal()
-                    ->item($order)
-                    ->transformWith(new OrderTransformer)
-                    ->toArray();
+                if($order->save()){
+                    $updated = fractal()
+                        ->item($order)
+                        ->transformWith(new OrderTransformer)
+                        ->toArray();
 
-                return response()->json([
-                    'status_code' => 200,
-                    'message' => 'The order info has been updated',
-                    'group' => $updated
-                ], 200);
+                    return response()->json([
+                        'status_code' => 200,
+                        'message' => 'The order info has been updated',
+                        'group' => $updated
+                    ], 200);
+                }else{
+                    return response()->json([
+                        'status_code' => 202,
+                        'message' => 'Failed to update the order info.',
+                    ], 200);
+                }
             }else{
                 return response()->json([
-                    'status_code' => 202,
-                    'message' => 'Failed to update the order info.',
+                    'status_code' => 404,
+                    'message' => 'Not found the order.',
                 ], 200);
             }
         }else{
             return response()->json([
                 'status_code' => 404,
-                'message' => 'Not found the order.',
+                'message' => 'Not found the user.',
             ], 200);
         }
     }
