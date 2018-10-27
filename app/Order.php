@@ -49,9 +49,8 @@ class Order extends Model
         $order = Order::find($id);
 
         if(isset($order)){
-            $object = $order->packages()->first();
-            $objectService = $object->service()->first();
-            return Service::getServiceParent($objectService->parent_id);
+            $package = Package::where('order_id', $id)->first();
+            return Service::getServiceParent($package->service->parent_id);
         }
 
         return Service::find(1);
