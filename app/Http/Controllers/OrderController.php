@@ -180,13 +180,16 @@ class OrderController extends Controller
                 // $order->list_packages = $request->list_packages;
                     
                 if($order->save()){
-                    // remove package
-                    $order->packages()->detach();
 
-                    // add packages
-                    $list_package = json_decode($request->list_packages);
-                    foreach ($list_package as $package) {
-                        $order->packages()->attach($package->package_id, ['number' => $package->number]);
+                    if(isset($request->list_packages) && strlen($request->list_packages) > 0){
+                        // remove package
+                        $order->packages()->detach();
+
+                        // add packages
+                        $list_package = json_decode($request->list_packages);
+                        foreach ($list_package as $package) {
+                            $order->packages()->attach($package->package_id, ['number' => $package->number]);
+                        }
                     }
 
                     $item = fractal()
