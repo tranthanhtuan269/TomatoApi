@@ -30,6 +30,7 @@ class OrderTransformer extends TransformerAbstract
             'pay_type' => $order->pay_type,
             'username' => $order->username,
             'email' => $order->email,
+            'image' => $order->image,
             'promotion_code' => $order->promotion_code,
             'list_package' => $order->list_packages,
             'service' => Order::getServiceInfo($order->id),
