@@ -53,5 +53,7 @@ class Order extends Model
             $objectService = $object->service()->first();
             return Service::getServiceParent($objectService->parent_id);
         }
+
+        return Service::find(1);
     }
 }
