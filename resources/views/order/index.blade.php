@@ -27,8 +27,8 @@
                     <div class="promotion_code">{{ $order->promotion_code }}</div>
                     <div class="list_packages">{{ $order->list_packages }}</div>
 
-                    <div>
-                        <a href="{{ url('/') }}/order/{{ $order->id }}/edit" class="btn btn-primary"><i class="fas fa-edit"></i> Duyệt </a>
+                    <div class="btn-group">
+                        <a href="{{ url('/') }}/order/{{ $order->id }}/edit" class="btn btn-primary" style="float: left; margin-right: 10px;"><i class="fas fa-edit"></i> Duyệt </a>
                         <form action="{{ url('order/'.$order->id) }}" method="POST">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
