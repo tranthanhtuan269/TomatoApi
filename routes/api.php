@@ -45,6 +45,7 @@ Route::delete('users/{id}', 'UserController@destroy');
 
 Route::post('orders', 'OrderController@store');
 Route::post('orders/{id}/update', 'OrderController@update');
+Route::post('orders/{id}/addImage', 'OrderController@uploadImage');
 Route::put('orders/{id}', 'OrderController@update');
 Route::post('orders/{id}', 'OrderController@destroy');
 Route::delete('orders/{id}', 'OrderController@destroy');
