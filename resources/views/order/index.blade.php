@@ -16,7 +16,7 @@
             <div class="panel-body">
             	<?php
         	       foreach($orders as $order){
-                    dd($package->pivot);
+
         	    ?>
         	    <div class="row order-row">
                     <div class="title-order">ORD{{ date("Ymd") }}{{ $order->id }}</div>
@@ -30,6 +30,9 @@
                     <div class="list_packages">
                         <ul>
                             @foreach($order->packages as $package)
+                            <?php
+                                dd($package->pivot);
+                            ?>
                             <li>{{ $package->name }} - {{ $package->pivot->number }}</li>
                             @endforeach
                         </ul>
