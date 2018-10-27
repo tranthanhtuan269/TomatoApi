@@ -24,9 +24,14 @@
                     <div class="userphone">Số điện thoại: <b><i>+{{ $order->user->phone }}</i></b></div>
                     <div class="address">Địa chỉ: <b><i>{{ $order->number_address }} - {{ $order->address }}</i></b></div>
                     <div class="address">Số tiền: <b><i>{{ $order->price }}</i></b></div>
-                    <div class="state">Trạng thái: <b><i>@if($order->state == 0) Chưa duyệt @elseif($order->state == 1) Đã duyệt @else Đã hủy @endif</i></b></div>
                     <div class="promotion_code">Mã giảm giá: <b><i>@if(isset($order->promotion_code)) {{ $order->promotion_code }} @else Không có @endif</i></b></div>
-                    <div class="list_packages">{{ $order->list_packages }}</div>
+                    <div class="list_packages">
+                        <ul>
+                            @foreach($order->packages as $package)
+                            <li>{{ $package->name }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
 
                     <div class="accept-remove">
                         @if($order->state == 0) 
