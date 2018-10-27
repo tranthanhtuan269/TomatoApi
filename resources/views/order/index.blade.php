@@ -28,13 +28,13 @@
                     <div class="list_packages">{{ $order->list_packages }}</div>
 
                     <div class="group-control">
-                        <a href="{{ url('/') }}/order/{{ $order->id }}/edit"><i class="fas fa-edit"></i></a>
+                        <a href="{{ url('/') }}/order/{{ $order->id }}/edit" class="btn btn-primary"><i class="fas fa-edit"></i> Duyệt </a>
                         <form action="{{ url('order/'.$order->id) }}" method="POST">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
 
-                            <button type="submit" class="delete-btn">
-                                            <i class="fas fa-trash-alt"></i>
+                            <button type="submit" class="btn btn-default delete-btn">
+                                <i class="fas fa-trash-alt"></i> Xóa
                             </button>
                         </form>
                     </div>
