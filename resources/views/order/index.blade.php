@@ -26,11 +26,10 @@
                     <div class="address">Địa chỉ: <b><i>{{ $order->number_address }} - {{ $order->address }}</i></b></div>
                     <div class="address">Số tiền: <b><i>{{ $order->price }}</i></b></div>
                     <div class="promotion_code">Mã giảm giá: <b><i>@if(isset($order->promotion_code)) {{ $order->promotion_code }} @else Không có @endif</i></b></div>
-                    <div class="list_packages">{{ $order->list_packages }}</div>
                     <div class="list_packages">
                         <ul>
                             @foreach($order->packages as $package)
-                            <li>{{ $package->name }} - {{ $package->pivot->number }}</li>
+                            <li>{{ $package->name }} số lượng {{ $package->pivot->number }}</li>
                             @endforeach
                         </ul>
                     </div>
