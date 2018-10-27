@@ -296,6 +296,78 @@ class OrderController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function uploadImageIOS(Request $request, $id)
+    {
+        // dd($request->id);
+        $validator = \Validator::make($request->all(), [
+            'phone' => 'required|string|min:10|max:15',
+            'access_token' => 'required|string'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                    'status_code' => 422,
+                    'message' => 'Failed to update the user info.',
+                    'errors' => $validator->errors()->all()
+                ], 200);
+        }
+
+        $user = Helper::checkAuth($request->phone, $request->access_token);
+
+        if($user){
+
+            $order = Order::find($id);
+
+            if($order){
+                if(isset($request->image)){
+                    $part = base_path('public/images/');
+                    $filename = rand()."_".time().'.jpeg';
+                    $destinationfile = $part.$filename;
+                    
+                    if(move_uploaded_file($request->image, $destinationfile))
+                    {
+                        $order->image = $filename;
+                    }
+                }
+
+                if($order->save()){
+                    $updated = fractal()
+                        ->item($order)
+                        ->transformWith(new OrderTransformer)
+                        ->toArray();
+
+                    return response()->json([
+                        'status_code' => 200,
+                        'message' => 'The order info has been updated',
+                        'group' => $updated
+                    ], 200);
+                }else{
+                    return response()->json([
+                        'status_code' => 202,
+                        'message' => 'Failed to update the order info.',
+                    ], 200);
+                }
+            }else{
+                return response()->json([
+                    'status_code' => 404,
+                    'message' => 'Not found the order.',
+                ], 200);
+            }
+        }else{
+            return response()->json([
+                'status_code' => 404,
+                'message' => 'Not found the user.',
+            ], 200);
+        }
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
