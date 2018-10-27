@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-
+<script src="https://cdn.ckeditor.com/ckeditor5/11.1.1/classic/ckeditor.js"></script>
 <div class="container-fluid">
     <div class="col-sm-12"><h2 class="text-center">HSP Administrator</h2></div>
     <div class="clearfix"></div>
     <div class="col-sm-3">
+        @component('components.menuleft', ['active' => 'services'])
+        @endcomponent
     </div>
     <div class="col-sm-9"> 
         {!! Form::open(['url' => 'pages/' . $page->id, 'class' => 'form-horizontal']) !!}
@@ -33,8 +35,14 @@
         {!! Form::close() !!}
     </div>
 </div>
-<script src="https://cdn.ckeditor.com/ckeditor5/11.1.1/classic/ckeditor.js"></script>
 <script type="text/javascript">
-    ClassicEditor.create( document.querySelector( '#editor' ) );
+    ClassicEditor
+    .create( document.querySelector( '#editor' ) )
+    .then( editor => {
+        console.log( editor );
+    } )
+    .catch( error => {
+        console.error( error );
+    } );
 </script>
 @endsection
