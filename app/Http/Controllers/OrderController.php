@@ -411,12 +411,12 @@ class OrderController extends Controller
      */
     public function indexWeb()
     {
-        $orders = Order::orderBy('start_time', 'asc')->paginate(15);
+        $orders = Order::orderBy('start_time', 'desc')->paginate(15);
         return view('order.index', ['orders' => $orders]);
     }
 
     public function destroyWeb($id){
-        $news = News::find($id);
+        $news = Order::find($id);
         if(isset($news)){
             $news->delete();
         }
