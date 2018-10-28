@@ -48,6 +48,7 @@ Route::delete('/news/{id}', 'NewsController@destroyWeb');
 
 Route::get('/orders', 'OrderController@indexWeb');
 Route::post('/orders', 'OrderController@storeWeb');
+Route::post('/orders/{id}/accept', 'OrderController@acceptWeb');
 Route::get('/orders/{id}/edit', 'OrderController@editWeb');
 Route::get('/orders/create', 'OrderController@createWeb');
 Route::get('/orders/{id}', 'OrderController@viewWeb');

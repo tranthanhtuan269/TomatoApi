@@ -415,10 +415,19 @@ class OrderController extends Controller
         return view('order.index', ['orders' => $orders]);
     }
 
+    public function acceptWeb($id){
+        $order = Order::find($id);
+        if(isset($order)){
+            $order->state = 1;
+            $order->save();
+        }
+        return back();
+    }
+
     public function destroyWeb($id){
-        $news = Order::find($id);
-        if(isset($news)){
-            $news->delete();
+        $order = Order::find($id);
+        if(isset($order)){
+            $order->delete();
         }
         return back();
     }

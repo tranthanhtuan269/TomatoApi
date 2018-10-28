@@ -36,7 +36,14 @@
 
                     <div class="accept-remove">
                         @if($order->state == 0) 
-                        <a href="{{ url('/') }}/orders/{{ $order->id }}/edit" class="btn btn-primary" style="float: left; margin-right: 10px;"><i class="fas fa-edit"></i> Duyệt và gửi đi </a>
+                        <form action="{{ url('orders/'.$order->id.'/accept') }}" method="POST" style="float: left; margin: 0 10px 10px 0;">
+                            {{ csrf_field() }}
+                            {{ method_field('POST') }}
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-check"></i> Duyệt và gửi đi
+                            </button>
+                        </form>
                         <form action="{{ url('orders/'.$order->id) }}" method="POST">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
@@ -46,22 +53,20 @@
                             </button>
                         </form>
                         @elseif($order->state == 1) 
-                        <a href="{{ url('/') }}/orders/{{ $order->id }}/edit" class="btn btn-primary disabled" style="float: left; margin-right: 10px;"><i class="fas fa-edit"></i> Đã Duyệt và gửi đi </a>
+                        <form action="{{ url('orders/'.$order->id.'/accept') }}" method="POST" style="float: left; margin: 0 10px 10px 0;">
+                            {{ csrf_field() }}
+                            {{ method_field('POST') }}
+
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-check"></i> Đã Duyệt và gửi đi
+                            </button>
+                        </form>
                         <form action="{{ url('orders/'.$order->id) }}" method="POST">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
 
                             <button type="submit" class="btn btn-danger">
                                 <i class="fas fa-trash-alt"></i> Hủy
-                            </button>
-                        </form>
-                        @else
-                        <form action="{{ url('orders/'.$order->id) }}" method="POST">
-                            {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
-
-                            <button type="submit" class="btn btn-danger disabled">
-                                <i class="fas fa-trash-alt"></i> Đã hủy
                             </button>
                         </form>
                         @endif
