@@ -20,7 +20,7 @@ Class Helper{
     			$user->role_id = 2;
     			$user->active = 1;
     			$user->presenter_id = 1;
-    			$user->code = bcrypt($phone);
+    			$user->code = $phone;
     			$user->save();
     		}
         		return $user;
