@@ -36,9 +36,24 @@ class UserController extends Controller
                     'users' => $users
                 ], 200);
             }else{
+                $user = new User;
+                $user->name = "";
+                $user->display_name = "";
+                $user->avatar = "";
+                $user->email = "";
+                $user->phone = $request->phone;
+                $user->address = "";
+                $user->city_id = 1;
+                $user->role_id = 2;
+                $user->active = 1;
+                $user->presenter_id = 1;
+                $user->code = $request->phone;
+                $user->save();
+                
                 return response()->json([
-                    'status_code' => 204,
-                    'message' => 'Not found this user.'
+                    'status_code' => 200,
+                    'message' => 'List users',
+                    'users' => $users
                 ], 200);
             }
         }else{
