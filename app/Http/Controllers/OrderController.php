@@ -304,7 +304,7 @@ class OrderController extends Controller
      */
     public function uploadImageIOS(Request $request, $id)
     {
-        dd($request->phone);
+        dd($request);
         $validator = \Validator::make($request->all(), [
             'phone' => 'required|string|min:10|max:15',
             'access_token' => 'required|string'
