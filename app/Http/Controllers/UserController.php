@@ -340,7 +340,7 @@ class UserController extends Controller
         $orders = [];
         if(isset($user)){
             $orders = fractal()
-                ->collection(Order::where("user_id", $user->id)->where('created_at', '>=', date('Y-m-d').' 00:00:00')->get())
+                ->collection(Order::where("user_id", $user->id)->where('created_at', '>=', date())->get())
                 ->transformWith(new OrderTransformer)
                 ->toArray();    
         }
