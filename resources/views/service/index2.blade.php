@@ -128,17 +128,19 @@ $( function() {
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </form>
+                            <span class="hint-child"><i class="fas fa-chevron-right"></i></span>
+                            <span class="show-child" style="display: none;"><i class="fas fa-chevron-down"></i></span>
                             </div>
             			</div>
             			<?php
             			foreach($listChild1 as $serviceChild2){
-                                                    $listChild2 = App\Service::where('parent_id', $serviceChild2->id)->orderBy('index', 'asc')->get();
+                            $listChild2 = App\Service::where('parent_id', $serviceChild2->id)->orderBy('index', 'asc')->get();
                                        ?>
             				<div class="row service-child">
             					<img src="{{ url('/') }}/public/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild2->name }}
             					<div class="group-control">
-                                                                                    <span id="active-{{ $serviceChild2->id }}" data-id="{{ $serviceChild2->id }}" class="active  @if($serviceChild2->active == 0) hidden @endif"><i class="fas fa-check" style="color:#00cc00"></i></span>
-                                                                                    <span id="unactive-{{ $serviceChild2->id }}" data-id="{{ $serviceChild2->id }}" class="unactive  @if($serviceChild2->active == 1) hidden @endif"><i class="fas fa-check"></i></span>
+                                    <span id="active-{{ $serviceChild2->id }}" data-id="{{ $serviceChild2->id }}" class="active  @if($serviceChild2->active == 0) hidden @endif"><i class="fas fa-check" style="color:#00cc00"></i></span>
+                                    <span id="unactive-{{ $serviceChild2->id }}" data-id="{{ $serviceChild2->id }}" class="unactive  @if($serviceChild2->active == 1) hidden @endif"><i class="fas fa-check"></i></span>
             						<a href="{{ url('/') }}/services/{{ $serviceChild2->id }}/edit"><i class="fas fa-edit"></i></a>
             						<form action="{{ url('services/'.$serviceChild2->id) }}" method="POST">
 						            {{ csrf_field() }}
@@ -146,7 +148,9 @@ $( function() {
     						            <button type="submit" class="delete-btn">
     						                <i class="fas fa-trash-alt"></i>
     						            </button>
-            						</form>
+                                    </form>
+                                    <span class="hint-child"><i class="fas fa-chevron-right"></i></span>
+                                    <span class="show-child" style="display: none;"><i class="fas fa-chevron-down"></i></span>
             					</div>
 	            			</div>
                             <div class="service-child2-group">
@@ -182,4 +186,17 @@ $( function() {
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.hint-child').click(function(){
+            $(this).hide();
+            $(this).parent().find('.show-child').show();
+        });
+        $('.show-child').click(function(){
+            $(this).hide();
+            $(this).parent().find('.hint-child').show();
+        });
+    });
+</script>
 @endsection
