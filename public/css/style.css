@@ -133,3 +133,9 @@
 .order-row{
 	margin: 10px;
 }
+
+.hint-child,
+.show-child{
+	margin: 10px 15px;
+	cursor: pointer;
+}
