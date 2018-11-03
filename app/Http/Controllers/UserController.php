@@ -336,12 +336,11 @@ class UserController extends Controller
      */
     public function newOrders(Request $request)
     {
-        dd(time() * 1000);
         $user = Helper::checkAuth($request->phone, $request->access_token);
         $orders = [];
         if(isset($user)){
             $orders = fractal()
-                ->collection(Order::where("user_id", $user->id)->where('created_at', '>=', time() * 1000)->get())
+                ->collection(Order::where("user_id", $user->id)->where('start_time', '>=', time() * 1000)->get())
                 ->transformWith(new OrderTransformer)
                 ->toArray();    
         }
@@ -364,7 +363,7 @@ class UserController extends Controller
         $orders = [];
         if(isset($user)){
             $orders = fractal()
-                ->collection(Order::where("user_id", $user->id)->where('created_at', '<', time() * 1000)->get())
+                ->collection(Order::where("user_id", $user->id)->where('start_time', '<', time() * 1000)->get())
                 ->transformWith(new OrderTransformer)
                 ->toArray();    
         }
