@@ -336,6 +336,7 @@ class UserController extends Controller
      */
     public function newOrders(Request $request)
     {
+        dd(time() * 1000);
         $user = Helper::checkAuth($request->phone, $request->access_token);
         $orders = [];
         if(isset($user)){
