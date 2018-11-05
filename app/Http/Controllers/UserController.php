@@ -47,7 +47,7 @@ class UserController extends Controller
                 $user->role_id = 2;
                 $user->active = 1;
                 $user->presenter_id = 1;
-                $user->code = $request->phone;
+                $user->code = Helper::processCode($request->phone);
                 $user->save();
                 
                 return response()->json([

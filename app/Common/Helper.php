@@ -6,7 +6,7 @@ use App\User;
 Class Helper{
 
     	public static function checkAuth($phone, $access_token){
-            $phone = Helper::removePlusInPhone($phone);
+                        $phone = Helper::removePlusInPhone($phone);
     		$user = User::where("phone", $phone)->first();
     		if(!isset($user)){
     			$user = new User;
@@ -26,7 +26,15 @@ Class Helper{
         		return $user;
     	}
 
-        public static function removePlusInPhone($phone){
-            return str_replace("+", "", $phone);
-        }
+            public static function removePlusInPhone($phone){
+                        return str_replace("+", "", $phone);
+            }
+
+            public static function processCode($phone){
+                        $first = substr($phone, 0, strlen($phone) - 6);
+                        $last = substr($phone, strlen($phone) - 6, strlen($phone));
+                        $lastInt = intval($last) + 111111;
+                        $lastOut = substr($lastInt, 0, 6);
+                        return $first . $lastOut;
+            }
 }
