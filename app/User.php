@@ -27,7 +27,8 @@ class User extends Authenticatable
         'role_id', 
         'active',
         'presenter_id',
-        'code'
+        'code',
+        'coin'
     ];
 
     /**

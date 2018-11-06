@@ -25,6 +25,7 @@
                     <div class="userphone">Số điện thoại: <b><i>+{{ $order->user->phone }}</i></b></div>
                     <div class="address">Địa chỉ: <b><i>{{ $order->number_address }} - {{ $order->address }}</i></b></div>
                     <div class="address">Số tiền: <b><i>{{ $order->price }} VNĐ</i></b></div>
+                    <div class="address">Mã giới thiệu: <b><i>{{ $order->user->presenter_id }}</i></b></div>
                     <div class="promotion_code">Mã giảm giá: <b><i>@if(isset($order->promotion_code)) {{ $order->promotion_code }} @else Không có @endif</i></b></div>
                     <div class="list_packages">
                         <ul>

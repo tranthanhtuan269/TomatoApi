@@ -374,4 +374,15 @@ class UserController extends Controller
             'orders' => $orders
         ], 200);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexWeb()
+    {
+        $users = User::paginate(5);
+        return view('user.index', ['users' => $users]);
+    }
 }
