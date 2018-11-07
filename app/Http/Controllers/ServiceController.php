@@ -212,7 +212,7 @@ class ServiceController extends Controller
      */
     public function indexWeb()
     {
-        return view('service.index2');
+        return view('service.index3');
     }
 
     public function createWeb(){
