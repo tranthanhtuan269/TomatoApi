@@ -69,14 +69,14 @@ $( function() {
         });
 
         var request = $.ajax({
-          url: "{{ url('/') }}/services/sort",
-          method: "POST",
-          data: { content : JSON.stringify(service_list) },
-          dataType: "json"
+            url: "{{ url('/') }}/services/sort",
+            method: "POST",
+            data: { content : JSON.stringify(service_list) },
+            dataType: "json"
         });
          
         request.done(function( msg ) {
-          $( "#log" ).html( msg );
+            $( "#log" ).html( msg );
         });
          
         request.fail(function( jqXHR, textStatus ) {
@@ -90,13 +90,13 @@ $( function() {
         $('#unactive-' + id).removeClass('hidden');
 
         var request2 = $.ajax({
-          url: "{{ url('/') }}/services/active",
-          method: "POST",
-          data: { 
-            id : id,
-            type : 1
-          },
-          dataType: "json"
+            url: "{{ url('/') }}/services/active",
+            method: "POST",
+            data: { 
+                id : id,
+                type : 1
+            },
+            dataType: "json"
         });
          
         request2.done(function( msg ) {
@@ -114,21 +114,21 @@ $( function() {
         $('#unactive-' + id).addClass('hidden');
 
         var request2 = $.ajax({
-          url: "{{ url('/') }}/services/active",
-          method: "POST",
-          data: { 
-            id : id,
-            type : 0
-          },
-          dataType: "json"
+            url: "{{ url('/') }}/services/active",
+            method: "POST",
+            data: { 
+                id : id,
+                type : 0
+            },
+            dataType: "json"
         });
          
         request2.done(function( msg ) {
-          $( "#log" ).html( msg );
+            $( "#log" ).html( msg );
         });
          
         request2.fail(function( jqXHR, textStatus ) {
-          alert( "Request failed: " + textStatus );
+            alert( "Request failed: " + textStatus );
         });
     });
 } );
@@ -146,135 +146,104 @@ $( function() {
                 <h3 class="panel-title">List Service <a href="{{ url('/') }}/services/create" class="pull-right"><i class="fas fa-plus"></i> Add Service</a> </h3>
             </div>
             <div class="panel-body">
-            	<?php
-            		$services = App\Service::where('parent_id', 0)->get();
-            		foreach($services as $serviceChild1){
-            			$listChild1 = App\Service::where('parent_id', $serviceChild1->id)->get();
-            			?>
-            			<div class="row service-parent">
-            				<img src="{{ url('/') }}/public/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild1->name }}
-                            <div class="group-control">
+                <ol class="nested_with_switch vertical">
+                    <?php
+                        $services = App\Service::where('parent_id', 0)->get();
+                        foreach($services as $serviceChild1){
+                            $listChild1 = App\Service::where('parent_id', $serviceChild1->id)->get();
+                            ?>
+                    <li data-id="{{ $serviceChild1->id }}" data-name="{{ $serviceChild1->name }}">
+                        {{ $serviceChild1->name }}
 
-                            <span id="active-{{ $serviceChild1->id }}" data-id="{{ $serviceChild1->id }}" class="active @if($serviceChild1->active == 0) hidden @endif"><i class="fas fa-check" style="color:#00cc00"></i></span>
-                            <span id="unactive-{{ $serviceChild1->id }}" data-id="{{ $serviceChild1->id }}" class="unactive @if($serviceChild1->active == 1) hidden @endif"><i class="fas fa-check"></i></span>
-                            <a href="{{ url('/') }}/services/{{ $serviceChild1->id }}/edit"><i class="fas fa-edit"></i></a>
+                        <span id="hint-{{ $serviceChild1->id }}" class="control-object hint-child" data-hide="{{ $serviceChild1->id }}">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                        <span id="show-{{ $serviceChild1->id }}" class="control-object show-child" data-hide="{{ $serviceChild1->id }}" style="display: none;">
+                            <i class="fas fa-chevron-right"></i>
+                        </span>
+                        <span class="control-object">
                             <form action="{{ url('services/'.$serviceChild1->id) }}" method="POST">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-
-                                <button type="submit" class="delete-btn">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
-                            <span class="hint-child"><i class="fas fa-chevron-right"></i></span>
-                            <span class="show-child" style="display: none;"><i class="fas fa-chevron-down"></i></span>
-                            </div>
-            			</div>
-            			<?php
-            			foreach($listChild1 as $serviceChild2){
-                            $listChild2 = App\Service::where('parent_id', $serviceChild2->id)->orderBy('index', 'asc')->get();
-                                       ?>
-            				<div class="row service-child">
-            					<img src="{{ url('/') }}/public/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild2->name }}
-            					<div class="group-control">
-                                    <span id="active-{{ $serviceChild2->id }}" data-id="{{ $serviceChild2->id }}" class="active  @if($serviceChild2->active == 0) hidden @endif"><i class="fas fa-check" style="color:#00cc00"></i></span>
-                                    <span id="unactive-{{ $serviceChild2->id }}" data-id="{{ $serviceChild2->id }}" class="unactive  @if($serviceChild2->active == 1) hidden @endif"><i class="fas fa-check"></i></span>
-            						<a href="{{ url('/') }}/services/{{ $serviceChild2->id }}/edit"><i class="fas fa-edit"></i></a>
-            						<form action="{{ url('services/'.$serviceChild2->id) }}" method="POST">
-						            {{ csrf_field() }}
-						            {{ method_field('DELETE') }}
-    						            <button type="submit" class="delete-btn">
-    						                <i class="fas fa-trash-alt"></i>
-    						            </button>
-                                    </form>
-                                    <span class="hint-child"><i class="fas fa-chevron-right"></i></span>
-                                    <span class="show-child" style="display: none;"><i class="fas fa-chevron-down"></i></span>
-            					</div>
-	            			</div>
-                            <div class="service-child2-group">
-                				<?php
-                                foreach($listChild2 as $serviceChild3){
-                                    ?>
-                                    <div class="row service-object service-child2" data-parent-1="{{ $serviceChild1->id }}" data-parent-2="{{ $serviceChild2->id }}" data-id="{{ $serviceChild3->id }}">
-                                        <img src="{{ url('/') }}/public/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild3->name }}
-                                        <div class="group-control">
-                                            <span id="active-{{ $serviceChild3->id }}" data-id="{{ $serviceChild3->id }}" class="active  @if($serviceChild3->active == 0) hidden @endif"><i class="fas fa-check" style="color:#00cc00"></i></span>
-                                            <span id="unactive-{{ $serviceChild3->id }}" data-id="{{ $serviceChild3->id }}" class="unactive  @if($serviceChild3->active == 1) hidden @endif"><i class="fas fa-check"></i></span>
-                                            <a href="{{ url('/') }}/services/{{ $serviceChild3->id }}"><i class="fas fa-list"></i></a>
-                                            <a href="{{ url('/') }}/services/{{ $serviceChild3->id }}/edit"><i class="fas fa-edit"></i></a>
-                                            <form action="{{ url('services/'.$serviceChild3->id) }}" method="POST">
-                                                {{ csrf_field() }}
-                                                {{ method_field('DELETE') }}
-
-                                                <button type="submit" class="delete-btn">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <?php
-                                }
-                                ?>
-                            </div>
-                            <?php
-            			}
-            		}
-            	?>
-
-
-
-                        <ol class="nested_with_switch vertical">
-                            <?php
-                                $services = App\Service::where('parent_id', 0)->get();
-                                foreach($services as $serviceChild1){
-                                    $listChild1 = App\Service::where('parent_id', $serviceChild1->id)->get();
-                                    ?>
-                            <li data-id="3" data-name="Item 4">
-                              {{ $serviceChild1->name }}
-
-                              <span class="control-object hint-child"><i class="fas fa-chevron-down"></i></span>
-                              <span class="control-object show-child" style="display: none;"><i class="fas fa-chevron-right"></i></span>
-                              <span class="control-object"><form action="{{ url('services/'.$serviceChild1->id) }}" method="POST">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
 
                                 <button type="submit" class="control-object delete-btn">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
-                              </form>
-                              </span>
-                              <span class="control-object"><a href="{{ url('/') }}/services/{{ $serviceChild1->id }}/edit" class="control-object"><i class="fas fa-edit"></i></a></span>
-                              <span id="unactive-{{ $serviceChild1->id }}" data-id="{{ $serviceChild1->id }}" class="control-object unactive @if($serviceChild1->active == 1) hidden @endif"><i class="fas fa-check"></i></span>
-                              <span id="active-{{ $serviceChild1->id }}" data-id="{{ $serviceChild1->id }}" class="control-object active @if($serviceChild1->active == 0) hidden @endif"><i class="fas fa-check" style="color:#00cc00"></i></span>
-                              <ol>
+                            </form>
+                        </span>
+                        <span class="control-object">
+                            <a href="{{ url('/') }}/services/{{ $serviceChild1->id }}/edit" class="control-object">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </span>
+                        <span id="unactive-{{ $serviceChild1->id }}" data-id="{{ $serviceChild1->id }}" class="control-object unactive @if($serviceChild1->active == 1) hidden @endif">
+                            <i class="fas fa-check"></i>
+                        </span>
+                        <span id="active-{{ $serviceChild1->id }}" data-id="{{ $serviceChild1->id }}" class="control-object active @if($serviceChild1->active == 0) hidden @endif">
+                            <i class="fas fa-check" style="color:#00cc00"></i>
+                        </span>
+                        <ol>
+                            <?php
+                            foreach($listChild1 as $serviceChild2){
+                                $listChild2 = App\Service::where('parent_id', $serviceChild2->id)->orderBy('index', 'asc')->get();
+                               ?>
+                            <li data-id="{{ $serviceChild2->id }}" data-name="{{ $serviceChild2->name }}" class="hide-{{ $serviceChild1->id }}">
+                                {{ $serviceChild2->name }}
+                                <span id="hint-{{ $serviceChild2->id }}" class="control-object hint-child" data-hide="{{ $serviceChild2->id }}">
+                                    <i class="fas fa-chevron-down"></i>
+                                </span>
+                                <span id="show-{{ $serviceChild2->id }}" class="control-object show-child" data-hide="{{ $serviceChild2->id }}" style="display: none;">
+                                    <i class="fas fa-chevron-right"></i>
+                                </span>
+                                <span class="control-object">
+                                    <form action="{{ url('services/'.$serviceChild2->id) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+
+                                        <button type="submit" class="control-object delete-btn">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </span>
+                                <span class="control-object">
+                                    <a href="{{ url('/') }}/services/{{ $serviceChild2->id }}/edit" class="control-object">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </span>
+                                <span id="unactive-{{ $serviceChild2->id }}" data-id="{{ $serviceChild2->id }}" class="control-object unactive @if($serviceChild2->active == 1) hidden @endif">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                                <span id="active-{{ $serviceChild2->id }}" data-id="{{ $serviceChild2->id }}" class="control-object active @if($serviceChild2->active == 0) hidden @endif">
+                                    <i class="fas fa-check" style="color:#00cc00"></i>
+                                </span>
+                                <ol>
                                     <?php
-                                    foreach($listChild1 as $serviceChild2){
+                                    foreach($listChild2 as $serviceChild3){
                                         $listChild2 = App\Service::where('parent_id', $serviceChild2->id)->orderBy('index', 'asc')->get();
                                        ?>
-                                    <li data-id="3-0" data-name="Item 3.1">
-                                        {{ $serviceChild2->name }}
-                                        <span class="control-object">-</span>
-                                        <span class="control-object">x</span>
-                                        <span class="control-object">i</span>
-                                        <span class="control-object">s</span>
-                                        <span class="control-object">h</span>
-                                        <ol>
-                                            <?php
-                                            foreach($listChild2 as $serviceChild3){
-                                                $listChild2 = App\Service::where('parent_id', $serviceChild2->id)->orderBy('index', 'asc')->get();
-                                               ?>
-                                            <li data-id="3-0" data-name="Item 3.1">
-                                                {{ $serviceChild3->name }}
-                                                <span class="control-object">-</span>
-                                                <span class="control-object">x</span>
-                                                <span class="control-object">i</span>
-                                                <span class="control-object">s</span>
-                                                <span class="control-object">h</span>
-                                            </li>
-                                            <?php
-                                                }
-                                            ?>
-                                      </ol>
+                                    <li data-id="{{ $serviceChild3->id }}" data-name="{{ $serviceChild3->name }}" class="hide-{{ $serviceChild2->id }}">
+                                        {{ $serviceChild3->name }}
+                                        <span class="control-object">
+                                            <form action="{{ url('services/'.$serviceChild3->id) }}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+
+                                                <button type="submit" class="control-object delete-btn">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                        </span>
+                                        <span class="control-object">
+                                            <a href="{{ url('/') }}/services/{{ $serviceChild3->id }}/edit" class="control-object">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </span>
+                                        <span id="unactive-{{ $serviceChild3->id }}" data-id="{{ $serviceChild3->id }}" class="control-object unactive @if($serviceChild3->active == 1) hidden @endif">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                        <span id="active-{{ $serviceChild3->id }}" data-id="{{ $serviceChild3->id }}" class="control-object active @if($serviceChild3->active == 0) hidden @endif">
+                                            <i class="fas fa-check" style="color:#00cc00"></i>
+                                        </span>
                                     </li>
                                     <?php
                                         }
@@ -284,7 +253,12 @@ $( function() {
                             <?php
                                 }
                             ?>
-                        </ol>
+                      </ol>
+                    </li>
+                    <?php
+                        }
+                    ?>
+                </ol>
             </div>
         </div>
     </div>
@@ -294,20 +268,19 @@ $( function() {
     
     var oldContainer;
     $("ol.nested_with_switch").sortable({
-      group: 'nested',
-      afterMove: function (placeholder, container) {
+        group: 'nested',
+        afterMove: function (placeholder, container) {
         if(oldContainer != container){
-          if(oldContainer)
-            oldContainer.el.removeClass("active");
-          container.el.addClass("active");
-
-          oldContainer = container;
+            if(oldContainer)
+                oldContainer.el.removeClass("active");
+                container.el.addClass("active");
+                oldContainer = container;
+            }
+        },
+        onDrop: function ($item, container, _super) {
+            container.el.removeClass("active");
+            _super($item, container);
         }
-      },
-      onDrop: function ($item, container, _super) {
-        container.el.removeClass("active");
-        _super($item, container);
-      }
     });
 
     $(".switch-container").on("click", ".switch", function  (e) {
@@ -318,11 +291,13 @@ $( function() {
     $(document).ready(function(){
         $('.hint-child').click(function(){
             $(this).hide();
-            $(this).parent().find('.show-child').show();
+            $('#show-' + $(this).attr('data-hide')).show();
+            $('.hide-' + $(this).attr('data-hide')).hide();
         });
         $('.show-child').click(function(){
             $(this).hide();
-            $(this).parent().find('.hint-child').show();
+            $('#hint-' + $(this).attr('data-hide')).show();
+            $('.hide-' + $(this).attr('data-hide')).show();
         });
     });
 </script>
