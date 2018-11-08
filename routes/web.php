@@ -49,11 +49,18 @@ Route::delete('/news/{id}', 'NewsController@destroyWeb');
 Route::get('/users', 'UserController@indexWeb');
 
 Route::get('/orders', 'OrderController@indexWeb');
+Route::get('/orders/acceptedOrder', 'OrderController@acceptedOrder');
 Route::post('/orders', 'OrderController@storeWeb');
-Route::post('/orders/{id}/accept', 'OrderController@acceptWeb');
-Route::get('/orders/{id}/edit', 'OrderController@editWeb');
-Route::get('/orders/create', 'OrderController@createWeb');
+Route::get('/orders/new', 'OrderController@newOrder');
+Route::get('/orders/accepted', 'OrderController@acceptedOrder');
+Route::get('/orders/paid', 'OrderController@paidOrder');
+Route::get('/orders/cancel', 'OrderController@cancelOrder');
 Route::get('/orders/{id}', 'OrderController@viewWeb');
+Route::get('/orders/{id}/edit', 'OrderController@editWeb');
+Route::post('/orders/{id}/accept', 'OrderController@acceptWeb');
+Route::post('/orders/{id}/paid', 'OrderController@paidWeb');
+Route::post('/orders/{id}/cancel', 'OrderController@cancelWeb');
+Route::get('/orders/create', 'OrderController@createWeb');
 Route::put('/orders/{id}', 'OrderController@updateWeb');
 Route::delete('/orders/{id}', 'OrderController@destroyWeb');
 

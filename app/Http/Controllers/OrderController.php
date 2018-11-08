@@ -414,6 +414,50 @@ class OrderController extends Controller
         return view('order.index', ['orders' => $orders]);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function newOrder()
+    {
+        $orders = Order::orderBy('start_time', 'desc')->where('state', 0)->paginate(15);
+        return view('order.new', ['orders' => $orders]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function acceptedOrder()
+    {
+        $orders = Order::orderBy('start_time', 'desc')->where('state', 1)->paginate(15);
+        return view('order.accept', ['orders' => $orders]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function paidOrder()
+    {
+        $orders = Order::orderBy('start_time', 'desc')->where('state', 2)->paginate(15);
+        return view('order.paid', ['orders' => $orders]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function cancelOrder()
+    {
+        $orders = Order::orderBy('start_time', 'desc')->where('state', 3)->paginate(15);
+        return view('order.cancel', ['orders' => $orders]);
+    }
+
     public function acceptWeb($id){
         $order = Order::find($id);
         if(isset($order)){
@@ -423,10 +467,29 @@ class OrderController extends Controller
         return back();
     }
 
+    public function paidWeb($id){
+        $order = Order::find($id);
+        if(isset($order)){
+            $order->state = 2;
+            $order->save();
+        }
+        return back();
+    }
+
+    public function cancelWeb($id){
+        $order = Order::find($id);
+        if(isset($order)){
+            $order->state = 3;
+            $order->save();
+        }
+        return back();
+    }
+
     public function destroyWeb($id){
         $order = Order::find($id);
         if(isset($order)){
-            $order->delete();
+            $order->state = 3;
+            $order->save();
         }
         return back();
     }

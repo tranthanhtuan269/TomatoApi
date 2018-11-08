@@ -5,13 +5,13 @@
     <div class="col-sm-12"><h2 class="text-center">HSP Administrator</h2></div>
     <div class="clearfix"></div>
     <div class="col-sm-3">
-        @component('components.menuleft', ['active' => 'orders'])
+        @component('components.menuleft', ['active' => 'cancel'])
         @endcomponent
     </div>
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">List Orders </h3>
+                <h3 class="panel-title">List Cancel Orders </h3>
             </div>
             <div class="panel-body">
             	<?php
@@ -45,9 +45,9 @@
                                 <i class="fas fa-check"></i> Duyệt và gửi đi
                             </button>
                         </form>
-                        <form action="{{ url('orders/'.$order->id) }}" method="POST">
+                        <form action="{{ url('orders/'.$order->id.'/cancel') }}" method="POST">
                             {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
+                            {{ method_field('POST') }}
 
                             <button type="submit" class="btn btn-danger">
                                 <i class="fas fa-trash-alt"></i> Hủy
@@ -62,9 +62,9 @@
                                 <i class="fas fa-check"></i> Đã Duyệt và gửi đi
                             </button>
                         </form>
-                        <form action="{{ url('orders/'.$order->id) }}" method="POST">
+                        <form action="{{ url('orders/'.$order->id.'/cancel') }}" method="POST">
                             {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
+                            {{ method_field('POST') }}
 
                             <button type="submit" class="btn btn-danger">
                                 <i class="fas fa-trash-alt"></i> Hủy
