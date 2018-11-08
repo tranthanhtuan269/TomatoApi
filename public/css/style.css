@@ -126,7 +126,6 @@
 
 .page-content .active,
 .page-content .unactive{
-	float: left;
 	cursor: pointer;
 }
 

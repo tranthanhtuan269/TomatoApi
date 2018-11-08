@@ -232,22 +232,20 @@ $( function() {
                             <li data-id="3" data-name="Item 4">
                               {{ $serviceChild1->name }}
 
-                              <span id="active-{{ $serviceChild1->id }}" data-id="{{ $serviceChild1->id }}" class="active @if($serviceChild1->active == 0) hidden @endif"><i class="fas fa-check" style="color:#00cc00"></i></span>
-                            <span id="unactive-{{ $serviceChild1->id }}" data-id="{{ $serviceChild1->id }}" class="unactive @if($serviceChild1->active == 1) hidden @endif"><i class="fas fa-check"></i></span>
-                            <a href="{{ url('/') }}/services/{{ $serviceChild1->id }}/edit"><i class="fas fa-edit"></i></a>
-                            <form action="{{ url('services/'.$serviceChild1->id) }}" method="POST">
+                              <span class="control-object hint-child"><i class="fas fa-chevron-down"></i></span>
+                              <span class="control-object show-child" style="display: none;"><i class="fas fa-chevron-right"></i></span>
+                              <span class="control-object"><form action="{{ url('services/'.$serviceChild1->id) }}" method="POST">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
 
-                                <button type="submit" class="delete-btn">
+                                <button type="submit" class="control-object delete-btn">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
-                            </form>
-                            <span class="hint-child"><i class="fas fa-chevron-right"></i></span>
-                            <span class="show-child" style="display: none;"><i class="fas fa-chevron-down"></i></span>
-
-                              <span class="control-object">-</span>
-                              <span class="control-object">x</span>
+                              </form>
+                              </span>
+                              <span class="control-object"><a href="{{ url('/') }}/services/{{ $serviceChild1->id }}/edit" class="control-object"><i class="fas fa-edit"></i></a></span>
+                              <span id="unactive-{{ $serviceChild1->id }}" data-id="{{ $serviceChild1->id }}" class="control-object unactive @if($serviceChild1->active == 1) hidden @endif"><i class="fas fa-check"></i></span>
+                              <span id="active-{{ $serviceChild1->id }}" data-id="{{ $serviceChild1->id }}" class="control-object active @if($serviceChild1->active == 0) hidden @endif"><i class="fas fa-check" style="color:#00cc00"></i></span>
                               <ol>
                                     <?php
                                     foreach($listChild1 as $serviceChild2){
@@ -257,6 +255,9 @@ $( function() {
                                         {{ $serviceChild2->name }}
                                         <span class="control-object">-</span>
                                         <span class="control-object">x</span>
+                                        <span class="control-object">i</span>
+                                        <span class="control-object">s</span>
+                                        <span class="control-object">h</span>
                                         <ol>
                                             <?php
                                             foreach($listChild2 as $serviceChild3){
@@ -266,6 +267,9 @@ $( function() {
                                                 {{ $serviceChild3->name }}
                                                 <span class="control-object">-</span>
                                                 <span class="control-object">x</span>
+                                                <span class="control-object">i</span>
+                                                <span class="control-object">s</span>
+                                                <span class="control-object">h</span>
                                             </li>
                                             <?php
                                                 }
