@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Page;
+use App\User;
+use App\Common\Helper;
 
 class HomeController extends Controller
 {
@@ -99,15 +101,38 @@ class HomeController extends Controller
     }
 
     public function getContent(Request $request){
-            if(isset($request->type)){
+        if(isset($request->phone) && isset($request->type)){
+            $user = User::where('phone', Helper::removePlusInPhone($request->phone))->first();
+            if(isset($user)){
                 $page = Page::where('key', $request->type)->first();
+                return response()->json([
+                    'status_code' => 200,
+                    'message' => 'Success',
+                    'content' => $user->code,
+                    'content2' => $page->content
+                ], 200);
             }
-    	
-    	return response()->json([
-	            'status_code' => 200,
-	            'message' => 'Success',
-	            'content' => $page->content
-	        ], 200);
+        }
+
+        if(isset($request->type)){
+            if(!isset($request->type2)){
+                $page = Page::where('key', $request->type)->first();
+                return response()->json([
+                    'status_code' => 200,
+                    'message' => 'Success',
+                    'content' => $page->content
+                ], 200);
+            }else{
+                $page = Page::where('key', $request->type)->first();
+                $page2 = Page::where('key', $request->type2)->first();
+                return response()->json([
+                    'status_code' => 200,
+                    'message' => 'Success',
+                    'content' => $page->content,
+                    'content2' => $page2->content
+                ], 200);
+            }
+        }
     }  
 
     public function pages(Request $request){
