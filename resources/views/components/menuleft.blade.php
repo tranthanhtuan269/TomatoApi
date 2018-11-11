@@ -55,9 +55,14 @@
             Rewards
         </a>
     </li>
+    <li class="list-group-item menu-link">
+        <a href="{{ url('/') }}/pages?type=invite" class="text-capitalize">
+            Invite
+        </a>
+    </li>
 	<li class="list-group-item menu-link">
-		<a href="{{ url('/') }}/pages?type=invite" class="text-capitalize">
-    		Invite
+		<a href="{{ url('/') }}/pages?type=warranties" class="text-capitalize">
+    		Warranties
     	</a>
 	</li>
 	<li class="list-group-item menu-link">
