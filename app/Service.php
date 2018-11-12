@@ -20,6 +20,9 @@ class Service extends Model
     protected $fillable = [
         'icon',
         'name',
+        'name_en',
+        'name_ja',
+        'name_ko',
         'parent_id',
         'index',
         'active'
@@ -35,6 +38,14 @@ class Service extends Model
     
     public function services(){
         return $this->hasMany('App\Service', 'parent_id')->where('active', 1)->orderBy('index', 'asc');
+    }
+
+    /**
+     * The roles that belong to the user.
+     */
+    public function partner()
+    {
+        return $this->belongsToMany('App\Partner', 'partner_service', 'partner_id', 'service_id');
     }
 
     public static function getServiceParent($serviceID){

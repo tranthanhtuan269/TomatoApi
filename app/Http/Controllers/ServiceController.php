@@ -224,6 +224,7 @@ class ServiceController extends Controller
         $service = new Service;
         $service->name = $request->name;
         $service->parent_id = $request->parent_id;
+        $service->icon = $request->icon;
         $service->save();
         return redirect('/services');
     }
@@ -276,6 +277,7 @@ class ServiceController extends Controller
         $service = Service::find($id);
         $service->name = $request->name;
         $service->parent_id = $request->parent_id;
+        $service->icon = $request->icon;
         $service->save();
         return redirect('/services');
     }
