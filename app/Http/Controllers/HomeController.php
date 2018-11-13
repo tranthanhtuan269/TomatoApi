@@ -143,6 +143,9 @@ class HomeController extends Controller
     public function updatePage(Request $request, $id){
         $page = Page::find($id);
         $page->content = $request->content;
+        $page->content_en = $request->content_en;
+        $page->content_jp = $request->content_jp;
+        $page->content_ko = $request->content_ko;
         $page->save();
         return back();
     }
