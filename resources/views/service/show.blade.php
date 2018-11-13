@@ -19,7 +19,7 @@
             	<?php
             		foreach($packages as $packageView){
             			?>
-            			<div class="row service-parent">
+            			<div class="row service-parent package-list">
             				<img src="{{ url('/') }}/public/images/{{ $packageView->image }}" width="50px">{{ $packageView->name }}
         					<div class="group-control">
         						<a href="{{ url('/') }}/packages/{{ $packageView->id }}/edit"><i class="fas fa-edit"></i></a>

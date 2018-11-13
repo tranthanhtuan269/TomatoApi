@@ -238,6 +238,11 @@ $( function() {
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                         </span>
+                                        <span class="control-object">
+                                            <a href="{{ url('/') }}/services/{{ $serviceChild3->id }}">
+                                                <i class="fas fa-list"></i>
+                                            </a>
+                                        </span>
                                         <span id="unactive-{{ $serviceChild3->id }}" data-id="{{ $serviceChild3->id }}" class="control-object unactive @if($serviceChild3->active == 1) hidden @endif">
                                             <i class="fas fa-check"></i>
                                         </span>
