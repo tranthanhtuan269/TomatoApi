@@ -145,7 +145,7 @@ class HomeController extends Controller
         $page = Page::find($id);
         $page->content = $request->content;
         $page->content_en = $request->content_en;
-        $page->content_jp = $request->content_jp;
+        $page->content_ja = $request->content_ja;
         $page->content_ko = $request->content_ko;
         $page->save();
         return back();
