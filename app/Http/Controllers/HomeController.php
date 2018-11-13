@@ -159,7 +159,7 @@ class HomeController extends Controller
     public function updateSettings(Request $request, $id){
         $setting = Setting::find($id);
         $setting->value = $request->value;
-        $page->save();
+        $setting->save();
         return back();
     }
 
