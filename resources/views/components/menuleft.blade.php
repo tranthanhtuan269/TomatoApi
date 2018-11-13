@@ -1,6 +1,6 @@
 <?php
 
-	$list = ['services', 'news', 'users'];
+	$list = ['services', 'news', 'users', 'coupons'];
 
 ?>
 <ul class="list-group">
@@ -54,16 +54,6 @@
     		Why use HSP
     	</a>
 	</li>
-	<li class="list-group-item menu-link">
-		<a href="{{ url('/') }}/pages?type=coupon" class="text-capitalize">
-    		Coupon
-    	</a>
-	</li>
-    <li class="list-group-item menu-link">
-        <a href="{{ url('/') }}/pages?type=rewards" class="text-capitalize">
-            Rewards
-        </a>
-    </li>
     <li class="list-group-item menu-link">
         <a href="{{ url('/') }}/pages?type=invite" class="text-capitalize">
             Invite
