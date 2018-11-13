@@ -54,6 +54,9 @@ class PackageController extends Controller
 
         $package = new Package([
             'name' => $request->name,
+            'name_en' => $request->name_en,
+            'name_ja' => $request->name_ja,
+            'name_ko' => $request->name_ko,
             'price' => $request->price,
             'image' => $request->image,
             'service_id' => $request->service_id
@@ -135,6 +138,9 @@ class PackageController extends Controller
 
         if($package){
             $package->name = $request->name;
+            $package->name_en = $request->name_en;
+            $package->name_ja = $request->name_ja;
+            $package->name_ko = $request->name_ko;
             $package->price = $request->price;
             $package->image = $request->image;
             $package->service_id = $request->service_id;

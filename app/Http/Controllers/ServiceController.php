@@ -223,6 +223,9 @@ class ServiceController extends Controller
     public function storeWeb(Request $request){
         $service = new Service;
         $service->name = $request->name;
+        $service->name_en = $request->name_en;
+        $service->name_ja = $request->name_ja;
+        $service->name_ko = $request->name_ko;
         $service->parent_id = $request->parent_id;
         $service->icon = $request->icon;
         $service->save();
@@ -276,6 +279,9 @@ class ServiceController extends Controller
     public function updateWeb(Request $request, $id){
         $service = Service::find($id);
         $service->name = $request->name;
+        $service->name_en = $request->name_en;
+        $service->name_ja = $request->name_ja;
+        $service->name_ko = $request->name_ko;
         $service->parent_id = $request->parent_id;
         $service->icon = $request->icon;
         $service->save();

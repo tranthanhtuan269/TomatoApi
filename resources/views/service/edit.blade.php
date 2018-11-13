@@ -40,6 +40,24 @@
                             <input type="text" class="form-control" name="name" placeholder="Name" value="{{ $service->name }}">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">English Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="name_en" placeholder="Name" value="{{ $service->name_en }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Japan Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="name_ja" placeholder="Name" value="{{ $service->name_ja }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Korea Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="name_ko" placeholder="Name" value="{{ $service->name_ko }}">
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label">Parent Id</label>

@@ -36,6 +36,24 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">English Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="name_en" placeholder="ENGLISH Name" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Japan Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="name_ja" placeholder="JAPAN Name" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Korea Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="name_ko" placeholder="KOREA Name" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label">Parent Id</label>
                         <div class="col-sm-10">
                             <select name="parent_id" id="service" class="form-control">
