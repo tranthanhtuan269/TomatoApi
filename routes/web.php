@@ -67,5 +67,8 @@ Route::delete('/orders/{id}', 'OrderController@destroyWeb');
 Route::get('/pages', 'HomeController@pages');
 Route::put('/pages/{id}', 'HomeController@updatePage');
 
+Route::get('/settings', 'HomeController@settings');
+Route::put('/settings/{id}', 'HomeController@updateSettings');
+
 Route::post('/images/uploadImage', 'HomeController@uploadImage');
 

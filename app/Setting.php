@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Page extends Model
+class Setting extends Model
 {
     public $timestamps = false;
     /**
@@ -13,6 +13,6 @@ class Page extends Model
      * @var array
      */
     protected $fillable = [
-        'key', 'content', 'content_en', 'content_ja', 'content_ko'
+        'key', 'value'
     ];
 }

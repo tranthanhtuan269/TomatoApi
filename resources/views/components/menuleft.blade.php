@@ -39,6 +39,15 @@
 </ul>
 
 <ul class="list-group">
+    <li class="list-group-item active">Setting</li>
+    <li class="list-group-item menu-link">
+        <a href="{{ url('/') }}/settings?type=rewards" class="text-capitalize">
+            Rewards
+        </a>
+    </li>
+</ul>
+
+<ul class="list-group">
 	<li class="list-group-item active">Page</li>
 	<li class="list-group-item menu-link">
 		<a href="{{ url('/') }}/pages?type=whyUse" class="text-capitalize">

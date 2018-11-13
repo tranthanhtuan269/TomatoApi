@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Page;
+use App\Setting;
 use App\User;
 use App\Common\Helper;
 
@@ -146,6 +147,18 @@ class HomeController extends Controller
         $page->content_en = $request->content_en;
         $page->content_jp = $request->content_jp;
         $page->content_ko = $request->content_ko;
+        $page->save();
+        return back();
+    }
+
+    public function settings(Request $request){
+        $setting = Setting::where('key', $request->type)->first();
+        return view('setting.edit', ['setting' => $setting]);
+    }
+
+    public function updateSettings(Request $request, $id){
+        $setting = Setting::find($id);
+        $setting->value = $request->value;
         $page->save();
         return back();
     }

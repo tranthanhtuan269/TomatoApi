@@ -472,6 +472,9 @@ class OrderController extends Controller
         if(isset($order)){
             $order->state = 2;
             $order->save();
+            if($order->user->presenter_id != '' && $order->user->presenter_id != $order->user->code){
+                Helper::payToPresenter($order->user->presenter_id);
+            }
         }
         return back();
     }

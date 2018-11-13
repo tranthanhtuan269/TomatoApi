@@ -37,4 +37,12 @@ Class Helper{
                         $lastOut = substr($lastInt, 0, 6);
                         return $first . $lastOut;
             }
+
+            public static function payToPresenter($code){
+                $user = User::where('code', $code)->first();
+                if($user){
+                    $user->coin = $user->coin + 10;
+                    $user->save();
+                }
+            }
 }
