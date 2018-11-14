@@ -18,6 +18,9 @@ class ServiceTransformer extends TransformerAbstract
         return [
             'id' => $service->id,
             'name' => $service->name,
+            'name_en' => $service->name_en,
+            'name_ja' => $service->name_ja,
+            'name_ko' => $service->name_ko,
             'icon' => $service->icon,
             'index' => $service->index,
             'services' => $service->services,

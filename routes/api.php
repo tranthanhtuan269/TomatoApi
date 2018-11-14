@@ -61,10 +61,6 @@ Route::post('packages', 'PackageController@store');
 Route::put('packages/{id}', 'PackageController@update');
 Route::delete('packages/{id}', 'PackageController@destroy');
 
-Route::post('services', 'ServiceController@store');
-Route::put('services/{id}', 'ServiceController@update');
-Route::delete('services/{id}', 'ServiceController@destroy');
-
 Route::post('news', 'NewsController@store');
 Route::put('news/{id}', 'NewsController@update');
 Route::delete('news/{id}', 'NewsController@destroy');

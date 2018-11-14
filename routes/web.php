@@ -72,5 +72,9 @@ Route::put('/settings/{id}', 'HomeController@updateSettings');
 
 Route::resource('coupons', 'CouponController');
 
+Route::get('reports/daily', 'ReportController@daily');
+Route::get('reports/weekly', 'ReportController@weekly');
+Route::get('reports/monthly', 'ReportController@monthly');
+
 Route::post('/images/uploadImage', 'HomeController@uploadImage');
 

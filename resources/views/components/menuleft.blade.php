@@ -39,6 +39,25 @@
 </ul>
 
 <ul class="list-group">
+    <li class="list-group-item active">Report</li>
+    <li class="list-group-item menu-link @if($active == 'daily') actived @endif">
+        <a href="{{ url('/') }}/reports/daily" class="text-capitalize">
+            Daily Report
+        </a>
+    </li>
+    <li class="list-group-item menu-link @if($active == 'weekly') actived @endif">
+        <a href="{{ url('/') }}/reports/weekly" class="text-capitalize">
+            Weekly Report
+        </a>
+    </li>
+    <li class="list-group-item menu-link @if($active == 'monthly') actived @endif">
+        <a href="{{ url('/') }}/reports/monthly" class="text-capitalize">
+            Monthly Report
+        </a>
+    </li>
+</ul>
+
+<ul class="list-group">
     <li class="list-group-item active">Setting</li>
     <li class="list-group-item menu-link">
         <a href="{{ url('/') }}/settings?type=rewards" class="text-capitalize">

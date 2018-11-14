@@ -462,6 +462,7 @@ class OrderController extends Controller
         $order = Order::find($id);
         if(isset($order)){
             $order->state = 1;
+            $order->updated_at = date("Y-m-d H:i:s");
             $order->save();
         }
         return back();
@@ -470,11 +471,13 @@ class OrderController extends Controller
     public function paidWeb($id){
         $order = Order::find($id);
         if(isset($order)){
+            // save to report
+            Helper::calculator($order);
+
+            // change status of order
             $order->state = 2;
+            $order->updated_at = date("Y-m-d H:i:s");
             $order->save();
-            if($order->user->presenter_id != '' && $order->user->presenter_id != $order->user->code){
-                Helper::payToPresenter($order->user->presenter_id);
-            }
         }
         return back();
     }
@@ -483,6 +486,7 @@ class OrderController extends Controller
         $order = Order::find($id);
         if(isset($order)){
             $order->state = 3;
+            $order->updated_at = date("Y-m-d H:i:s");
             $order->save();
         }
         return back();
@@ -492,6 +496,7 @@ class OrderController extends Controller
         $order = Order::find($id);
         if(isset($order)){
             $order->state = 3;
+            $order->updated_at = date("Y-m-d H:i:s");
             $order->save();
         }
         return back();

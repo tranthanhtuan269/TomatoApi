@@ -6,9 +6,32 @@ use Illuminate\Http\Request;
 use App\Transformers\ServiceTransformer;
 use App\Service;
 use App\Package;
+use Cache;
 
 class ServiceController extends Controller
 {
+    private $services;
+    private $parentServices;
+
+    public function __construct()
+    {
+        $this->parentServices = Cache::remember('parentServices', 1440, function() {
+            return Service::where('parent_id', 0)->where('active', 1)->get();
+        });
+
+        $this->services = Cache::remember('services', 1440, function() {
+            $arr = [];
+            foreach($this->parentServices as $obj){
+                $obj2 = Service::where('parent_id', '=', $obj->id)->where('active', 1)->get();
+                $arr[$obj->id] = fractal()
+                    ->collection($obj2)
+                    ->parseIncludes(['packages', 'services'])
+                    ->transformWith(new ServiceTransformer)
+                    ->toArray();
+            }
+            return $arr;
+        });
+    }
     /**
      * Display a listing of the resource.
      *
@@ -24,53 +47,8 @@ class ServiceController extends Controller
         return response()->json([
             'status_code' => 200,
             'message' => 'List service',
-            'service' => $service
+            'service' => $this->services
         ], 200);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $validator = \Validator::make($request->all(), [
-            'name' => 'required|string|max:255'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                    'status_code' => 422,
-                    'message' => 'Failed to create the service.',
-                    'errors' => $validator->errors()->all()
-                ], 200);
-        }
-
-        $service = new Service([
-            'icon' => $request->icon,
-            'name' => $request->name,
-            'parent_id' => isset($request->parent_id) ? $request->parent_id : 0,
-        ]);
-
-        if($service->save()){
-            $item = fractal()
-                ->item($service)
-                ->transformWith(new ServiceTransformer)
-                ->toArray();
-
-            return response()->json([
-                'status_code' => 201,
-                'message' => 'The service has been created',
-                'service' => $item
-            ], 201);    
-        }else{
-            return response()->json([
-                'status_code' => 204,
-                'message' => 'Failed to create a new service.',
-            ], 200);
-        }
     }
 
     /**
@@ -109,98 +87,18 @@ class ServiceController extends Controller
      */
     public function subservice($id)
     {
-        $services = Service::where('parent_id', '=', $id)->where('active', 1)->get();
-
-        $finder = fractal()
-            ->collection($services)
-            ->parseIncludes(['packages', 'services'])
-            ->transformWith(new ServiceTransformer)
-            ->toArray();
-
-        return response()->json([
-            'status_code' => 200,
-            'message' => 'OK',
-            'service' => $finder
-        ], 200);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $validator = \Validator::make($request->all(), [
-            'name' => 'required|string|max:255'
-        ]);
-
-        if ($validator->fails()) {
+        // $services = Service::where('parent_id', '=', $id)->where('active', 1)->get();
+        if($id == 0){
             return response()->json([
-                    'status_code' => 422,
-                    'message' => 'Failed to update the service.',
-                    'errors' => $validator->errors()->all()
-                ], 200);
-        }
-
-        $service = Service::find($id);
-
-        if($service){
-            $service->icon = $request->icon;
-            $service->name = $request->name;
-            $service->parent_id = isset($request->parent_id) ? $request->parent_id : 0;
-            if($service->save()){
-                $item = fractal()
-                    ->item($service)
-                    ->transformWith(new ServiceTransformer)
-                    ->toArray();
-
-                return response()->json([
-                    'status_code' => 201,
-                    'message' => 'The service has been updated',
-                    'service' => $item
-                ], 201);    
-            }else{
-                return response()->json([
-                    'status_code' => 202,
-                    'message' => 'Failed to update a service',
-                ], 200);
-            }
-        }else{
-            return response()->json([
-                'status_code' => 404,
-                'message' => 'Not found this service.',
+                'status_code' => 200,
+                'message' => 'OK',
+                'service' => $this->services
             ], 200);
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $service = Service::find($id);
-        if($service){
-            if($service->delete()){
-                return response()->json([
-                    'status_code' => 200,
-                    'message' => 'Delete this service successfully.'
-                ], 200);
-            }else{
-                return response()->json([
-                    'status_code' => 202,
-                    'message' => 'Failed to delete this service.',
-                ], 202);
-            }
         }else{
             return response()->json([
-                'status_code' => 404,
-                'message' => 'Not found this service.',
+                'status_code' => 200,
+                'message' => 'OK',
+                'service' => $this->services[$id]
             ], 200);
         }
     }
@@ -285,6 +183,8 @@ class ServiceController extends Controller
         $service->parent_id = $request->parent_id;
         $service->icon = $request->icon;
         $service->save();
+        Cache::forget('services');
+        Cache::forget('parentServices');
         return redirect('/services');
     }
 
@@ -297,6 +197,8 @@ class ServiceController extends Controller
         $service = Service::find($id);
         if(isset($service)){
             $service->delete();
+            Cache::forget('services');
+            Cache::forget('parentServices');
         }
         return back();
     }

@@ -17,7 +17,7 @@
             </div>
             <div class="panel-body">
                 <div class="form-group">
-                    <div class="col-sm-12" style="color:red;"><b><i>{{ $setting->key }}</i></b></div>
+                    <div class="col-sm-12" style="color:red;"><b><i>{{ ucwords($setting->key) }}</i></b></div>
                     <div class="col-sm-12">
                     <input type="text" class="form-control" name="value" placeholder="Name" value="{{ $setting->value }}">
                     </div>
