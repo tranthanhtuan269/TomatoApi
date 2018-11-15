@@ -5,37 +5,35 @@
     <div class="col-sm-12"><h2 class="text-center">HSP Administrator</h2></div>
     <div class="clearfix"></div>
     <div class="col-sm-3">
-        @component('components.menuleft', ['active' => 'packages'])
+        @component('components.menuleft', ['active' => 'daily'])
         @endcomponent
     </div>
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <?php $service = \App\Service::find($id); ?>
-                <h3 class="panel-title">List Package of "{{ $service->name }}" of "{{ $service->parent()->first()->name }}" <a href="{{ url('/') }}/packages/create" class="pull-right"><i class="fas fa-plus"></i> Add package</a></h3>
+                <h3 class="panel-title">Show ORDER-{{ $order->id }} </h3>
             </div>
             <div class="panel-body">
-            
-            	<?php
-            		foreach($packages as $packageView){
-            			?>
-            			<div class="row service-parent">
-            				<img src="{{ url('/') }}/public/images/{{ $packageView->image }}" width="50px">{{ $packageView->name }}
-        					<div class="group-control">
-        						<a href="{{ url('/') }}/packages/{{ $packageView->id }}/edit"><i class="fas fa-edit"></i></a>
-        						<form action="{{ url('packages/'.$packageView->id) }}" method="POST">
-						            {{ csrf_field() }}
-						            {{ method_field('DELETE') }}
-
-						            <button type="submit" class="delete-btn">
-						                <i class="fas fa-trash-alt"></i>
-						            </button>
-						        </form>
-        					</div>
-            			</div>
-            			<?php
-            		}
-            	?>
+                <div class="row order-row">
+                    <div class="title-order">
+                        <b><i>ORDER-{{ $order->id }}</i></b>
+                    </div>
+                    <div class="address">Số tiền: <b style="color: red;"><i>{{ $order->price / 1000 }} K</i></b></div>
+                    <div class="address">Thực thu: <b style="color: red;"><i>@if(isset($order->promotion_code)) {{ $order->price * 9 / 10000 }} @else {{ $order->price / 1000 }} @endif K</i></b></div>
+                    <div class="starttime">Thời gian bắt đầu: <b><i>{{ date('H:i:s d-m-Y', intval($order->start_time) / 1000) }}</i></b></div>
+                    <div class="username">Họ và Tên: <b><i>{{ $order->username }}</i></b></div>
+                    <div class="userphone">Số điện thoại: <b><i>+{{ $order->user->phone }}</i></b></div>
+                    <div class="address">Địa chỉ: <b><i>{{ $order->number_address }} - {{ $order->address }}</i></b></div>
+                    <div class="address">Mã giới thiệu: <b><i>{{ $order->user->presenter_id }}</i></b></div>
+                    <div class="promotion_code">Mã giảm giá: <b><i>@if(isset($order->promotion_code)) {{ $order->promotion_code }} @else Không có @endif</i></b></div>
+                    <div class="list_packages">
+                        <ul>
+                            @foreach($order->packages as $package)
+                            <li>{{ $package->pivot->number }} {{ $package->name }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

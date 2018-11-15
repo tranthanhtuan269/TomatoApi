@@ -5,13 +5,13 @@
     <div class="col-sm-12"><h2 class="text-center">HSP Administrator</h2></div>
     <div class="clearfix"></div>
     <div class="col-sm-3">
-        @component('components.menuleft', ['active' => 'daily'])
+        @component('components.menuleft', ['active' => 'monthly'])
         @endcomponent
     </div>
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Daily Report {{ date("d-m-Y", strtotime($data->name)) }}</h3>
+                <h3 class="panel-title">Monthly Report - Month: {{ date("m-Y", strtotime($data->name)) }}</h3>
             </div>
             <div class="panel-body">
             <div class="row">
@@ -24,9 +24,8 @@
                             <thead> 
                                 <tr> 
                                     <th>#</th> 
-                                    <th>User Name</th> 
-                                    <th>User Phone</th> 
-                                    <th>Cost</th> 
+                                    <th>Date</th> 
+                                    <th>Cash flow</th> 
                                     <th>Commission</th> 
                                     <th>Promotional</th> 
                                     <th>Created At</th>
@@ -34,16 +33,15 @@
                                 </tr> 
                             </thead>
                             <tbody> 
-                                @foreach($orderList as $order)
+                                @foreach($dailyList as $daily)
                                 <tr> 
-                                    <th scope="row">{{ $order->id }}</th> 
-                                    <td>{{ $order->user->name }}</td> 
-                                    <td>+{{ $order->user->phone }}</td> 
-                                    <td class="text-center"><b>{{ $order->price / 1000 }}</b> K</td> 
-                                    <td class="text-center"><b>{{ $order->rewards / 1000 }}</b> K</td> 
-                                    <td class="text-center"><b>{{ $order->promotional / 1000 }}</b> K</td> 
-                                    <td>{{ date("H:i:s", strtotime($order->created_at)) }}</td> 
-                                    <td><a href="{{ url('/') }}/orders/{{ $order->id }}"><i class="fas fa-info-circle"></i></a></td> 
+                                    <th scope="row">{{ $daily->id }}</th> 
+                                    <td>{{ $daily->name }}</td> 
+                                    <td class="text-center"><b>{{ $daily->total / 1000 }}</b> K</td> 
+                                    <td class="text-center"><b>{{ $daily->rewards / 1000 }}</b> K</td> 
+                                    <td class="text-center"><b>{{ $daily->promotional / 1000 }}</b> K</td> 
+                                    <td>{{ date("H:i:s", strtotime($daily->created_at)) }}</td> 
+                                    <td><a href="{{ url('/') }}/reports/daily?date={{ $daily->name }}"><i class="fas fa-info-circle"></i></a></td> 
                                 </tr>
                                 @endforeach
                             </tbody>

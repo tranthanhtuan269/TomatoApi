@@ -5,7 +5,7 @@
     <div class="col-sm-12"><h2 class="text-center">HSP Administrator</h2></div>
     <div class="clearfix"></div>
     <div class="col-sm-3">
-        @component('components.menuleft', ['active' => 'news'])
+        @component('components.menuleft', ['active' => 'coupons'])
         @endcomponent
     </div>
     <div class="col-sm-9"> 

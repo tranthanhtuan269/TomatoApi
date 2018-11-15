@@ -20,6 +20,7 @@ class WeeklyReport extends Model
      */
     protected $fillable = [
         'name', 
+        'number', 
         'total', 
         'rewards', 
         'promotional'

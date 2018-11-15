@@ -66,6 +66,7 @@ Class Helper{
                 if(!isset($dailyReport)){
                     $dailyReport = new DailyReport;
                     $dailyReport->name = $today;
+                    $dailyReport->number = 0;
                     $dailyReport->total = 0;
                     $dailyReport->rewards = 0;
                     $dailyReport->promotional = 0;
@@ -75,6 +76,7 @@ Class Helper{
                 if(!isset($weeklyReport)){
                     $weeklyReport = new WeeklyReport;
                     $weeklyReport->name = $week;
+                    $weeklyReport->number = 0;
                     $weeklyReport->total = 0;
                     $weeklyReport->rewards = 0;
                     $weeklyReport->promotional = 0;
@@ -84,11 +86,16 @@ Class Helper{
                 if(!isset($monthlyReport)){
                     $monthlyReport = new MonthlyReport;
                     $monthlyReport->name = $month;
+                    $monthlyReport->number = 0;
                     $monthlyReport->total = 0;
                     $monthlyReport->rewards = 0;
                     $monthlyReport->promotional = 0;
                     $monthlyReport->save();
                 }
+
+                $dailyReport->number = $dailyReport->number + 1;
+                $weeklyReport->number = $weeklyReport->number + 1;
+                $monthlyReport->number = $monthlyReport->number + 1;
 
                 $dailyReport->total = $dailyReport->total + $order->price;
                 $weeklyReport->total = $weeklyReport->total + $order->price;

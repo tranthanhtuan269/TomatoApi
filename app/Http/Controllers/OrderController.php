@@ -492,6 +492,11 @@ class OrderController extends Controller
         return back();
     }
 
+    public function viewWeb($id){
+        $order = Order::find($id);
+        return view('order.show', ['order' => $order]);
+    }
+
     public function destroyWeb($id){
         $order = Order::find($id);
         if(isset($order)){
