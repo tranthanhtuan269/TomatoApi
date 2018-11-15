@@ -89,10 +89,18 @@ class ServiceController extends Controller
     {
         // $services = Service::where('parent_id', '=', $id)->where('active', 1)->get();
         if($id == 0){
+            $services = Service::where('parent_id', '=', $id)->where('active', 1)->get();
+
+            $finder = fractal()
+                ->collection($services)
+                ->parseIncludes(['packages', 'services'])
+                ->transformWith(new ServiceTransformer)
+                ->toArray();
+
             return response()->json([
                 'status_code' => 200,
                 'message' => 'OK',
-                'service' => $this->services
+                'service' => $finder
             ], 200);
         }else{
             return response()->json([
