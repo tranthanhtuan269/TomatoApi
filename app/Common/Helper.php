@@ -49,7 +49,7 @@ Class Helper{
                     $rewards = Setting::where('key', 'rewards')->first();
                     $user->coin = $user->coin + (intval($rewards->value) * 1000);
                     if($user->save()){
-                        return (intval($rewards) * 1000);
+                        return (intval($rewards->value) * 1000);
                     }
                 }
                 return 0;
