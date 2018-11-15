@@ -29,7 +29,7 @@
                         <div class="address">Địa chỉ: <b><i>{{ $user->address }}</i></b></div>
                         <div class="address">Mã giới thiệu: <b><i>{{ $user->code }}</i></b></div>
                         <div class="address">Người giới thiệu: <b><i>{{ $user->presenter_id }}</i></b></div>
-                        <div class="address">Số tiền hiện có: <b style="color:red;"><i>{{ $user->coin }}</i></b> K</div>
+                        <div class="address">Số tiền hiện có: <b style="color:red;"><i>{{ $user->coin / 1000 }}</i></b> K</div>
                     </div>
                     <hr />
                 </div>
