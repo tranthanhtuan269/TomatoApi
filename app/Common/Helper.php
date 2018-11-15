@@ -2,6 +2,7 @@
 
 namespace App\Common;
 use App\User;
+use App\Setting;
 use App\Coupon;
 use App\DailyReport;
 use App\WeeklyReport;
