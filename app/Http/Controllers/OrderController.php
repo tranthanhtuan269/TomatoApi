@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Transformers\UserTransformer;
 use App\Transformers\OrderTransformer;
 use App\Common\Helper;
+use App\Coupon;
 use App\Order;
+use App\User;
 
 class OrderController extends Controller
 {
@@ -422,6 +424,25 @@ class OrderController extends Controller
     public function newOrder()
     {
         $orders = Order::orderBy('start_time', 'desc')->where('state', 0)->paginate(15);
+        foreach ($orders as $order) {
+            if($order->promotion_code != '' && $order->promotional != 0){
+                $coupon = Coupon::where('name', $order->promotion_code)->first();
+                if($coupon){
+                    $coup = ($order->price * intval($coupon->value) / 100);
+                    $order->promotional = $coup;
+                    $order->save();
+                }
+            }
+
+            if($order->user->presenter_id != ''){
+                $user = User::where('code', $order->user->presenter_id)->first();
+                if($user){
+                    $rewards = Setting::where('key', 'rewards')->first();
+                    $order->rewards = intval($rewards->value);
+                    $order->save();
+                }
+            }
+        }
         return view('order.new', ['orders' => $orders]);
     }
 
