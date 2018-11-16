@@ -154,7 +154,7 @@ class UserController extends Controller
                 if(isset($presenter)){
                     $user->presenter_id = $request->presenter_id;
                 }else{
-                    $user->presenter_id = "";
+                    $user->presenter_id = "-1";
                 }
             }
 
