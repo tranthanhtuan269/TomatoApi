@@ -150,8 +150,8 @@ class UserController extends Controller
             }
 
             if(isset($request->presenter_id)){
-                $user = User::where("code", $request->presenter_id)->first();
-                if(isset($user)){
+                $presenter = User::where("code", $request->presenter_id)->first();
+                if(isset($presenter)){
                     $user->presenter_id = $request->presenter_id;
                 }else{
                     $user->presenter_id = "";
