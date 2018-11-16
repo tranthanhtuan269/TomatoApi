@@ -183,7 +183,7 @@ class UserController extends Controller
                 return response()->json([
                     'status_code' => 200,
                     'message' => 'The user info has been updated',
-                    'group' => $updated
+                    'user' => $updated
                 ], 200);
             }else{
                 return response()->json([
