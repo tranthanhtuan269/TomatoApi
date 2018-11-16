@@ -135,6 +135,8 @@ class ServiceController extends Controller
         $service->parent_id = $request->parent_id;
         $service->icon = $request->icon;
         $service->save();
+        Cache::forget('services');
+        Cache::forget('parentServices');
         return redirect('/services');
     }
 
@@ -142,6 +144,8 @@ class ServiceController extends Controller
         $service = Service::find($request->id);
         $service->active = !$request->type;
         if($service->save()){
+            Cache::forget('services');
+            Cache::forget('parentServices');
             return response()->json([
                     'status_code' => 200,
                     'message' => 'Active this service successfully.'
@@ -170,6 +174,8 @@ class ServiceController extends Controller
             $service->save();
             $count++;
         }
+        Cache::forget('services');
+        Cache::forget('parentServices');
         return response()->json([
                     'status_code' => 200,
                     'message' => 'Sort services successfully.'

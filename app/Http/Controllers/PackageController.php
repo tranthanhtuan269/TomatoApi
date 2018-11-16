@@ -215,6 +215,8 @@ class PackageController extends Controller
         $package->image = $request->image;
         $package->service_id = $request->service_id;
         $package->save();
+        Cache::forget('services');
+        Cache::forget('parentServices');
         return redirect('/services/'.$package->service_id);
     }
 
@@ -231,6 +233,8 @@ class PackageController extends Controller
         $package->image = $request->image;
         $package->service_id = $request->service_id;
         $package->save();
+        Cache::forget('services');
+        Cache::forget('parentServices');
         return redirect('/services/' . $package->service_id);
     }
 
@@ -239,6 +243,8 @@ class PackageController extends Controller
         if(isset($package)){
             $package->delete();
         }
+        Cache::forget('services');
+        Cache::forget('parentServices');
         return back();
     }
 }
