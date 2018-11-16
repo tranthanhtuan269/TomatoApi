@@ -209,14 +209,14 @@ class PackageController extends Controller
     }
 
     public function storeWeb(Request $request){
+        Cache::forget('services');
+        Cache::forget('parentServices');
         $package = new Package;
         $package->name = $request->name;
         $package->price = $request->price;
         $package->image = $request->image;
         $package->service_id = $request->service_id;
         $package->save();
-        Cache::forget('services');
-        Cache::forget('parentServices');
         return redirect('/services/'.$package->service_id);
     }
 
@@ -227,24 +227,24 @@ class PackageController extends Controller
     }
 
     public function updateWeb(Request $request, $id){
+        Cache::forget('services');
+        Cache::forget('parentServices');
         $package = Package::find($id);
         $package->name = $request->name;
         $package->price = $request->price;
         $package->image = $request->image;
         $package->service_id = $request->service_id;
         $package->save();
-        Cache::forget('services');
-        Cache::forget('parentServices');
         return redirect('/services/' . $package->service_id);
     }
 
     public function destroyWeb($id){
+        Cache::forget('services');
+        Cache::forget('parentServices');
         $package = Package::find($id);
         if(isset($package)){
             $package->delete();
         }
-        Cache::forget('services');
-        Cache::forget('parentServices');
         return back();
     }
 }

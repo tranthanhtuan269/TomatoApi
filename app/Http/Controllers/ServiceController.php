@@ -127,6 +127,8 @@ class ServiceController extends Controller
     }
 
     public function storeWeb(Request $request){
+        Cache::forget('services');
+        Cache::forget('parentServices');
         $service = new Service;
         $service->name = $request->name;
         $service->name_en = $request->name_en;
@@ -135,17 +137,15 @@ class ServiceController extends Controller
         $service->parent_id = $request->parent_id;
         $service->icon = $request->icon;
         $service->save();
-        Cache::forget('services');
-        Cache::forget('parentServices');
         return redirect('/services');
     }
 
     public function activeWeb(Request $request){
+        Cache::forget('services');
+        Cache::forget('parentServices');
         $service = Service::find($request->id);
         $service->active = !$request->type;
         if($service->save()){
-            Cache::forget('services');
-            Cache::forget('parentServices');
             return response()->json([
                     'status_code' => 200,
                     'message' => 'Active this service successfully.'
@@ -159,7 +159,8 @@ class ServiceController extends Controller
     }
 
     public function sortWeb(Request $request){
-        // dd(json_decode($request->content));
+        Cache::forget('services');
+        Cache::forget('parentServices');
         $dataList = json_decode($request->content);
         $count = 0;
         $parent1 = 0;
@@ -174,8 +175,6 @@ class ServiceController extends Controller
             $service->save();
             $count++;
         }
-        Cache::forget('services');
-        Cache::forget('parentServices');
         return response()->json([
                     'status_code' => 200,
                     'message' => 'Sort services successfully.'
@@ -189,6 +188,8 @@ class ServiceController extends Controller
     }
 
     public function updateWeb(Request $request, $id){
+        Cache::forget('services');
+        Cache::forget('parentServices');
         $service = Service::find($id);
         $service->name = $request->name;
         $service->name_en = $request->name_en;
@@ -197,8 +198,6 @@ class ServiceController extends Controller
         $service->parent_id = $request->parent_id;
         $service->icon = $request->icon;
         $service->save();
-        Cache::forget('services');
-        Cache::forget('parentServices');
         return redirect('/services');
     }
 
@@ -208,11 +207,11 @@ class ServiceController extends Controller
     }
 
     public function destroyWeb($id){
+        Cache::forget('services');
+        Cache::forget('parentServices');
         $service = Service::find($id);
         if(isset($service)){
             $service->delete();
-            Cache::forget('services');
-            Cache::forget('parentServices');
         }
         return back();
     }
