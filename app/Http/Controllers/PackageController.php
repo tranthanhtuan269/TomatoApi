@@ -214,6 +214,9 @@ class PackageController extends Controller
         Cache::forget('parentServices');
         $package = new Package;
         $package->name = $request->name;
+        $package->name_en = $request->name_en;
+        $package->name_ja = $request->name_ja;
+        $package->name_ko = $request->name_ko;
         $package->price = $request->price;
         $package->image = $request->image;
         $package->service_id = $request->service_id;
@@ -232,6 +235,9 @@ class PackageController extends Controller
         Cache::forget('parentServices');
         $package = Package::find($id);
         $package->name = $request->name;
+        $package->name_en = $request->name_en;
+        $package->name_ja = $request->name_ja;
+        $package->name_ko = $request->name_ko;
         $package->price = $request->price;
         $package->image = $request->image;
         $package->service_id = $request->service_id;
