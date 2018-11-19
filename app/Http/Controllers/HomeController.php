@@ -236,4 +236,9 @@ class HomeController extends Controller
     {
         return Excel::download(new UsersExport, 'users.xlsx');
     }
+
+    public function feedbacks(Request $request) 
+    {
+        dd($request);
+    }
 }
