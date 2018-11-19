@@ -241,7 +241,7 @@ class HomeController extends Controller
     public function feedbacks(Request $request) 
     {
         if(isset($request->phone) && isset($request->access_token)){
-            $user = User::where("phone", $request->phone)->first();
+            $user = Helper::checkAuth($request->phone, $request->access_token);
             if(isset($user)){
                 $feedback = new Feedback;
                 $feedback->user_id = $user->id;
