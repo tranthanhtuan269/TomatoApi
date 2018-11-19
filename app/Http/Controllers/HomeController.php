@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Page;
 use App\Setting;
 use App\User;
+use App\Feedback;
 use App\Common\Helper;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -239,6 +240,17 @@ class HomeController extends Controller
 
     public function feedbacks(Request $request) 
     {
-        dd($request);
+        if(isset($request->phone) && isset($request->access_token)){
+            $user = User::where("phone", $request->phone)->first();
+            if(isset($user)){
+                $feedback = new Feedback;
+                $feedback->user_id = $user->id;
+                $feedback->content_feedback = $request->content_feedback;
+                if($feedback->save()){
+                    return \Response::json(array('code' => '200', 'message' => 'success'));
+                }
+            }
+        }
+        return \Response::json(array('code' => '403', 'message' => 'unsuccess'));
     }
 }
