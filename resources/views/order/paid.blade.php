@@ -21,7 +21,7 @@
         	    <div class="row order-row">
                     <div class="col-sm-8">
                         <div class="title-order">
-                            <b><i>ORDER-{{ $order->id }}</i></b>
+                            <b><i>ORDER-{{ $order->id }}</i></b><a href="{{ url('/') }}/orders/{{ $order->id }}/edit" class="edit-order"><i class="fas fa-edit"></i></a>
                         </div>
                         <div class="address">Số tiền: <b style="color: red;"><i>{{ $order->price / 1000 }} K</i></b></div>
                         <div class="address">Thực thu: <b style="color: red;"><i>{{ ($order->price - $order->rewards - $order->promotional) / 1000 }} K</i></b></div>

@@ -28,7 +28,7 @@ class ReportController extends Controller
         }else{
             $today =  $request->date;
         }
-        $orderList = Order::where('updated_at', '>', $today . ' 00:00:00')->where('updated_at', '<=', $today . ' 23:59:59')->where('state', '=', 2)->get();
+        $orderList = Order::where('created_at', '>', $today . ' 00:00:00')->where('created_at', '<=', $today . ' 23:59:59')->where('state', '=', 2)->get();
         $data = DailyReport::firstOrCreate(['name' => $today]);
         return view('report.daily', ['orderList' => $orderList, 'data' => $data]);
     }
@@ -38,7 +38,7 @@ class ReportController extends Controller
         $day = date('w');
         $week_start = date('Y-m-d', strtotime('-'.$day.' days'));
         $week_end = date('Y-m-d', strtotime('+'.(6-$day).' days'));
-        $dailyList = DailyReport::where('updated_at', '>', $week_start . ' 00:00:00')->where('updated_at', '<=', $week_end . ' 23:59:59')->get();
+        $dailyList = DailyReport::where('created_at', '>', $week_start . ' 00:00:00')->where('created_at', '<=', $week_end . ' 23:59:59')->get();
         $data = WeeklyReport::firstOrCreate(['name' => $week]);
         return view('report.weekly', ['dailyList' => $dailyList, 'data' => $data]);
     }
@@ -46,7 +46,7 @@ class ReportController extends Controller
     public function monthly(){
         $month = date("Y-m");
         $today = date("Y-m-d");
-        $dailyList = DailyReport::where('updated_at', '>', $month . '-01 00:00:00')->where('updated_at', '<=', $today . ' 23:59:59')->get();
+        $dailyList = DailyReport::where('created_at', '>', $month . '-01 00:00:00')->where('created_at', '<=', $today . ' 23:59:59')->get();
         $data = MonthlyReport::firstOrCreate(['name' => $month]);
         return view('report.monthly', ['dailyList' => $dailyList, 'data' => $data]);
     }

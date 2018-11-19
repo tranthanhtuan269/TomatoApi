@@ -514,6 +514,27 @@ class OrderController extends Controller
         return back();
     }
 
+    public function editWeb($id){
+        $order = Order::find($id);
+        return view('order.edit', ['order' => $order]);
+    }
+
+    public function updateWeb(Request $request, $id){
+        $order = Order::find($id);
+
+        if(isset($order)){
+            // rollback old report
+            Helper::rollback($order);
+
+            $order->price = $request->price;
+            $order->save();
+            
+            // add new price to report
+            Helper::calculator($order);
+        }
+        return redirect('/orders/' . $id);
+    }
+
     public function viewWeb($id){
         $order = Order::find($id);
         return view('order.show', ['order' => $order]);
