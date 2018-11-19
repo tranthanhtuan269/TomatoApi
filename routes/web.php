@@ -77,4 +77,5 @@ Route::get('reports/weekly', 'ReportController@weekly');
 Route::get('reports/monthly', 'ReportController@monthly');
 
 Route::post('/images/uploadImage', 'HomeController@uploadImage');
+Route::get('/export', 'HomeController@export');
 

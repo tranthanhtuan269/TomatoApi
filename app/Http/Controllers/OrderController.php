@@ -70,6 +70,7 @@ class OrderController extends Controller
                 'end_time' => $request->end_time,
                 'state' => 0,
                 'price' => $request->price,
+                'real_price' => $request->price,
                 'username' => $request->username,
                 'email' => $request->email,
                 'promotion_code' => $request->promotion_code,
@@ -429,7 +430,7 @@ class OrderController extends Controller
             if($order->promotion_code != '' && $order->promotional != 0){
                 $coupon = Coupon::where('name', $order->promotion_code)->first();
                 if($coupon){
-                    $coup = ($order->price * intval($coupon->value) / 100);
+                    $coup = ($order->real_price * intval($coupon->value) / 100);
                     $order->promotional = $coup;
                     $order->save();
                 }
@@ -526,7 +527,7 @@ class OrderController extends Controller
             // rollback old report
             Helper::rollback($order);
 
-            $order->price = $request->price;
+            $order->real_price = $request->price;
             $order->save();
             
             // add new price to report

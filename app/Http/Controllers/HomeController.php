@@ -7,6 +7,10 @@ use App\Page;
 use App\Setting;
 use App\User;
 use App\Common\Helper;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
+
 
 class HomeController extends Controller
 {
@@ -226,5 +230,10 @@ class HomeController extends Controller
         {
             return \Response::json(array('code' => '404', 'message' => 'unsuccess', 'image_url' => ""));
         }
+    }
+
+    public function export() 
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
     }
 }

@@ -109,9 +109,9 @@ Class Helper{
                 $weeklyReport->number = $weeklyReport->number + 1;
                 $monthlyReport->number = $monthlyReport->number + 1;
 
-                $dailyReport->total = $dailyReport->total + $order->price;
-                $weeklyReport->total = $weeklyReport->total + $order->price;
-                $monthlyReport->total = $monthlyReport->total + $order->price;
+                $dailyReport->total = $dailyReport->total + $order->real_price;
+                $weeklyReport->total = $weeklyReport->total + $order->real_price;
+                $monthlyReport->total = $monthlyReport->total + $order->real_price;
 
                 if($order->user->presenter_id != '' && $order->user->presenter_id != $order->user->code){
                     $rewards = Helper::payToPresenter($order->user->presenter_id);
@@ -124,7 +124,7 @@ Class Helper{
                 if($order->promotion_code != ''){
                     $coupon = Coupon::where('name', $order->promotion_code)->first();
                     if($coupon){
-                        $coup = ($order->price * intval($coupon->value) / 100);
+                        $coup = ($order->real_price * intval($coupon->value) / 100);
                         $dailyReport->promotional = $dailyReport->promotional + $coup;
                         $weeklyReport->promotional = $weeklyReport->promotional + $coup;
                         $monthlyReport->promotional = $monthlyReport->promotional + $coup;
@@ -180,9 +180,9 @@ Class Helper{
                 $weeklyReport->number = $weeklyReport->number - 1;
                 $monthlyReport->number = $monthlyReport->number - 1;
 
-                $dailyReport->total = $dailyReport->total - $order->price;
-                $weeklyReport->total = $weeklyReport->total - $order->price;
-                $monthlyReport->total = $monthlyReport->total - $order->price;
+                $dailyReport->total = $dailyReport->total - $order->real_price;
+                $weeklyReport->total = $weeklyReport->total - $order->real_price;
+                $monthlyReport->total = $monthlyReport->total - $order->real_price;
 
                 if($order->user->presenter_id != '' && $order->user->presenter_id != $order->user->code){
                     $rewards = Helper::rollbackFromPresenter($order->user->presenter_id);
@@ -195,7 +195,7 @@ Class Helper{
                 if($order->promotion_code != ''){
                     $coupon = Coupon::where('name', $order->promotion_code)->first();
                     if($coupon){
-                        $coup = ($order->price * intval($coupon->value) / 100);
+                        $coup = ($order->real_price * intval($coupon->value) / 100);
                         $dailyReport->promotional = $dailyReport->promotional - $coup;
                         $weeklyReport->promotional = $weeklyReport->promotional - $coup;
                         $monthlyReport->promotional = $monthlyReport->promotional - $coup;

@@ -32,7 +32,7 @@
                             <div class="form-group">
                             <label for="inputEmail3" class="col-sm-4 control-label">Total</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="price" placeholder="Total" value="{{ $order->price }}">
+                                <input type="text" class="form-control" name="price" placeholder="Total" value="{{ $order->real_price }}">
                             </div>
                             </div>
                             <div class="form-group">

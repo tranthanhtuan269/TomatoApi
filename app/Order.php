@@ -20,6 +20,7 @@ class Order extends Model
         'end_time',
         'state',
         'price',
+        'real_price',
         'pay_type',
         'username',
         'email',
