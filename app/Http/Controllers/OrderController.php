@@ -61,6 +61,8 @@ class OrderController extends Controller
 
         $user = Helper::checkAuth($request->phone, $request->access_token);
         if($user){
+            // check promotion code is exist in database;
+            $coupon = Coupon::where("name", $request->promotion_code)->first();
             $order = new Order([
                 'user_id' => $user->id,
                 'address' => $request->address,
@@ -74,9 +76,12 @@ class OrderController extends Controller
                 'username' => $request->username,
                 'email' => $request->email,
                 'promotion_code' => $request->promotion_code,
+                'coupon_value' => isset($coupon) ? $coupon->value : 0,
                 'list_packages' => $request->list_packages,
                 'pay_type' => $request->pay_type
             ]);
+
+            
 
             if($order->save()){
                 // add packages

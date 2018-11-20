@@ -25,6 +25,7 @@ class Order extends Model
         'username',
         'email',
         'promotion_code',
+        'coupon_value',
         'image',
         'list_packages',
         'service_id'
