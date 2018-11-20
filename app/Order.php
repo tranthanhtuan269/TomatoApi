@@ -26,7 +26,8 @@ class Order extends Model
         'email',
         'promotion_code',
         'image',
-        'list_packages'
+        'list_packages',
+        'service_id'
     ];
 
     /**

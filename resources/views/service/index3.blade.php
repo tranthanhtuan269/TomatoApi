@@ -153,7 +153,7 @@ $( function() {
                             $listChild1 = App\Service::where('parent_id', $serviceChild1->id)->get();
                             ?>
                     <li data-id="{{ $serviceChild1->id }}" data-name="{{ $serviceChild1->name }}">
-                        {{ $serviceChild1->name }} - {{ $serviceChild1->name_en }} - {{ $serviceChild1->name_ja }} - {{ $serviceChild1->name_ko }}
+                        <span class="content-text">{{ $serviceChild1->name }} - {{ $serviceChild1->name_en }} - {{ $serviceChild1->name_ja }} - {{ $serviceChild1->name_ko }}</span>
 
                         <span id="hint-{{ $serviceChild1->id }}" class="control-object hint-child" data-hide="{{ $serviceChild1->id }}">
                             <i class="fas fa-chevron-down"></i>
@@ -161,6 +161,7 @@ $( function() {
                         <span id="show-{{ $serviceChild1->id }}" class="control-object show-child" data-hide="{{ $serviceChild1->id }}" style="display: none;">
                             <i class="fas fa-chevron-right"></i>
                         </span>
+                        @if(false)
                         <span class="control-object">
                             <form action="{{ url('services/'.$serviceChild1->id) }}" method="POST">
                                 {{ csrf_field() }}
@@ -171,6 +172,7 @@ $( function() {
                                 </button>
                             </form>
                         </span>
+                        @endif
                         <span class="control-object">
                             <a href="{{ url('/') }}/services/{{ $serviceChild1->id }}/edit" class="control-object">
                                 <i class="fas fa-edit"></i>
@@ -188,13 +190,14 @@ $( function() {
                                 $listChild2 = App\Service::where('parent_id', $serviceChild2->id)->orderBy('index', 'asc')->get();
                                ?>
                             <li data-id="{{ $serviceChild2->id }}" data-name="{{ $serviceChild2->name }}" class="hide-{{ $serviceChild1->id }}">
-                                {{ $serviceChild2->name }} - {{ $serviceChild2->name_en }} - {{ $serviceChild2->name_ja }} - {{ $serviceChild2->name_ko }}
+                                <span class="content-text">{{ $serviceChild2->name }} - {{ $serviceChild2->name_en }} - {{ $serviceChild2->name_ja }} - {{ $serviceChild2->name_ko }}</span>
                                 <span id="hint-{{ $serviceChild2->id }}" class="control-object hint-child" data-hide="{{ $serviceChild2->id }}">
                                     <i class="fas fa-chevron-down"></i>
                                 </span>
                                 <span id="show-{{ $serviceChild2->id }}" class="control-object show-child" data-hide="{{ $serviceChild2->id }}" style="display: none;">
                                     <i class="fas fa-chevron-right"></i>
                                 </span>
+                                @if(false)
                                 <span class="control-object">
                                     <form action="{{ url('services/'.$serviceChild2->id) }}" method="POST">
                                         {{ csrf_field() }}
@@ -205,6 +208,7 @@ $( function() {
                                         </button>
                                     </form>
                                 </span>
+                                @endif
                                 <span class="control-object">
                                     <a href="{{ url('/') }}/services/{{ $serviceChild2->id }}/edit" class="control-object">
                                         <i class="fas fa-edit"></i>
@@ -222,7 +226,8 @@ $( function() {
                                         $listChild2 = App\Service::where('parent_id', $serviceChild2->id)->orderBy('index', 'asc')->get();
                                        ?>
                                     <li data-id="{{ $serviceChild3->id }}" data-name="{{ $serviceChild3->name }}" class="hide-{{ $serviceChild2->id }}">
-                                        {{ $serviceChild3->name }} - {{ $serviceChild3->name_en }} - {{ $serviceChild3->name_ja }} - {{ $serviceChild3->name_ko }}
+                                        <span class="content-text">{{ $serviceChild3->name }} - {{ $serviceChild3->name_en }} - {{ $serviceChild3->name_ja }} - {{ $serviceChild3->name_ko }}</span>
+                                        @if(false)
                                         <span class="control-object">
                                             <form action="{{ url('services/'.$serviceChild3->id) }}" method="POST">
                                                 {{ csrf_field() }}
@@ -233,6 +238,7 @@ $( function() {
                                                 </button>
                                             </form>
                                         </span>
+                                        @endif
                                         <span class="control-object">
                                             <a href="{{ url('/') }}/services/{{ $serviceChild3->id }}/edit" class="control-object">
                                                 <i class="fas fa-edit"></i>

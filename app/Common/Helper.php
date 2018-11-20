@@ -3,6 +3,7 @@
 namespace App\Common;
 use App\User;
 use App\Setting;
+use App\Service;
 use App\Coupon;
 use App\DailyReport;
 use App\WeeklyReport;
@@ -207,5 +208,22 @@ Class Helper{
                 $weeklyReport->save();
                 $monthlyReport->save();
                 $order->save();
+            }
+
+            public static function getService($order){
+                foreach ($order->packages as $item) {
+                    return Helper::getParentService($item->service_id);
+                }
+            }
+
+            public static function getParentService($id){
+                $service = Service::find($id);
+                if(isset($service)){
+                    if($service->parent_id == 0)
+                    {
+                        return $id;
+                    }
+                    return Helper::getParentService($service->parent_id);
+                }
             }
 }

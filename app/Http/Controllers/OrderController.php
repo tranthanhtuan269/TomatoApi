@@ -484,7 +484,10 @@ class OrderController extends Controller
     public function acceptWeb($id){
         $order = Order::find($id);
         if(isset($order)){
+            
             $order->state = 1;
+            $order->service_id = Helper::getService($order);
+
             $order->updated_at = date("Y-m-d H:i:s");
             $order->save();
         }

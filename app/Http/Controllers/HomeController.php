@@ -7,8 +7,8 @@ use App\Page;
 use App\Setting;
 use App\User;
 use App\Feedback;
+use App\DailyExport;
 use App\Common\Helper;
-use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 
@@ -233,11 +233,6 @@ class HomeController extends Controller
         }
     }
 
-    public function export() 
-    {
-        return Excel::download(new UsersExport, 'users.xlsx');
-    }
-
     public function feedbacks(Request $request) 
     {
         if(isset($request->phone) && isset($request->access_token)){
@@ -252,5 +247,16 @@ class HomeController extends Controller
             }
         }
         return \Response::json(array('code' => '403', 'message' => 'unsuccess'));
+    }
+
+    public function export(Request $request) 
+    {
+        if(!isset($request->date)){
+            $today = date("Y-m-d");
+        }else{
+            $today =  $request->date;
+        }
+
+        return (new DailyExport($today))->download('dailyExport.xlsx');
     }
 }

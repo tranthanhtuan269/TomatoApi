@@ -150,3 +150,8 @@
 .edit-order{
 	margin-left: 10px;
 }
+
+.content-text{
+	width: 72%;
+    	display: inline-table;
+}
