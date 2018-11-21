@@ -55,6 +55,11 @@
             Monthly Report
         </a>
     </li>
+    <li class="list-group-item menu-link @if($active == 'export') actived @endif">
+        <a href="{{ url('/') }}/reports/custom" class="text-capitalize">
+            Export
+        </a>
+    </li>
 </ul>
 
 <ul class="list-group">

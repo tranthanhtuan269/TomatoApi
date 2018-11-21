@@ -75,6 +75,8 @@ Route::resource('coupons', 'CouponController');
 Route::get('reports/daily', 'ReportController@daily');
 Route::get('reports/weekly', 'ReportController@weekly');
 Route::get('reports/monthly', 'ReportController@monthly');
+Route::get('reports/custom', 'ReportController@custom');
+Route::post('reports/export', 'ReportController@export');
 
 Route::post('/images/uploadImage', 'HomeController@uploadImage');
 Route::get('/export', 'HomeController@export');

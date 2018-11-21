@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Exports;
 
 use App\DailyReport;
 use Maatwebsite\Excel\Concerns\FromQuery;

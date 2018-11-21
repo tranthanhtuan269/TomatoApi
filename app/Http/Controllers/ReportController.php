@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Report;
 use App\Order;
+use App\Service;
 use App\DailyReport;
 use App\WeeklyReport;
 use App\MonthlyReport;
@@ -49,6 +50,20 @@ class ReportController extends Controller
         $dailyList = DailyReport::where('created_at', '>', $month . '-01 00:00:00')->where('created_at', '<=', $today . ' 23:59:59')->get();
         $data = MonthlyReport::firstOrCreate(['name' => $month]);
         return view('report.monthly', ['dailyList' => $dailyList, 'data' => $data]);
+    }
+
+    public function custom(){
+        $services = Service::where('parent_id', 0)->where('active', 1)->pluck('name', 'id');
+        return view('report.export', ['services' => $services]);
+    }    
+
+    public function export(Request $request){
+        if(!isset($request->from) || !isset($request->to)){
+            return back();
+        }else{
+            $orderList = Order::where('start_time', '>', strtotime($request->from)*1000)->where('start_time', '<=', strtotime($request->to)*1000)->where('state', '=', 2)->get();
+            dd($orderList);
+        }
     }
 
     /**
