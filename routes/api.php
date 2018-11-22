@@ -37,8 +37,8 @@ Route::post('orders/{id}', 'ApiController@orderDestroy');
 Route::delete('orders/{id}', 'ApiController@orderDestroy');
 
 
-Route::get('news', 'ApiController@index');
-Route::get('news/{id}', 'ApiController@show');
+Route::get('news', 'ApiController@newsIndex');
+Route::get('news/{id}', 'ApiController@newsShow');
 
 Route::post('admin/accept', 'AdminController@accept');
 Route::post('admin/reject', 'AdminController@reject');
