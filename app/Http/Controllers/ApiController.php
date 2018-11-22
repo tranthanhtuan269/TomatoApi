@@ -3,6 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Transformers\PackageTransformer;
+use App\Transformers\ServiceTransformer;
+use App\Transformers\OrderTransformer;
+use App\Transformers\NewsTransformer;
+use App\Transformers\UserTransformer;
+use App\Common\Helper;
+use Carbon\Carbon;
+use App\Setting;
+use App\Service;
+use App\Package;
+use App\Coupon;
+use App\News;
+use App\Order;
+use App\User;
+use Validator;
+use Cache;
 
 class ApiController extends Controller
 {
