@@ -3,40 +3,6 @@
 	$list = ['services', 'news', 'users', 'coupons'];
 
 ?>
-<ul class="list-group">
-	<li class="list-group-item active">Category</li>
-	@foreach($list as $item)
-    <li class="list-group-item menu-link @if($active == $item) actived @endif">
-    	<a href="{{ url('/') }}/{{ $item }}" class="text-capitalize">
-    		{{ $item }}
-    	</a>
-    </li>
-    @endforeach
-</ul>
-
-<ul class="list-group">
-	<li class="list-group-item active">Order</li>
-    <li class="list-group-item menu-link @if($active == 'new') actived @endif">
-    	<a href="{{ url('/') }}/orders/new" class="text-capitalize">
-    		New Order
-    	</a>
-    </li>
-    <li class="list-group-item menu-link @if($active == 'accepted') actived @endif">
-    	<a href="{{ url('/') }}/orders/accepted" class="text-capitalize">
-    		Accepted Order
-    	</a>
-    </li>
-    <li class="list-group-item menu-link @if($active == 'paid') actived @endif">
-    	<a href="{{ url('/') }}/orders/paid" class="text-capitalize">
-    		Paid Order
-    	</a>
-    </li>
-    <li class="list-group-item menu-link @if($active == 'cancel') actived @endif">
-    	<a href="{{ url('/') }}/orders/cancel" class="text-capitalize">
-    		Cancel Order
-    	</a>
-    </li>
-</ul>
 
 <ul class="list-group">
     <li class="list-group-item active">Report</li>
@@ -60,6 +26,41 @@
             Export
         </a>
     </li>
+</ul>
+
+<ul class="list-group">
+    <li class="list-group-item active">Order</li>
+    <li class="list-group-item menu-link @if($active == 'new') actived @endif">
+        <a href="{{ url('/') }}/orders/new" class="text-capitalize">
+            New Order
+        </a>
+    </li>
+    <li class="list-group-item menu-link @if($active == 'accepted') actived @endif">
+        <a href="{{ url('/') }}/orders/accepted" class="text-capitalize">
+            Accepted Order
+        </a>
+    </li>
+    <li class="list-group-item menu-link @if($active == 'paid') actived @endif">
+        <a href="{{ url('/') }}/orders/paid" class="text-capitalize">
+            Paid Order
+        </a>
+    </li>
+    <li class="list-group-item menu-link @if($active == 'cancel') actived @endif">
+        <a href="{{ url('/') }}/orders/cancel" class="text-capitalize">
+            Cancel Order
+        </a>
+    </li>
+</ul>
+
+<ul class="list-group">
+	<li class="list-group-item active">Category</li>
+	@foreach($list as $item)
+    <li class="list-group-item menu-link @if($active == $item) actived @endif">
+    	<a href="{{ url('/') }}/{{ $item }}" class="text-capitalize">
+    		{{ $item }}
+    	</a>
+    </li>
+    @endforeach
 </ul>
 
 <ul class="list-group">

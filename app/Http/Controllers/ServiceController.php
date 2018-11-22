@@ -13,8 +13,15 @@ class ServiceController extends Controller
     private $services;
     private $parentServices;
 
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
+        $this->middleware('auth');
+        
         $this->parentServices = Cache::remember('parentServices', 1440, function() {
             return Service::where('parent_id', 0)->where('active', 1)->get();
         });
@@ -31,84 +38,6 @@ class ServiceController extends Controller
             }
             return $arr;
         });
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        $service = fractal()
-                ->collection(Service::where('active', 1)->get())
-                ->transformWith(new ServiceTransformer)
-                ->toArray();
-
-        return response()->json([
-            'status_code' => 200,
-            'message' => 'List service',
-            'service' => $this->services
-        ], 200);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $service = Service::find($id);
-        if($service){
-            $finder = fractal()
-                ->item($service)
-                ->transformWith(new ServiceTransformer)
-                ->toArray();
-
-            return response()->json([
-                'status_code' => 200,
-                'message' => 'OK',
-                'service' => $finder
-            ], 200);
-        }else{
-            return response()->json([
-                'status_code' => 204,
-                'message' => 'Not found this service.'
-            ], 200);
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function subservice($id)
-    {
-        // $services = Service::where('parent_id', '=', $id)->where('active', 1)->get();
-        if($id == 0){
-            $services = Service::where('parent_id', '=', $id)->where('active', 1)->get();
-
-            $finder = fractal()
-                ->collection($services)
-                ->parseIncludes(['packages', 'services'])
-                ->transformWith(new ServiceTransformer)
-                ->toArray();
-
-            return response()->json([
-                'status_code' => 200,
-                'message' => 'OK',
-                'service' => $finder
-            ], 200);
-        }else{
-            return response()->json([
-                'status_code' => 200,
-                'message' => 'OK',
-                'service' => $this->services[$id]
-            ], 200);
-        }
     }
 
     /**

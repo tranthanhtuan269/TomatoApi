@@ -16,71 +16,49 @@ use Illuminate\Http\Request;
 Route::post('login', 'AuthController@login');
 Route::post('signup', 'AuthController@signup');
 
-Route::get('users', 'UserController@index');
-Route::get('users/orders', 'UserController@orders');
-Route::get('users/neworders', 'UserController@newOrders');
-Route::get('users/oldorders', 'UserController@oldOrders');
-Route::get('users/{id}', 'UserController@show');
+Route::get('users', 'ApiController@userIndex');
+Route::get('users/orders', 'ApiController@userOrders');
+Route::get('users/neworders', 'ApiController@userNewOrders');
+Route::get('users/oldorders', 'ApiController@userOldOrders');
+Route::get('users/{id}', 'ApiController@userShow');
+Route::post('users/{id}', 'ApiController@userUpdate');
+Route::post('users/{id}/info', 'ApiController@userUpdateIOS');
 
-Route::get('services', 'ServiceController@index');
-Route::get('services/{id}', 'ServiceController@show');
-Route::get('services/{id}/subservice', 'ServiceController@subservice');
-
-Route::get('packages', 'PackageController@index');
-Route::get('packages/{id}', 'PackageController@show');
-
-Route::get('orders', 'OrderController@index');
-Route::get('orders/{id}', 'OrderController@show');
+Route::get('services', 'ApiController@serviceIndex');
+Route::get('services/{id}', 'ApiController@serviceShow');
+Route::get('services/{id}/subservice', 'ApiController@subservice');
 
 Route::get('news', 'NewsController@index');
 Route::get('news/{id}', 'NewsController@show');
 
-Route::get('groups', 'GroupController@index');
-Route::get('groups/{id}', 'GroupController@show');
-Route::get('groups/{id}/users', 'GroupController@users');
-    
-Route::post('users', 'UserController@store');
-Route::post('users/{id}', 'UserController@update');
-Route::post('users/{id}/info', 'UserController@updateIOS');
-Route::delete('users/{id}', 'UserController@destroy');
+Route::post('orders', 'ApiController@orderStore');
+Route::post('orders/{id}/update', 'ApiController@orderUpdate');
+Route::post('orders/{id}/addImage', 'ApiController@orderUploadImage');
+Route::post('orders/{id}/pushImage', 'ApiController@orderUploadImageIOS');
+Route::put('orders/{id}', 'ApiController@orderUpdate');
+Route::post('orders/{id}', 'ApiController@orderDestroy');
+Route::delete('orders/{id}', 'ApiController@orderDestroy');
 
-Route::post('orders', 'OrderController@store');
-Route::post('orders/{id}/update', 'OrderController@update');
-Route::post('orders/{id}/addImage', 'OrderController@uploadImage');
-Route::post('orders/{id}/pushImage', 'OrderController@uploadImageIOS');
-Route::put('orders/{id}', 'OrderController@update');
-Route::post('orders/{id}', 'OrderController@destroy');
-Route::delete('orders/{id}', 'OrderController@destroy');
-
-Route::post('groups', 'GroupController@store');
-Route::put('groups/{id}', 'GroupController@update');
-Route::delete('groups/{id}', 'GroupController@destroy');
-Route::post('groups/{id}', 'GroupController@destroy');
-
-Route::post('packages', 'PackageController@store');
-Route::put('packages/{id}', 'PackageController@update');
-Route::delete('packages/{id}', 'PackageController@destroy');
-
-Route::post('news', 'NewsController@store');
-Route::put('news/{id}', 'NewsController@update');
-Route::delete('news/{id}', 'NewsController@destroy');
+Route::post('news', 'ApiController@newsStore');
+Route::put('news/{id}', 'ApiController@newsUpdate');
+Route::delete('news/{id}', 'ApiController@newsDestroy');
 
 Route::post('admin/accept', 'AdminController@accept');
 Route::post('admin/reject', 'AdminController@reject');
 
 Route::post('logout', 'AuthController@logout');
 
-Route::get('why-use', 'HomeController@whyUse');
-Route::get('best-practices', 'HomeController@bestPractices');
-Route::get('faqs', 'HomeController@faqs');
-Route::get('coupon', 'HomeController@coupon');
-Route::get('report-and-feedback', 'HomeController@reportAndFeedback');
-Route::get('contact', 'HomeController@contact');
-Route::get('legal', 'HomeController@legal');
-Route::get('about', 'HomeController@about');
-Route::get('favorite-tasker', 'HomeController@favoriteTasker');
-Route::get('hspinfo', 'HomeController@hspinfo');
+Route::get('why-use', 'ApiController@whyUse');
+Route::get('best-practices', 'ApiController@bestPractices');
+Route::get('faqs', 'ApiController@faqs');
+Route::get('coupon', 'ApiController@coupon');
+Route::get('report-and-feedback', 'ApiController@reportAndFeedback');
+Route::get('contact', 'ApiController@contact');
+Route::get('legal', 'ApiController@legal');
+Route::get('about', 'ApiController@about');
+Route::get('favorite-tasker', 'ApiController@favoriteTasker');
+Route::get('hspinfo', 'ApiController@hspinfo');
 
-Route::get('get-content', 'HomeController@getContent');
-Route::post('uploadImage', 'HomeController@uploadImageApi');
-Route::post('feedbacks', 'HomeController@feedbacks');
+Route::get('get-content', 'ApiController@getContent');
+Route::post('uploadImage', 'ApiController@uploadImageApi');
+Route::post('feedbacks', 'ApiController@feedbacks');

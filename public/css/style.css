@@ -155,3 +155,8 @@
 	width: 72%;
     	display: inline-table;
 }
+
+.logout{
+	float: right;
+	margin-bottom: 5px;
+}

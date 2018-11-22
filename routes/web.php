@@ -10,10 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', 'ReportController@daily');
 
-Route::get('/', function () {
-    return view('welcome');
-});
 Route::get('/terms', function () {
     return view('terms');
 });
@@ -80,4 +78,9 @@ Route::post('reports/export', 'ReportController@export');
 
 Route::post('/images/uploadImage', 'HomeController@uploadImage');
 Route::get('/export', 'HomeController@export');
+Route::get('/logout', 'HomeController@logout')->name('logout');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
