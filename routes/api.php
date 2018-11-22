@@ -28,9 +28,6 @@ Route::get('services', 'ApiController@serviceIndex');
 Route::get('services/{id}', 'ApiController@serviceShow');
 Route::get('services/{id}/subservice', 'ApiController@subservice');
 
-Route::get('news', 'NewsController@index');
-Route::get('news/{id}', 'NewsController@show');
-
 Route::post('orders', 'ApiController@orderStore');
 Route::post('orders/{id}/update', 'ApiController@orderUpdate');
 Route::post('orders/{id}/addImage', 'ApiController@orderUploadImage');
@@ -39,9 +36,9 @@ Route::put('orders/{id}', 'ApiController@orderUpdate');
 Route::post('orders/{id}', 'ApiController@orderDestroy');
 Route::delete('orders/{id}', 'ApiController@orderDestroy');
 
-Route::post('news', 'ApiController@newsStore');
-Route::put('news/{id}', 'ApiController@newsUpdate');
-Route::delete('news/{id}', 'ApiController@newsDestroy');
+
+Route::get('news', 'ApiController@index');
+Route::get('news/{id}', 'ApiController@show');
 
 Route::post('admin/accept', 'AdminController@accept');
 Route::post('admin/reject', 'AdminController@reject');
