@@ -17,6 +17,7 @@ use App\Coupon;
 use App\News;
 use App\Order;
 use App\User;
+use App\Page;
 use Validator;
 use Cache;
 
