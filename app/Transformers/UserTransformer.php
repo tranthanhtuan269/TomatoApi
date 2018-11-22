@@ -23,6 +23,7 @@ class UserTransformer extends TransformerAbstract
             'avatar' => $user->avatar,
             'email' => $user->email,
             'phone' => $user->phone,
+            'coin' => $user->coin,
             'code' => $user->code,
             'presenter_id' => $user->presenter_id,
             'role_id' => $user->role_id

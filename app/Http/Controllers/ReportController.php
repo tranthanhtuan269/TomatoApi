@@ -9,6 +9,7 @@ use App\Service;
 use App\DailyReport;
 use App\WeeklyReport;
 use App\MonthlyReport;
+use App\Exports\ExcelExport;
 
 class ReportController extends Controller
 {
@@ -61,8 +62,11 @@ class ReportController extends Controller
         if(!isset($request->from) || !isset($request->to)){
             return back();
         }else{
-            $orderList = Order::where('start_time', '>', strtotime($request->from)*1000)->where('start_time', '<=', strtotime($request->to)*1000)->where('state', '=', 2)->get();
-            dd($orderList);
+            if(!isset($request->service)){
+                return (new ExcelExport($request->from, $request->to, 0))->download('Export.xlsx');
+            }else{
+                return (new ExcelExport($request->from, $request->to, $request->service))->download('Export.xlsx');
+            }
         }
     }
 
