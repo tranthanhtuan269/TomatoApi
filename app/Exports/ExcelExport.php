@@ -32,7 +32,9 @@ class ExcelExport implements FromQuery, WithHeadings, WithMapping, ShouldAutoSiz
             'Price',
             'Real Price',
             'Rewards',
+            'Presenter',
             'Promotional',
+            'Promotional Code',
         ];
     }
 
@@ -46,7 +48,9 @@ class ExcelExport implements FromQuery, WithHeadings, WithMapping, ShouldAutoSiz
                                                     'orders.price as price',
                                                     'orders.real_price as real_price',
                                                     'orders.rewards as rewards',
-                                                    'orders.promotional as promotional'
+                                                    'users.presenter_id as presenter_code',
+                                                    'orders.promotional as promotional',
+                                                    'orders.promotion_code as promotional_code'
         				)
         			->where('orders.start_time', '>', strtotime($this->fromDate . ' 00:00:00')*1000)
         			->where('orders.start_time', '<=', strtotime($this->toDate . ' 23:59:59')*1000)
@@ -70,7 +74,9 @@ class ExcelExport implements FromQuery, WithHeadings, WithMapping, ShouldAutoSiz
             number_format($order->price,2,",","."),
             number_format($order->real_price,2,",","."),
             number_format($order->rewards,2,",","."),
-            number_format($order->promotional,2,",",".")
+            $order->presenter_code == 1 ? '' : $order->presenter_code,
+            number_format($order->promotional,2,",","."),
+            $order->promotional_code
         ];
     }
     
