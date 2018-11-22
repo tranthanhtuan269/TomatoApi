@@ -40,11 +40,6 @@ Route::delete('orders/{id}', 'ApiController@orderDestroy');
 Route::get('news', 'ApiController@newsIndex');
 Route::get('news/{id}', 'ApiController@newsShow');
 
-Route::post('admin/accept', 'AdminController@accept');
-Route::post('admin/reject', 'AdminController@reject');
-
-Route::post('logout', 'AuthController@logout');
-
 Route::get('why-use', 'ApiController@whyUse');
 Route::get('best-practices', 'ApiController@bestPractices');
 Route::get('faqs', 'ApiController@faqs');
