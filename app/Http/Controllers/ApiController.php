@@ -10,6 +10,7 @@ use App\Transformers\NewsTransformer;
 use App\Transformers\UserTransformer;
 use App\Common\Helper;
 use Carbon\Carbon;
+use App\Feedback;
 use App\Setting;
 use App\Service;
 use App\Package;
