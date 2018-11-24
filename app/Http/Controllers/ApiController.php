@@ -257,8 +257,6 @@ class ApiController extends Controller
                 $presenter = User::where("code", $request->presenter_id)->first();
                 if(isset($presenter)){
                     $user->presenter_id = $request->presenter_id;
-                }else{
-                    $user->presenter_id = 0;
                 }
             }
 
@@ -342,7 +340,10 @@ class ApiController extends Controller
             }
 
             if(isset($request->presenter_id)){
-                $user->presenter_id = $request->presenter_id;
+                $presenter = User::where("code", $request->presenter_id)->first();
+                if(isset($presenter)){
+                    $user->presenter_id = $request->presenter_id;
+                }
             }
 
             if(isset($request->avatar)){
