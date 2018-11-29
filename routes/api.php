@@ -36,6 +36,8 @@ Route::put('orders/{id}', 'ApiController@orderUpdate');
 Route::post('orders/{id}', 'ApiController@orderDestroy');
 Route::delete('orders/{id}', 'ApiController@orderDestroy');
 
+Route::get('coupons/checkCoupon', 'ApiController@checkCoupon');
+
 
 Route::get('news', 'ApiController@newsIndex');
 Route::get('news/{id}', 'ApiController@newsShow');
