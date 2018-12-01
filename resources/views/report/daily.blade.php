@@ -37,8 +37,8 @@
                                 @foreach($orderList as $order)
                                 <tr> 
                                     <th scope="row">{{ $order->id }}</th> 
-                                    @if(isset($order->user->name))<td>{{ $order->user->name }}</td>@endif
-                                    <td>+{{ $order->user->phone }}</td> 
+                                    @if(isset($order->user))<td>{{ $order->user->name }}</td>@endif
+                                    @if(isset($order->user))<td>+{{ $order->user->phone }}</td>@endif
                                     <td class="text-center"><b>{{ $order->price / 1000 }}</b> K</td> 
                                     <td class="text-center"><b>{{ $order->rewards / 1000 }}</b> K</td> 
                                     <td class="text-center"><b>{{ $order->promotional / 1000 }}</b> K</td> 
