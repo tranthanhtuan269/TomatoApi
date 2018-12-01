@@ -52,7 +52,7 @@ class OrderController extends Controller
                 }
             }
 
-            if($order->user->presenter_id != ''){
+            if(isset($order->user->presenter_id) && $order->user->presenter_id != ''){
                 $user = User::where('code', $order->user->presenter_id)->first();
                 if($user){
                     $rewards = Setting::where('key', 'rewards')->first();
