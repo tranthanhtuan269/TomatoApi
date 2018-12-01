@@ -77,4 +77,20 @@ class HomeController extends Controller
 
         return (new DailyExport($today))->download('dailyExport.xlsx');
     }
+    
+    public function uploadImage(Request $request){
+        $img_file = '';
+        if (isset($request->base64)) {
+            $data = $request->base64;
+
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            $data = base64_decode($data);
+            $filename = time() . '.png';
+            file_put_contents(base_path('public/images/') . $filename, $data);
+
+            return \Response::json(array('code' => '200', 'message' => 'success', 'image_url' => $filename));
+        }
+        return \Response::json(array('code' => '404', 'message' => 'unsuccess', 'image_url' => ""));
+    }
 }
