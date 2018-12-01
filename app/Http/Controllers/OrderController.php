@@ -44,11 +44,16 @@ class OrderController extends Controller
         $orders = Order::orderBy('start_time', 'desc')->where('state', 0)->paginate(15);
         foreach ($orders as $order) {
             if($order->promotion_code != '' && $order->promotional != 0){
-                $coupon = Coupon::where('name', $order->promotion_code)->first();
-                if($coupon){
-                    $coup = ($order->real_price * intval($coupon->value) / 100);
-                    $order->promotional = $coup;
-                    $order->save();
+                if($order->service_id != 0){
+                    $coupon = Coupon::where('name', $order->promotion_code)->where('service_id', $order->service_id)->first();
+                    if($coupon){
+                        $coup = ($order->real_price * intval($coupon->value) / 100);
+                        $order->promotional = $coup;
+                        $order->save();
+                    }else{
+                        $order->promotional = 0;
+                        $order->save();
+                    }  
                 }
             }
 
