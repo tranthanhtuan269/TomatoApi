@@ -514,6 +514,7 @@ class ApiController extends Controller
                 'start_time' => $request->start_time,
                 'end_time' => $request->end_time,
                 'state' => 0,
+                'service_id' => $request->service_id,
                 'price' => $request->price,
                 'real_price' => $request->price,
                 'username' => $request->username,
