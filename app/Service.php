@@ -25,6 +25,7 @@ class Service extends Model
         'name_ko',
         'parent_id',
         'index',
+        'partner_id',
         'active'
     ];
     

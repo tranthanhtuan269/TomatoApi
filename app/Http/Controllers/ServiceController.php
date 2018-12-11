@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Transformers\ServiceTransformer;
 use App\Service;
 use App\Package;
+use App\Partner;
 use Cache;
 
 class ServiceController extends Controller
@@ -52,7 +53,8 @@ class ServiceController extends Controller
 
     public function createWeb(){
         $parentList = Service::where('parent_id', 0)->get();
-        return view('service.create', ['parentList' => $parentList]);
+        $partnerList = Partner::where('active', 1)->pluck('name', 'id');
+        return view('service.create', ['parentList' => $parentList, 'partnerList' => $partnerList]);
     }
 
     public function storeWeb(Request $request){
@@ -64,6 +66,7 @@ class ServiceController extends Controller
         $service->name_ja = $request->name_ja;
         $service->name_ko = $request->name_ko;
         $service->parent_id = $request->parent_id;
+        $service->partner_id = $request->partner_id;
         $service->icon = $request->icon;
         $service->save();
         return redirect('/services');
@@ -113,7 +116,8 @@ class ServiceController extends Controller
     public function editWeb($id){
         $service = Service::find($id);
         $parentList = Service::where('parent_id', 0)->get();
-        return view('service.edit', ['service' => $service, 'parentList' => $parentList]);
+        $partnerList = Partner::where('active', 1)->pluck('name', 'id');
+        return view('service.edit', ['service' => $service, 'parentList' => $parentList, 'partnerList' => $partnerList]);
     }
 
     public function updateWeb(Request $request, $id){
@@ -125,6 +129,7 @@ class ServiceController extends Controller
         $service->name_ja = $request->name_ja;
         $service->name_ko = $request->name_ko;
         $service->parent_id = $request->parent_id;
+        $service->partner_id = $request->partner_id;
         $service->icon = $request->icon;
         $service->save();
         return redirect('/services');

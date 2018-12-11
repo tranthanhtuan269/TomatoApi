@@ -44,6 +44,8 @@ Route::get('/news/{id}', 'NewsController@viewWeb');
 Route::put('/news/{id}', 'NewsController@updateWeb');
 Route::delete('/news/{id}', 'NewsController@destroyWeb');
 
+Route::resource('/partners', 'PartnerController');
+
 Route::get('/users', 'UserController@indexWeb');
 
 Route::get('/orders', 'OrderController@indexWeb');
