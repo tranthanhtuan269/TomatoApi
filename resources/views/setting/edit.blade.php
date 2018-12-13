@@ -9,19 +9,21 @@
         @endcomponent
     </div>
     <div class="col-sm-9"> 
-        {!! Form::open(['url' => 'settings/' . $setting->id, 'class' => 'form-horizontal']) !!}
-        @method('PUT')
+        {!! Form::open(['url' => 'settings', 'class' => 'form-horizontal']) !!}
+        @method('POST')
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Edit "{{ $_GET["type"] }}" Setting</h3>
+                <h3 class="panel-title">HSP Setting</h3>
             </div>
             <div class="panel-body">
+                @foreach($settings as $setting)
                 <div class="form-group">
                     <div class="col-sm-12" style="color:red;"><b><i>{{ ucwords($setting->key) }}</i></b></div>
                     <div class="col-sm-12">
-                    <input type="text" class="form-control" name="value" placeholder="Name" value="{{ $setting->value }}">
+                    <input type="text" class="form-control" name="{{ $setting->key }}" placeholder="{{ $setting->key }}" value="{{ $setting->value }}">
                     </div>
                 </div>
+                @endforeach
             </div>
         </div>
                     

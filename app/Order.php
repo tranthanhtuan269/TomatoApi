@@ -24,6 +24,7 @@ class Order extends Model
         'pay_type',
         'username',
         'email',
+        'status_payment',
         'promotion_code',
         'coupon_value',
         'image',

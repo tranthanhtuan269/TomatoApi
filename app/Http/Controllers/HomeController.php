@@ -11,6 +11,7 @@ use App\DailyExport;
 use App\Common\Helper;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
+use Mail;
 
 
 class HomeController extends Controller
@@ -56,14 +57,19 @@ class HomeController extends Controller
     }
 
     public function settings(Request $request){
-        $setting = Setting::where('key', $request->type)->first();
-        return view('setting.edit', ['setting' => $setting]);
+        $settings = Setting::all();
+        return view('setting.edit', ['settings' => $settings]);
     }
 
-    public function updateSettings(Request $request, $id){
-        $setting = Setting::find($id);
-        $setting->value = $request->value;
-        $setting->save();
+    public function storeSettings(Request $request){
+        $input = $request->all();
+        foreach($input as $k=>$v){
+            if($k == "_token" || $k == "_method"){
+                continue;
+            }else{
+                $setting = Setting::where('key', $k)->update(['value' => $v]);
+            }
+        }
         return back();
     }
 
@@ -92,5 +98,13 @@ class HomeController extends Controller
             return \Response::json(array('code' => '200', 'message' => 'success', 'image_url' => $filename));
         }
         return \Response::json(array('code' => '404', 'message' => 'unsuccess', 'image_url' => ""));
+    }
+
+    public function test(Request $request){
+        // $dataUser = array('email'=>'tran.thanh.tuan269@gmail.com', 'name'=>'Tran Thanh Tuan');
+        // Mail::send('emails.hello', [], function($message) use ($dataUser) {
+        //     $message->from('admin@hspvietnam.com', 'hspvietnam.com');
+        //     $message->to('tran.thanh.tuan269@gmail.com')->subject('HSP thông báo đăng ký thành công!');
+        // });
     }
 }

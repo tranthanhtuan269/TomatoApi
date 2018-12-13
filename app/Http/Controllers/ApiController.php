@@ -21,6 +21,7 @@ use App\User;
 use App\Page;
 use Validator;
 use Cache;
+use Mail;
 
 class ApiController extends Controller
 {
@@ -515,6 +516,7 @@ class ApiController extends Controller
                 'end_time' => $request->end_time,
                 'state' => 0,
                 'service_id' => $request->service_id,
+                'status_payment' => $request->status_payment,
                 'price' => $request->price,
                 'real_price' => $request->price,
                 'username' => $request->username,
@@ -525,18 +527,24 @@ class ApiController extends Controller
                 'pay_type' => $request->pay_type
             ]);
 
-            
-
             if($order->save()){
                 // add packages
                 $list_package = json_decode($request->list_packages);
                 foreach ($list_package as $package) {
                     $order->packages()->attach($package->package_id, ['number' => $package->number]);
                 }
+
                 $item = fractal()
                     ->item($order)
                     ->transformWith(new OrderTransformer)
                     ->toArray();
+
+                // $dataUser = array('email'=>'tran.thanh.tuan269@gmail.com', 'name'=>'Tran Thanh Tuan');
+                
+                // Mail::send('emails.job', ['job' => $job], function($message) use ($job){
+                //     $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
+                //     $message->to('tran.thanh.tuan269@gmail.com')->subject('HSP thông báo đăng ký thành công!');
+                // });
 
                 return response()->json([
                     'status_code' => 201,

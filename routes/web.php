@@ -15,6 +15,15 @@ Route::get('/', 'ReportController@daily');
 Route::get('/terms', function () {
     return view('terms');
 });
+Route::get('/test', function () {
+
+    $job = \App\Order::find(21);
+    // dd($job);
+    \Mail::send('emails.job', ['job' => $job], function($message) use ($job){
+        $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
+        $message->to('tran.thanh.tuan269@gmail.com')->subject('HSP thông báo đăng ký thành công!');
+    });
+});
 Route::get('/privacy', function () {
     return view('privacy');
 });
@@ -68,7 +77,7 @@ Route::get('/pages', 'HomeController@pages');
 Route::put('/pages/{id}', 'HomeController@updatePage');
 
 Route::get('/settings', 'HomeController@settings');
-Route::put('/settings/{id}', 'HomeController@updateSettings');
+Route::post('/settings', 'HomeController@storeSettings');
 
 Route::resource('coupons', 'CouponController');
 
@@ -86,3 +95,4 @@ Route::get('/logout', 'HomeController@logout')->name('logout');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/test', 'HomeController@test')->name('test');
