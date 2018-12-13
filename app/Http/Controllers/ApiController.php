@@ -539,12 +539,23 @@ class ApiController extends Controller
                     ->transformWith(new OrderTransformer)
                     ->toArray();
 
-                // $dataUser = array('email'=>'tran.thanh.tuan269@gmail.com', 'name'=>'Tran Thanh Tuan');
-                
-                // Mail::send('emails.job', ['job' => $job], function($message) use ($job){
-                //     $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
-                //     $message->to('tran.thanh.tuan269@gmail.com')->subject('HSP thông báo đăng ký thành công!');
-                // });
+                // send email to Admin
+                \Mail::send('emails.job', ['job' => $order], function($message) use ($order){
+                    $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
+                    $message->to('tran.thanh.tuan269@gmail.com')->subject('HSP thông báo đăng ký thành công!');
+                });
+
+                // send email to Partner
+                if(isset(Order::getServiceInfo($id))){
+                    if(isset(Order::getServiceInfo($id)->partner)){
+                        if(isset(Order::getServiceInfo($id)->partner->email)){
+                            \Mail::send('emails.job', ['job' => $order], function($message) use ($order){
+                                $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
+                                $message->to(Order::getServiceInfo($id)->partner->email)->subject('HSP thông báo đăng ký thành công!');
+                            });
+                        }
+                    }
+                }
 
                 return response()->json([
                     'status_code' => 201,
