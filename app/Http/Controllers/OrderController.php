@@ -119,9 +119,10 @@ class OrderController extends Controller
             });
 
             // send email to Partner
-            if(null != Order::getServiceInfo($id)){
-                if(null != Order::getServiceInfo($id)->partner){
-                    if(null != Order::getServiceInfo($id)->partner->email){
+            $service = Server::find($order->service_id);
+            if(null != $service){
+                if(null != $service->partner){
+                    if(null != $service->partner->email){
                         \Mail::send('emails.created_job', ['job' => $order], function($message) use ($order){
                             $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
                             $message->to(Order::getServiceInfo($id)->partner->email)->subject('HSP thông báo đăng ký thành công!');
