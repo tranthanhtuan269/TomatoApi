@@ -113,16 +113,16 @@ class OrderController extends Controller
             $order->save();
 
             // send email to Admin
-            \Mail::send('emails.job', ['job' => $order], function($message) use ($order){
+            \Mail::send('emails.created_job', ['job' => $order], function($message) use ($order){
                 $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
                 $message->to('tran.thanh.tuan269@gmail.com')->subject('HSP thông báo đăng ký thành công!');
             });
 
             // send email to Partner
-            if(isset(Order::getServiceInfo($id))){
-                if(isset(Order::getServiceInfo($id)->partner)){
-                    if(isset(Order::getServiceInfo($id)->partner->email)){
-                        \Mail::send('emails.job', ['job' => $order], function($message) use ($order){
+            if(null != Order::getServiceInfo($id)){
+                if(null != Order::getServiceInfo($id)->partner){
+                    if(null != Order::getServiceInfo($id)->partner->email){
+                        \Mail::send('emails.created_job', ['job' => $order], function($message) use ($order){
                             $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
                             $message->to(Order::getServiceInfo($id)->partner->email)->subject('HSP thông báo đăng ký thành công!');
                         });
@@ -145,7 +145,7 @@ class OrderController extends Controller
             $order->save();
 
             // send email to Admin
-            \Mail::send('emails.job', ['job' => $order], function($message) use ($order){
+            \Mail::send('emails.created_job', ['job' => $order], function($message) use ($order){
                 $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
                 $message->to('tran.thanh.tuan269@gmail.com')->subject('HSP thông báo đăng ký thành công!');
             });
