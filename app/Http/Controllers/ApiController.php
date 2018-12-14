@@ -545,6 +545,13 @@ class ApiController extends Controller
                     $message->to('tran.thanh.tuan269@gmail.com')->subject('HSP thông báo đăng ký thành công!');
                 });
 
+                // send email to setting
+                $emaiSetting = \App\Setting::where('key', 'adminEmail')->first();
+                \Mail::send('emails.created_job', ['job' => $order], function($message) use ($emaiSetting){
+                    $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
+                    $message->to($emaiSetting->value)->subject('HSP thông báo đăng ký thành công!');
+                });
+
                 return response()->json([
                     'status_code' => 201,
                     'message' => 'The order has been created',

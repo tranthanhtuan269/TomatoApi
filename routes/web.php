@@ -16,12 +16,11 @@ Route::get('/terms', function () {
     return view('terms');
 });
 Route::get('/test', function () {
-
+	$emaiSetting = \App\Setting::where('key', 'adminEmail')->first();
     $job = \App\Order::find(21);
-    // dd($job);
-    \Mail::send('emails.job', ['job' => $job], function($message) use ($job){
+    \Mail::send('emails.created_job', ['job' => $job], function($message) use ($emaiSetting){
         $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
-        $message->to('tran.thanh.tuan269@gmail.com')->subject('HSP thông báo đăng ký thành công!');
+        $message->to($emaiSetting->value)->subject('HSP thông báo đăng ký thành công!');
     });
 });
 Route::get('/privacy', function () {
