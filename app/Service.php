@@ -46,7 +46,7 @@ class Service extends Model
      */
     public function partner()
     {
-        return $this->belongsToMany('App\Partner', 'partner_service', 'partner_id', 'service_id');
+        return $this->belongsTo('App\Partner', 'partner_id');
     }
 
     public static function getServiceParent($serviceID){

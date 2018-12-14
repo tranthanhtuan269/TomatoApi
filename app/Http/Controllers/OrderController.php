@@ -131,7 +131,7 @@ class OrderController extends Controller
             if(null != $service){
                 if(null != $service->partner){
                     if(null != $service->partner->email){
-                        \Mail::send('emails.created_job', ['job' => $order], function($message) use ($order){
+                        \Mail::send('emails.created_job', ['job' => $order], function($message) use ($service){
                             $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
                             $message->to($service->partner->email)->subject('HSP thông báo đăng ký thành công!');
                         });

@@ -29,6 +29,6 @@ class Partner extends Model
      */
     public function services()
     {
-        return $this->belongsToMany('App\Service', 'partner_service', 'partner_id', 'service_id');
+        return $this->hasMany('App\Service', 'service_id');
     }
 }
