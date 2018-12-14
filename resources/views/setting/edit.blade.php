@@ -16,6 +16,7 @@
                 <h3 class="panel-title">HSP Setting</h3>
             </div>
             <div class="panel-body">
+
                 @foreach($settings as $setting)
                 <div class="form-group">
                     <div class="col-sm-12" style="color:red;"><b><i>{{ ucwords($setting->key) }}</i></b></div>
@@ -24,6 +25,7 @@
                     </div>
                 </div>
                 @endforeach
+                <b>Note:</b> <u><i>Multi emails: kiennv@hsp.com, tuantt@hsp.com, hai@hsp.com</i></u>
             </div>
         </div>
                     

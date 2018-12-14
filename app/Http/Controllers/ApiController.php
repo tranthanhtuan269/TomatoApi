@@ -547,9 +547,12 @@ class ApiController extends Controller
 
                 // send email to setting
                 $emaiSetting = \App\Setting::where('key', 'adminEmail')->first();
-                \Mail::send('emails.created_job', ['job' => $order], function($message) use ($emaiSetting){
+                $emaiSetting->value = str_replace(" ","",$emaiSetting->value);
+                $emailArray = explode(",",$emaiSetting->value);
+
+                \Mail::send('emails.created_job', ['job' => $order], function($message) use ($emailArray){
                     $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
-                    $message->to($emaiSetting->value)->subject('HSP thông báo đăng ký thành công!');
+                    $message->to($emailArray)->subject('HSP thông báo đăng ký thành công!');
                 });
 
                 return response()->json([

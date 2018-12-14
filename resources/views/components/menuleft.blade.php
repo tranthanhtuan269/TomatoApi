@@ -67,7 +67,7 @@
     <li class="list-group-item active">Setting</li>
     <li class="list-group-item menu-link">
         <a href="{{ url('/') }}/settings?type=rewards" class="text-capitalize">
-            Rewards
+            Configs
         </a>
     </li>
 </ul>
