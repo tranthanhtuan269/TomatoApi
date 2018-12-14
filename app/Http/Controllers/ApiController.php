@@ -516,7 +516,7 @@ class ApiController extends Controller
                 'end_time' => $request->end_time,
                 'state' => 0,
                 'service_id' => $request->service_id,
-                'status_payment' => $request->status_payment,
+                'status_payment' => isset($request->status_payment) ? $request->status_payment : 0,
                 'price' => $request->price,
                 'real_price' => $request->price,
                 'username' => $request->username,
