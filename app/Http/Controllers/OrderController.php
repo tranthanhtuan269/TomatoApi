@@ -7,6 +7,7 @@ use App\Transformers\UserTransformer;
 use App\Transformers\OrderTransformer;
 use App\Common\Helper;
 use App\Setting;
+use App\Service;
 use App\Coupon;
 use App\Order;
 use App\User;
