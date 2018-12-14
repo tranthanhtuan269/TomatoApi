@@ -26,7 +26,7 @@ class OrderTransformer extends TransformerAbstract
             'end_time' => $order->end_time,
             'state' => $order->state,
             'user' => $order->user,
-            'price' => $order->price * (100 - $order->coupon_value) / 100, 
+            'price' => ($order->price * (100 - $order->coupon_value) / 100) . '.00', 
             'pay_type' => $order->pay_type,
             'username' => $order->username,
             'email' => $order->email,
