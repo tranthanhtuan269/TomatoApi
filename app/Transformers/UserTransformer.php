@@ -22,10 +22,10 @@ class UserTransformer extends TransformerAbstract
             'display_name' => $user->display_name,
             'avatar' => $user->avatar,
             'email' => $user->email,
-            'phone' => $user->phone,
-            'coin' => $user->coin,
-            'code' => $user->code,
-            'presenter_id' => $user->presenter_id,
+            'phone' => $user->phone . "",
+            'coin' => $user->coin . "",
+            'code' => $user->code . "",
+            'presenter_id' => $user->presenter_id . "",
             'role_id' => $user->role_id
         ];
     }
