@@ -422,7 +422,7 @@ class ApiController extends Controller
         $orders = [];
         if(isset($user)){
             $orders = fractal()
-                ->collection(Order::where("user_id", $user->id)->where('start_time', '>=', time() * 1000)->get())
+                ->collection(Order::where("user_id", $user->id)->where("state", "!=", 3)->where('start_time', '>=', time() * 1000)->get())
                 ->transformWith(new OrderTransformer)
                 ->toArray();    
         }
@@ -445,7 +445,7 @@ class ApiController extends Controller
         $orders = [];
         if(isset($user)){
             $orders = fractal()
-                ->collection(Order::where("user_id", $user->id)->where('start_time', '<', time() * 1000)->get())
+                ->collection(Order::where("user_id", $user->id)->where("state", "!=", 3)->where('start_time', '<', time() * 1000)->get())
                 ->transformWith(new OrderTransformer)
                 ->toArray();    
         }
