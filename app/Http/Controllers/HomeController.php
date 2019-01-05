@@ -106,5 +106,6 @@ class HomeController extends Controller
         //     $message->from('admin@hspvietnam.com', 'hspvietnam.com');
         //     $message->to('tran.thanh.tuan269@gmail.com')->subject('HSP thông báo đăng ký thành công!');
         // });
+        return view('test');
     }
 }

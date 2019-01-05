@@ -15,6 +15,7 @@ Route::get('/', 'ReportController@daily');
 Route::get('/terms', function () {
     return view('terms');
 });
+
 Route::get('/test', function () {
     // send email to setting
     $emaiSetting = \App\Setting::where('key', 'adminEmail')->first();
@@ -99,4 +100,4 @@ Route::get('/logout', 'HomeController@logout')->name('logout');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-// Route::get('/test', 'HomeController@test')->name('test');
+Route::get('/test', 'HomeController@test')->name('test');
