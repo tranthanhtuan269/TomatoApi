@@ -22,7 +22,7 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
         $validator = \Validator::make($request->all(), [
-            'user_name' => 'required|string|min:3|max:255|unique:users',
+            'name' => 'required|string|min:3|max:255|unique:users',
             'display_name' => 'string|max:255',
             'email' => 'required|string|email|min:6|max:255|unique:users',
             'password' => 'required|string|confirmed|min:3|max:100'
@@ -37,7 +37,7 @@ class AuthController extends Controller
         }
 
         $user = new User([
-            'user_name' => $request->user_name,
+            'name' => $request->name,
             'display_name' => $request->display_name,
             'password' => bcrypt($request->password),
             'email' => $request->email,
@@ -66,7 +66,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator = \Validator::make($request->all(), [
-            'user_name' => 'required|string|min:3|max:255',
+            'name' => 'required|string|min:3|max:255',
             'password' => 'required|string',
             'remember_me' => 'boolean'
         ]);
@@ -79,7 +79,7 @@ class AuthController extends Controller
                 ], 200);
         }
 
-        $credentials = request(['user_name', 'password']);
+        $credentials = request(['name', 'password']);
         if(!Auth::attempt($credentials))
             return response()->json([
                 'status_code' => 401,
