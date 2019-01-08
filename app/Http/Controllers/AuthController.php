@@ -25,8 +25,7 @@ class AuthController extends Controller
             'user_name' => 'required|string|min:3|max:255|unique:users',
             'display_name' => 'string|max:255',
             'email' => 'required|string|email|min:6|max:255|unique:users',
-            'password' => 'required|string|confirmed|min:3|max:100',
-            'phone_number' => 'required|string|min:10|max:11'
+            'password' => 'required|string|confirmed|min:3|max:100'
         ]);
 
         if ($validator->fails()) {
@@ -42,10 +41,7 @@ class AuthController extends Controller
             'display_name' => $request->display_name,
             'password' => bcrypt($request->password),
             'email' => $request->email,
-            'phone_number' => $request->phone_number,
             'avatar' => $request->avatar,
-            'address' => $request->address,
-            'city_id' => $request->city_id,
             'role_id' => 2,
             'active' => 1,
         ]);
