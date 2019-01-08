@@ -23,18 +23,12 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|min:3|max:255',
             'email' => 'required|string|email|min:6|max:255|unique:users',
-            'password' => 'required|string|confirmed|min:3|max:100',
-            'phone' => 'required|string|min:10|max:11'
+            'password' => 'required|string|confirmed|min:3|max:100'
         ]);
         $user = new User([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'phone' => $request->phone,
-            'address' => $request->address,
-            'city_id' => $request->city_id,
-            'district_id' => $request->district_id,
-            'street_id' => $request->street_id,
             'role_id' => 2,
             'active' => 1,
         ]);
