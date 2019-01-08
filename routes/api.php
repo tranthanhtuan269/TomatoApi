@@ -21,5 +21,6 @@ Route::group([
 ], function() {
 	Route::apiResource('users', 'UserController');
 	Route::apiResource('questions', 'QuestionController');
+    Route::get('user', 'AuthController@user');
     Route::post('logout', 'AuthController@logout');
 });
