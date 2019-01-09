@@ -46,9 +46,21 @@ class AuthController extends Controller
             'active' => 1,
         ]);
         $user->save();
+
+        $tokenResult = $user->createToken('Personal Access Token');
+        $token = $tokenResult->token;
+        if ($request->remember_me)
+            $token->expires_at = Carbon::now()->addWeeks(1);
+        $token->save();
+        
         return response()->json([
             'status_code' => 201,
             'message' => 'Successfully created user!',
+            'access_token' => $tokenResult->accessToken,
+            'token_type' => 'Bearer',
+            'expires_at' => Carbon::parse(
+                $tokenResult->token->expires_at
+            )->toDateTimeString(),
             'user_id' => $user->id
         ], 201);
     }
