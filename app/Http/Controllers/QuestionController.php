@@ -18,7 +18,7 @@ class QuestionController extends Controller
     {
         if(!isset($request->search)){
             $questions = fractal()
-                    ->collection(Question::get())
+                    ->collection(Question::where('actice', 1)->get())
                     ->transformWith(new QuestionTransformer)
                     ->toArray();
 
@@ -29,7 +29,7 @@ class QuestionController extends Controller
             ], 200);
         }else{
             $questions = fractal()
-                    ->collection(Question::where('question', 'like', '%' . $request->search . '%')->get())
+                    ->collection(Question::where('question', 'like', '%' . $request->search . '%')->where('actice', 1)->get())
                     ->transformWith(new QuestionTransformer)
                     ->toArray();
 
