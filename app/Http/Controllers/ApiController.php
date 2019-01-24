@@ -1174,7 +1174,7 @@ class ApiController extends Controller
             $request = 'id_' . $id . '__' . 'page_' . $page;
             $link = "https://wall.alphacoders.com/api2.0/get.php?auth=e298f7de7d3856a0e3f7382d8e8f061e&method=category&id=".$id."&page=".$page."&info_level=3";
 
-            $this->json = Cache::remember($request, 3600, function() {
+            $this->json = Cache::remember($request, 3600, function() use ($link) {
                 $json = file_get_contents($link);
             });
 
