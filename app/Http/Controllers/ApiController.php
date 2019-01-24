@@ -1150,31 +1150,37 @@ class ApiController extends Controller
     }
 
     public function wallpaper(Request $request){
+
+        $this->parentServices = Cache::remember('parentServices', 1440, function() {
+            return Service::where('parent_id', 0)->where('active', 1)->get();
+        });
+
+        $this->services = Cache::remember('services', 1440, function() {
+            $arr = [];
+            foreach($this->parentServices as $obj){
+                $obj2 = Service::where('parent_id', '=', $obj->id)->where('active', 1)->get();
+                $arr[$obj->id] = fractal()
+                    ->collection($obj2)
+                    ->parseIncludes(['packages', 'services'])
+                    ->transformWith(new ServiceTransformer)
+                    ->toArray();
+            }
+            return $arr;
+        });
+
         if(isset($_GET['id']) && isset($_GET['page'])){
             $id = $_GET['id'];
             $page = $_GET['page'];
             $request = 'id_' . $id . '__' . 'page_' . $page;
             $link = "https://wall.alphacoders.com/api2.0/get.php?auth=e298f7de7d3856a0e3f7382d8e8f061e&method=category&id=".$id."&page=".$page."&info_level=3";
 
-            $memcached = new \Memcached();
-            $memcached->addServer('localhost', 0) or die ("Unable to connect to Memcached");
-            // $memcached->flush();
-            $variableCheck = $memcached->get($request);
-            if($variableCheck){
-                echo $variableCheck;die;
-            }else{
+            $this->json = Cache::remember($request, 3600, function($link) {
                 $json = file_get_contents($link);
-                // close cURL resource, and free up system resources
-                curl_close($ch);
-                $memcached->add($request, $json ,3600); // 3600 seconds
-                echo $json;die;
-            }
+            });
+
+            echo $this->json;die;
         }else{
             echo '';die;
         }
-    }
-
-    public function test(){
-        echo phpinfo();die;
     }
 }
