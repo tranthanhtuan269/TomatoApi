@@ -57,4 +57,5 @@ Route::get('get-content', 'ApiController@getContent');
 Route::post('uploadImage', 'ApiController@uploadImageApi');
 Route::post('feedbacks', 'ApiController@feedbacks');
 
+Route::get('test', 'ApiController@test');
 Route::get('wallpaper', 'ApiController@wallpaper');

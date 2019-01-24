@@ -1173,4 +1173,8 @@ class ApiController extends Controller
             echo '';die;
         }
     }
+
+    public function test(){
+        echo phpinfo();die;
+    }
 }
