@@ -1148,4 +1148,29 @@ class ApiController extends Controller
         }
         return \Response::json(array('code' => '403', 'message' => 'unsuccess'));
     }
+
+    public function wallpaper(Request $request){
+        if(isset($_GET['id']) && isset($_GET['page'])){
+            $id = $_GET['id'];
+            $page = $_GET['page'];
+            $request = 'id_' . $id . '__' . 'page_' . $page;
+            $link = "https://wall.alphacoders.com/api2.0/get.php?auth=e298f7de7d3856a0e3f7382d8e8f061e&method=category&id=".$id."&page=".$page."&info_level=3";
+
+            $memcached = new \Memcached();
+            $memcached->addServer('localhost', 0) or die ("Unable to connect to Memcached");
+            // $memcached->flush();
+            $variableCheck = $memcached->get($request);
+            if($variableCheck){
+                echo $variableCheck;die;
+            }else{
+                $json = file_get_contents($link);
+                // close cURL resource, and free up system resources
+                curl_close($ch);
+                $memcached->add($request, $json ,3600); // 3600 seconds
+                echo $json;die;
+            }
+        }else{
+            echo '';die;
+        }
+    }
 }

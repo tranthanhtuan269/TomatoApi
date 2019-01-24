@@ -56,3 +56,5 @@ Route::get('hspinfo', 'ApiController@hspinfo');
 Route::get('get-content', 'ApiController@getContent');
 Route::post('uploadImage', 'ApiController@uploadImageApi');
 Route::post('feedbacks', 'ApiController@feedbacks');
+
+Route::get('wallpaper', 'ApiController@wallpaper');
