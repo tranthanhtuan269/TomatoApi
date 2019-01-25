@@ -1150,37 +1150,35 @@ class ApiController extends Controller
     }
 
     public function wallpaper(Request $request){
-
-        $this->parentServices = Cache::remember('parentServices', 1440, function() {
-            return Service::where('parent_id', 0)->where('active', 1)->get();
-        });
-
-        $this->services = Cache::remember('services', 1440, function() {
-            $arr = [];
-            foreach($this->parentServices as $obj){
-                $obj2 = Service::where('parent_id', '=', $obj->id)->where('active', 1)->get();
-                $arr[$obj->id] = fractal()
-                    ->collection($obj2)
-                    ->parseIncludes(['packages', 'services'])
-                    ->transformWith(new ServiceTransformer)
-                    ->toArray();
-            }
-            return $arr;
-        });
-
-        if(isset($_GET['id']) && isset($_GET['page'])){
+        // param
+        $id = 1;
+        if(isset($_GET['id'])){
             $id = $_GET['id'];
-            $page = $_GET['page'];
-            $request = 'id_' . $id . '__' . 'page_' . $page;
-            $link = "https://wall.alphacoders.com/api2.0/get.php?auth=e298f7de7d3856a0e3f7382d8e8f061e&method=category&id=".$id."&page=".$page."&info_level=3";
-
-            $json = Cache::remember($request, 3600, function() use ($link) {
-                return file_get_contents($link);
-            });
-
-            echo $json;die;
-        }else{
-            echo '';die;
         }
+
+        $page = 1;
+        if(isset($_GET['page'])){
+            $page = $_GET['page'];
+        }
+
+        $method = 'category';
+        if(isset($_GET['method'])){
+            $method = $_GET['method'];
+        }
+
+        $sort = 'newest';
+        if(isset($_GET['sort'])){
+            $sort = $_GET['sort'];
+        }
+        // end param
+
+        $request = 'id_' . $id . '__' . 'page_' . $page . '__' . 'method_' . $method . '__' . 'sort_' . $sort;
+        $link = "https://wall.alphacoders.com/api2.0/get.php?auth=e298f7de7d3856a0e3f7382d8e8f061e&method=".$method."&id=".$id."&page=".$page."&sort=".$sort."&info_level=3";
+
+        $json = Cache::remember($request, 3600, function() use ($link) {
+            return file_get_contents($link);
+        });
+
+        echo $json;die;
     }
 }
