@@ -91,6 +91,7 @@ Route::get('reports/weekly', 'ReportController@weekly');
 Route::get('reports/monthly', 'ReportController@monthly');
 Route::get('reports/custom', 'ReportController@custom');
 Route::post('reports/export', 'ReportController@export');
+Route::get('reports/user', 'ReportController@userExport');
 
 Route::post('/images/uploadImage', 'HomeController@uploadImage');
 Route::get('/export', 'HomeController@export');

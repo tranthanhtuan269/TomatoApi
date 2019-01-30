@@ -22,6 +22,11 @@
         </a>
     </li>
     <li class="list-group-item menu-link @if($active == 'export') actived @endif">
+        <a href="{{ url('/') }}/reports/user" class="text-capitalize">
+            User Export
+        </a>
+    </li>
+    <li class="list-group-item menu-link @if($active == 'export') actived @endif">
         <a href="{{ url('/') }}/reports/custom" class="text-capitalize">
             Export
         </a>
