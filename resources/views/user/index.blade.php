@@ -15,9 +15,16 @@
             </div>
             <div class="panel-body">
             	<?php
-        	       foreach($users as $user){
+        	        foreach($users as $user){
+                    $order_level = 0;
+                    if($user->order_number > 2 && $user->order_number < 10){
+                        $order_level = 1;
+                    }
+                    if($user->order_number >= 10){
+                        $order_level = 2;
+                    }
         	    ?>
-        	    <div class="row order-row">
+        	    <div class="row order-row user-order-level-{{ $order_level }}">
                     <div class="col-sm-4 user-image">
                         <img src="{{ url('/') }}/public/images/{{ $user->avatar }}" width="200" height="200">
                     </div>
