@@ -161,14 +161,8 @@
 	margin-bottom: 5px;
 }
 
-.user-order-level-0{
-	background-color: #ccc;
-	padding: 8px;
-	border-radius: 8px;
-}
-
 .user-order-level-1{
-	background-color: #008000;
+	background-color: #00ff55;
 	padding: 8px;
 	border-radius: 8px;
 }
