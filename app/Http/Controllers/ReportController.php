@@ -9,6 +9,7 @@ use App\Service;
 use App\DailyReport;
 use App\WeeklyReport;
 use App\MonthlyReport;
+use App\Exports\ExcelExport;
 use App\Exports\UserExport;
 
 class ReportController extends Controller
