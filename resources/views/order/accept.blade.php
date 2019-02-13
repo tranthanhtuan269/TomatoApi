@@ -15,10 +15,16 @@
             </div>
             <div class="panel-body">
             	<?php
-        	       foreach($orders as $order){
-
+        	        foreach($orders as $order){
+                    $order_level = 0;
+                    if($order->user->order_number > 0 && $order->user->order_number < 10){
+                        $order_level = 1;
+                    }
+                    if($order->user->order_number >= 10){
+                        $order_level = 2;
+                    }
         	    ?>
-        	    <div class="row order-row">
+        	    <div class="row order-row user-order-level-{{ $order_level }}">
                     <div class="title-order">
                         <b><i>ORDER-{{ $order->id }}</i></b>
                     </div>

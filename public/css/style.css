@@ -160,3 +160,21 @@
 	float: right;
 	margin-bottom: 5px;
 }
+
+.user-order-level-0{
+	background-color: #ccc;
+	padding: 8px;
+	border-radius: 8px;
+}
+
+.user-order-level-1{
+	background-color: #008000;
+	padding: 8px;
+	border-radius: 8px;
+}
+
+.user-order-level-2{
+	background-color: #FFFF00;
+	padding: 8px;
+	border-radius: 8px;
+}

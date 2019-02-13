@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Page;
 use App\Setting;
 use App\User;
+use App\Order;
 use App\Feedback;
 use App\DailyExport;
 use App\Common\Helper;
@@ -101,11 +102,10 @@ class HomeController extends Controller
     }
 
     public function test(Request $request){
-        // $dataUser = array('email'=>'tran.thanh.tuan269@gmail.com', 'name'=>'Tran Thanh Tuan');
-        // Mail::send('emails.hello', [], function($message) use ($dataUser) {
-        //     $message->from('admin@hspvietnam.com', 'hspvietnam.com');
-        //     $message->to('tran.thanh.tuan269@gmail.com')->subject('HSP thông báo đăng ký thành công!');
-        // });
-        return view('test');
+        $orders = Order::get();
+        foreach ($orders as $order) {
+            $order->user->order_number += 1;
+            $order->user->save();
+        }
     }
 }
