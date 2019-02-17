@@ -146,11 +146,11 @@ $( function() {
                 <h3 class="panel-title">List Service <a href="{{ url('/') }}/services/create" class="pull-right"><i class="fas fa-plus"></i> Add Service</a> </h3>
             </div>
             <div class="panel-body">
-                <ol class="nested_with_switch vertical">
+                <ol class="nested_with_switch vertical parent-parent" data-id="0">
                     <?php
-                        $services = App\Service::where('parent_id', 0)->get();
+                        $services = App\Service::where('parent_id', 0)->orderBy('index', 'asc')->get();
                         foreach($services as $serviceChild1){
-                            $listChild1 = App\Service::where('parent_id', $serviceChild1->id)->get();
+                            $listChild1 = App\Service::where('parent_id', $serviceChild1->id)->orderBy('index', 'asc')->get();
                             ?>
                     <li data-id="{{ $serviceChild1->id }}" data-name="{{ $serviceChild1->name }}">
                         <span class="content-text">{{ $serviceChild1->name }} - {{ $serviceChild1->name_en }} - {{ $serviceChild1->name_ja }} - {{ $serviceChild1->name_ko }}</span>
@@ -184,7 +184,7 @@ $( function() {
                         <span id="active-{{ $serviceChild1->id }}" data-id="{{ $serviceChild1->id }}" class="control-object active @if($serviceChild1->active == 0) hidden @endif">
                             <i class="fas fa-check" style="color:#00cc00"></i>
                         </span>
-                        <ol>
+                        <ol class="parent parent-{{ $serviceChild1->id }}" data-id="{{ $serviceChild1->id }}">
                             <?php
                             foreach($listChild1 as $serviceChild2){
                                 $listChild2 = App\Service::where('parent_id', $serviceChild2->id)->orderBy('index', 'asc')->get();
@@ -220,7 +220,7 @@ $( function() {
                                 <span id="active-{{ $serviceChild2->id }}" data-id="{{ $serviceChild2->id }}" class="control-object active @if($serviceChild2->active == 0) hidden @endif">
                                     <i class="fas fa-check" style="color:#00cc00"></i>
                                 </span>
-                                <ol>
+                                <ol class="child child-{{ $serviceChild2->id }}" data-id="{{ $serviceChild2->id }}">
                                     <?php
                                     foreach($listChild2 as $serviceChild3){
                                         $listChild2 = App\Service::where('parent_id', $serviceChild2->id)->orderBy('index', 'asc')->get();
@@ -276,14 +276,14 @@ $( function() {
 </div>
 
 <script type="text/javascript">
-    
+
     var oldContainer;
     $("ol.nested_with_switch").sortable({
         group: 'nested',
         afterMove: function (placeholder, container) {
-        if(oldContainer != container){
-            if(oldContainer)
-                oldContainer.el.removeClass("active");
+            if(oldContainer != container){
+                if(oldContainer)
+                    oldContainer.el.removeClass("active");
                 container.el.addClass("active");
                 oldContainer = container;
             }
@@ -291,6 +291,98 @@ $( function() {
         onDrop: function ($item, container, _super) {
             container.el.removeClass("active");
             _super($item, container);
+
+            var parent_id = 0;
+            var class_list = "";
+            var class_parent = "";
+            var order_list = "";
+            
+            if($item.parent().attr('data-id') == undefined){
+                if($(container).hasClass('parent-parent')){
+                    parent_id = $item.parent().parent().attr('data-id');
+                    class_list = $item.parent().parent().attr("class");
+                    var res = class_list.split(" ");
+                    for(var $i = 0; $i < res.length; $i++){
+                       class_parent += "." + res[$i];
+                    }
+                    class_parent += ">li";
+                }else{
+                    parent_id = $item.parent().parent().attr('data-id');
+                    class_list = $item.parent().attr("class");
+                    var res = class_list.split(" ");
+
+                    for(var $i = 0; $i < res.length; $i++){
+                       class_parent += "." + res[$i];
+                    }
+
+                    class_parent += ">li";
+                }
+            }else{
+                parent_id = $item.parent().attr('data-id');
+                class_list = $item.parent().attr("class");
+                var res = class_list.split(" ");
+
+                for(var $i = 0; $i < res.length; $i++){
+                   class_parent += "." + res[$i];
+                }
+
+                class_parent += ">li";
+            }
+
+            $(class_parent).each(function( index ) {
+                order_list += $(this).attr('data-id') + ",";
+            });
+
+            var request = $.ajax({
+              url: "{{ url('/') }}/services/sort",
+              method: "POST",
+              data: { 
+                'id' : $item.attr('data-id'), 
+                'parent_id' : parent_id,
+                'order_list' : order_list,
+              },
+              dataType: "json"
+            });
+             
+            request.done(function( msg ) {
+              $( "#log" ).html( msg );
+            });
+             
+            request.fail(function( jqXHR, textStatus ) {
+              alert( "Request failed: " + textStatus );
+            });
+
+
+
+            // console.log($('.parent-parent>li'));
+            // $('.parent-parent>li').each(function( index ) {
+            //     console.log($(this).attr('data-id'));
+            // });
+
+            // var service_list = [];
+            // $('.service-object').each(function( index ) {
+            //     var obj = {
+            //         'id' : $( this ).attr('data-id'), 
+            //         'parent2' : $( this ).attr('data-parent-2'), 
+            //         'parent1' : $( this ).attr('data-parent-1'), 
+            //     }
+            //     service_list.push(obj);
+            // });
+
+            // var request = $.ajax({
+            //   url: "{{ url('/') }}/services/sort",
+            //   method: "POST",
+            //   data: { content : JSON.stringify(service_list) },
+            //   dataType: "json"
+            // });
+             
+            // request.done(function( msg ) {
+            //   $( "#log" ).html( msg );
+            // });
+             
+            // request.fail(function( jqXHR, textStatus ) {
+            //   alert( "Request failed: " + textStatus );
+            // });
         }
     });
 

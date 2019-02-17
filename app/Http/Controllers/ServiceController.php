@@ -24,13 +24,13 @@ class ServiceController extends Controller
         $this->middleware('auth');
         
         $this->parentServices = Cache::remember('parentServices', 1440, function() {
-            return Service::where('parent_id', 0)->where('active', 1)->get();
+            return Service::where('parent_id', 0)->where('active', 1)->orderBy('index', 'asc')->get();
         });
 
         $this->services = Cache::remember('services', 1440, function() {
             $arr = [];
             foreach($this->parentServices as $obj){
-                $obj2 = Service::where('parent_id', '=', $obj->id)->where('active', 1)->get();
+                $obj2 = Service::where('parent_id', '=', $obj->id)->where('active', 1)->orderBy('index', 'asc')->get();
                 $arr[$obj->id] = fractal()
                     ->collection($obj2)
                     ->parseIncludes(['packages', 'services'])
@@ -93,19 +93,16 @@ class ServiceController extends Controller
     public function sortWeb(Request $request){
         Cache::forget('services');
         Cache::forget('parentServices');
-        $dataList = json_decode($request->content);
-        $count = 0;
-        $parent1 = 0;
-        $parent2 = 0;
-        foreach($dataList as $obj){
-            if($parent1 != $obj->parent1){
-                $count = 0;
-                $parent1 = $obj->parent1;
-            }
-            $service = Service::find($obj->id);
-            $service->index = $count;
+        $service = Service::find($request->id);
+        $service->parent_id = $request->parent_id;
+        $service->save();
+
+        // sort parent_id
+        $list = explode(",",rtrim($request->order_list, ','));
+        foreach($list as $k=>$id){
+            $service = Service::find($id);
+            $service->index = $k;
             $service->save();
-            $count++;
         }
         return response()->json([
                     'status_code' => 200,
