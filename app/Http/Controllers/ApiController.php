@@ -31,8 +31,8 @@ class ApiController extends Controller
 
     public function __construct()
     {        
-        Cache::forget('services');
-        Cache::forget('parentServices');
+        // Cache::forget('services');
+        // Cache::forget('parentServices');
         $this->parentServices = Cache::remember('parentServices', 1440, function() {
             return Service::where('parent_id', 0)->where('active', 1)->orderBy('index', 'asc')->get();
         });
