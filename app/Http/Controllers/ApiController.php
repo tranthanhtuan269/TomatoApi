@@ -30,15 +30,17 @@ class ApiController extends Controller
     private $parentServices;
 
     public function __construct()
-    {
+    {        
+        Cache::forget('services');
+        Cache::forget('parentServices');
         $this->parentServices = Cache::remember('parentServices', 1440, function() {
-            return Service::where('parent_id', 0)->where('active', 1)->get();
+            return Service::where('parent_id', 0)->where('active', 1)->orderBy('index', 'asc')->get();
         });
 
         $this->services = Cache::remember('services', 1440, function() {
             $arr = [];
             foreach($this->parentServices as $obj){
-                $obj2 = Service::where('parent_id', '=', $obj->id)->where('active', 1)->get();
+                $obj2 = Service::where('parent_id', '=', $obj->id)->where('active', 1)->orderBy('index', 'asc')->get();
                 $arr[$obj->id] = fractal()
                     ->collection($obj2)
                     ->parseIncludes(['packages', 'services'])
