@@ -108,7 +108,7 @@ class ApiController extends Controller
     {
         // $services = Service::where('parent_id', '=', $id)->where('active', 1)->get();
         if($id == 0){
-            $services = Service::where('parent_id', '=', $id)->where('active', 1)->get();
+            $services = Service::where('parent_id', '=', $id)->where('active', 1)->orderBy('index', 'asc')->get();
 
             $finder = fractal()
                 ->collection($services)
