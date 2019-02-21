@@ -509,6 +509,17 @@ class ApiController extends Controller
         if($user){
             // check promotion code is exist in database;
             $coupon = Coupon::where("name", $request->promotion_code)->first();
+
+            if(!isset($request->username)){
+                $username = "";
+            }else{
+                $username = $request->username;
+            }
+            if(!isset($request->email)){
+                $email = "";
+            }else{
+                $email = $request->email;
+            }
             $order = new Order([
                 'user_id' => $user->id,
                 'address' => $request->address,
@@ -521,8 +532,8 @@ class ApiController extends Controller
                 'status_payment' => isset($request->status_payment) ? $request->status_payment : 0,
                 'price' => $request->price,
                 'real_price' => $request->price,
-                'username' => $request->username,
-                'email' => $request->email,
+                'username' => $username,
+                'email' => $email,
                 'promotion_code' => $request->promotion_code,
                 'coupon_value' => isset($coupon) ? $coupon->value : 0,
                 'list_packages' => $request->list_packages,
