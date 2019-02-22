@@ -520,11 +520,21 @@ class ApiController extends Controller
             }else{
                 $email = $request->email;
             }
+            if(!isset($request->note)){
+                $note = "";
+            }else{
+                $note = $request->note;
+            }
+            if(!isset($request->promotion_code)){
+                $promotion_code = "";
+            }else{
+                $promotion_code = $request->promotion_code;
+            }
             $order = new Order([
                 'user_id' => $user->id,
                 'address' => $request->address,
                 'number_address' => $request->number_address,
-                'note' => $request->note,
+                'note' => $note,
                 'start_time' => $request->start_time,
                 'end_time' => $request->end_time,
                 'state' => 0,
@@ -534,7 +544,7 @@ class ApiController extends Controller
                 'real_price' => $request->price,
                 'username' => $username,
                 'email' => $email,
-                'promotion_code' => $request->promotion_code,
+                'promotion_code' => $promotion_code,
                 'coupon_value' => isset($coupon) ? $coupon->value : 0,
                 'list_packages' => $request->list_packages,
                 'pay_type' => $request->pay_type
