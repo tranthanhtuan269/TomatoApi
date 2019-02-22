@@ -507,9 +507,6 @@ class ApiController extends Controller
 
         $user = Helper::checkAuth($request->phone, $request->access_token);
         if($user){
-            // check promotion code is exist in database;
-            $coupon = Coupon::where("name", $request->promotion_code)->first();
-
             if(!isset($request->username)){
                 $username = "";
             }else{
@@ -530,6 +527,8 @@ class ApiController extends Controller
             }else{
                 $promotion_code = $request->promotion_code;
             }
+            // check promotion code is exist in database;
+            $coupon = Coupon::where("name", $promotion_code)->first();
             $order = new Order([
                 'user_id' => $user->id,
                 'address' => $request->address,
