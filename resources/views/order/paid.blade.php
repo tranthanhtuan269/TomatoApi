@@ -17,10 +17,10 @@
             	<?php
         	        foreach($orders as $order){
                     $order_level = 0;
-                    if($order->user->order_number > 2 && $order->user->order_number < 10){
+                    if(isset($order->user) && $order->user->order_number > 2 && $order->user->order_number < 10){
                         $order_level = 1;
                     }
-                    if($order->user->order_number >= 10){
+                    if(isset($order->user) && $order->user->order_number >= 10){
                         $order_level = 2;
                     }
         	    ?>
