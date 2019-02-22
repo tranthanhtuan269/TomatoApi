@@ -34,9 +34,13 @@
                     <div class="address">Sau khi CK: <b style="color: red;"><i>{{ ($order->real_price - $order->rewards - $order->promotional) / 1000 }} K</i></b></div>
                     <div class="starttime">Thời gian bắt đầu: <b><i>{{ date('H:i:s d-m-Y', intval($order->start_time) / 1000) }}</i></b></div>
                     <div class="username">Họ và Tên: <b><i>{{ $order->username }}</i></b></div>
+                    @if(isset($order->user))
                     <div class="userphone">Số điện thoại: <b><i>+{{ $order->user->phone }}</i></b></div>
+                    @endif
                     <div class="address">Địa chỉ: <b><i>{{ $order->number_address }} - {{ $order->address }}</i></b></div>
+                    @if(isset($order->user))
                     <div class="address">Mã giới thiệu: <b><i>{{ $order->user->presenter_id }}</i></b></div>
+                    @endif
                     <div class="promotion_code">Mã giảm giá: <b><i>@if(isset($order->promotion_code)) {{ $order->promotion_code }} @else Không có @endif</i></b></div>
                     <div class="list_packages">
                         <ul>
