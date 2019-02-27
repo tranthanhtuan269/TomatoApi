@@ -93,6 +93,13 @@ Route::get('reports/custom', 'ReportController@custom');
 Route::post('reports/export', 'ReportController@export');
 Route::get('reports/user', 'ReportController@userExport');
 
+
+Route::get('cooperators', 'CooperatorController@index');
+Route::get('cooperators/{id}', 'CooperatorController@view');
+Route::post('cooperators/pay', 'CooperatorController@pay');
+
+
+
 Route::post('/images/uploadImage', 'HomeController@uploadImage');
 Route::get('/export', 'HomeController@export');
 Route::get('/logout', 'HomeController@logout')->name('logout');

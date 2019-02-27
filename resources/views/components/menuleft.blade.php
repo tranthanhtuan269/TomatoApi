@@ -1,6 +1,6 @@
 <?php
 
-	$list = ['services', 'news', 'users', 'coupons', 'partners'];
+	$list = ['services', 'news', 'users', 'coupons', 'partners', 'cooperators'];
 
 ?>
 
