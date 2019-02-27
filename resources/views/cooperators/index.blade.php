@@ -20,7 +20,7 @@
                     {!! Form::open(['url' => url('/cooperators'), 'method' => 'get', 'class' => 'form-inline']) !!}
                       <div class="form-group">
                         <label for="exampleInputName2">Presenter_id: </label>
-                        <input type="text" class="form-control" name="search" value="{{ $_GET['search'] }}">
+                        <input type="text" class="form-control" name="search" value="{{ isset($_GET['search']) ? $_GET['search'] : '' }}">
                       </div>
                       <button type="submit" class="btn btn-default">Search</button>
                     {!! Form::close() !!}
