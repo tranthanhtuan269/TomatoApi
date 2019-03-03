@@ -10,7 +10,7 @@
 		<div style="font-size: 16px; line-height: 25px;" class="job-component">
 			<div style="width: 20%; float: left;">
 				<?php 
-					var_dump($job->packages); die;
+					// var_dump($job->packages); die;
 					?>
 				@if(null != \App\Service::find($job->service_id))
 					@if(null != \App\Service::find($job->service_id)->icon)
@@ -34,14 +34,6 @@
 				</div>
 				<div style="">
 					Số tiền: <span style="font-size:20px; font-weight: bold; color:red;">{{ number_format($job->price, 0) }} vnd</span>
-				</div>
-				<div style="">
-					Chi tiết đầu việc:
-					<ul style="margin:0; padding:0 15px;"> 
-					@foreach($job->packages as $package)
-			            <li>{{ $package->service->name }}: {{ $package->pivot->number }} {{ $package->name }}</li>
-			        @endforeach
-			    	</ul>
 				</div>
 				<div class="clearfix"></div>
 			</div>
