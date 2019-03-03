@@ -9,15 +9,9 @@
 	<div class="jobs-component">
 		<div style="font-size: 16px; line-height: 25px;" class="job-component">
 			<div style="width: 20%; float: left;">
-				<?php 
-					// var_dump($job->packages); die;
-					?>
 				@if(null != \App\Service::find($job->service_id))
 					@if(null != \App\Service::find($job->service_id)->icon)
-						<?php 
-							$icon = \App\Service::find($job->service_id)->icon;
-							 ?>
-						<img src="http://api.timtruyen.online/public/images/{{ $icon }}" class="img-responsive" alt="http://api.timtruyen.online/public/images/{{ $icon }}" style="width: 100%;border: 5px solid #eee;border-radius: 5px;">
+						<img src="http://api.timtruyen.online/public/images/{{ \App\Order::getServiceInfo($job->id)->icon }}" class="img-responsive" alt="http://api.timtruyen.online/public/images/{{ \App\Order::getServiceInfo($job->id)->icon }}" style="width: 100%;border: 5px solid #eee;border-radius: 5px;">
 					@else
 						<img src="http://api.timtruyen.online/public/images/giatui.png" class="img-responsive" alt="http://api.timtruyen.online/public/images/giatui.png" style="width: 100%;border: 5px solid #eee;border-radius: 5px;">
 					@endif
@@ -34,6 +28,14 @@
 				</div>
 				<div style="">
 					Số tiền: <span style="font-size:20px; font-weight: bold; color:red;">{{ number_format($job->price, 0) }} vnd</span>
+				</div>
+				<div style="">
+					Chi tiết đầu việc:
+					<ul style="margin:0; padding:0 15px;"> 
+					@foreach($job->packages as $package)
+			            <li>{{ $package->service->name }}: {{ $package->pivot->number }} {{ $package->name }}</li>
+			        @endforeach
+			    	</ul>
 				</div>
 				<div class="clearfix"></div>
 			</div>
