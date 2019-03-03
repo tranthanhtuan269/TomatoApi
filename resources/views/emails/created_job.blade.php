@@ -10,7 +10,7 @@
 		<div style="font-size: 16px; line-height: 25px;" class="job-component">
 			<div style="width: 20%; float: left;">
 				<?php 
-					// var_dump(\App\Service::find($job->service_id)->name); die;
+					var_dump($job); die;
 					?>
 				@if(null != \App\Service::find($job->service_id))
 					@if(null != \App\Service::find($job->service_id)->icon)
