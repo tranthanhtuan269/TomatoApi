@@ -10,11 +10,11 @@
 		<div style="font-size: 16px; line-height: 25px;" class="job-component">
 			<div style="width: 20%; float: left;">
 				@if(null != \App\Service::find($job->service_id))
-					@if(null != \App\Service::find($job->service_id)->icon)
-						<img src="http://api.timtruyen.online/public/images/{{ \App\Order::getServiceInfo($job->id)->icon }}" class="img-responsive" alt="http://api.timtruyen.online/public/images/{{ \App\Order::getServiceInfo($job->id)->icon }}" style="width: 100%;border: 5px solid #eee;border-radius: 5px;">
-					@else
+					<!-- @if(null != \App\Service::find($job->service_id)->icon) -->
+						<!-- <img src="http://api.timtruyen.online/public/images/{{ \App\Order::getServiceInfo($job->id)->icon }}" class="img-responsive" alt="http://api.timtruyen.online/public/images/{{ \App\Order::getServiceInfo($job->id)->icon }}" style="width: 100%;border: 5px solid #eee;border-radius: 5px;"> -->
+					<!-- @else -->
 						<img src="http://api.timtruyen.online/public/images/giatui.png" class="img-responsive" alt="http://api.timtruyen.online/public/images/giatui.png" style="width: 100%;border: 5px solid #eee;border-radius: 5px;">
-					@endif
+					<!-- @endif -->
 				@else
 					<img src="http://api.timtruyen.online/public/images/giatui.png" class="img-responsive" alt="http://api.timtruyen.online/public/images/giatui.png" style="width: 100%;border: 5px solid #eee;border-radius: 5px;">
 				@endif
