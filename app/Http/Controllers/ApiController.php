@@ -562,20 +562,20 @@ class ApiController extends Controller
                     ->toArray();
 
                 // send email to Admin
-                // \Mail::send('emails.created_job', ['job' => $order], function($message) use ($order){
-                //     $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
-                //     $message->to('tran.thanh.tuan269@gmail.com')->subject('HSP thông báo đăng ký thành công!');
-                // });
+                \Mail::send('emails.created_job', ['job' => $order], function($message) use ($order){
+                    $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
+                    $message->to('tran.thanh.tuan269@gmail.com')->subject('HSP thông báo đăng ký thành công!');
+                });
 
                 // send email to setting
-                // $emaiSetting = \App\Setting::where('key', 'adminEmail')->first();
-                // $emaiSetting->value = str_replace(" ","",$emaiSetting->value);
-                // $emailArray = explode(",",$emaiSetting->value);
+                $emaiSetting = \App\Setting::where('key', 'adminEmail')->first();
+                $emaiSetting->value = str_replace(" ","",$emaiSetting->value);
+                $emailArray = explode(",",$emaiSetting->value);
 
-                // \Mail::send('emails.created_job', ['job' => $order], function($message) use ($emailArray){
-                //     $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
-                //     $message->to($emailArray)->subject('HSP thông báo đăng ký thành công!');
-                // });
+                \Mail::send('emails.created_job', ['job' => $order], function($message) use ($emailArray){
+                    $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
+                    $message->to($emailArray)->subject('HSP thông báo đăng ký thành công!');
+                });
 
                 return response()->json([
                     'status_code' => 201,
