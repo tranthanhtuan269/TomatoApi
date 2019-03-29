@@ -6,7 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>HSP Administrator</title>
+    <title>Timtruyen.online - Tổng hợp truyện tranh, truyện gì cũng có</title>
+
+    <meta name="keywords" content="Truyện, Truyện tranh, Truyện đọc, Truyện hình, Truyện 16+, truyện người lớn">
+    <meta name="description" content="timtruyen.online - website tổng hợp truyện hàng đầu Việt Nam. Cập nhật truyện liên tục mỗi giờ, tổng hợp từ tất cả các nguồn trên internet.">
+
+    <meta name="robots" content="noodp,index,follow" />
+    <meta http-equiv="content-language" content="vi" />
+    <meta name="revisit-after" content="1 days" />
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
