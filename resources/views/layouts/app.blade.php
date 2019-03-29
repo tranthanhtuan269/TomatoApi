@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Timtruyen.online - Tổng hợp truyện tranh, truyện gì cũng có</title>
+    <title>timtruyen.online - tổng hợp truyện hàng đầu Việt Nam, truyện gì cũng có</title>
 
     <meta name="keywords" content="Truyện, Truyện tranh, Truyện đọc, Truyện hình, Truyện 16+, truyện người lớn">
     <meta name="description" content="timtruyen.online - website tổng hợp truyện hàng đầu Việt Nam. Cập nhật truyện liên tục mỗi giờ, tổng hợp từ tất cả các nguồn trên internet.">
