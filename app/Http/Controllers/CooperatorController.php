@@ -20,6 +20,7 @@ class CooperatorController extends Controller
            	$orders = \DB::table('orders')
             ->join('users', 'users.id', '=', 'orders.user_id')
             ->where('users.presenter_id', $request->search)
+            ->where('orders.state', 2)
             ->where('orders.status', 0)
             ->select('orders.*')
             ->get();
