@@ -11,12 +11,12 @@
 			<div style="width: 20%; float: left;">
 				@if(null != \App\Service::find($job->service_id))
 					@if(null != \App\Service::find($job->service_id)->icon)
-						<img src="http://api.timtruyen.online/public/images/{{ \App\Order::getServiceInfo($job->id)->icon }}" class="img-responsive" alt="http://api.timtruyen.online/public/images/{{ \App\Order::getServiceInfo($job->id)->icon }}" style="width: 100%;border: 5px solid #eee;border-radius: 5px;">
+						<img src="http://hspvietnam.com/public/images/{{ \App\Order::getServiceInfo($job->id)->icon }}" class="img-responsive" alt="http://hspvietnam.com/public/images/{{ \App\Order::getServiceInfo($job->id)->icon }}" style="width: 100%;border: 5px solid #eee;border-radius: 5px;">
 					@else
-						<img src="http://api.timtruyen.online/public/images/giatui.png" class="img-responsive" alt="http://api.timtruyen.online/public/images/giatui.png" style="width: 100%;border: 5px solid #eee;border-radius: 5px;">
+						<img src="http://hspvietnam.com/public/images/giatui.png" class="img-responsive" alt="http://hspvietnam.com/public/images/giatui.png" style="width: 100%;border: 5px solid #eee;border-radius: 5px;">
 					@endif
 				@else
-					<img src="http://api.timtruyen.online/public/images/giatui.png" class="img-responsive" alt="http://api.timtruyen.online/public/images/giatui.png" style="width: 100%;border: 5px solid #eee;border-radius: 5px;">
+					<img src="http://hspvietnam.com/public/images/giatui.png" class="img-responsive" alt="http://hspvietnam.com/public/images/giatui.png" style="width: 100%;border: 5px solid #eee;border-radius: 5px;">
 				@endif
 			</div>
 			<div style="width: 77%; float: left; margin-left: 3%;">
