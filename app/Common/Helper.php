@@ -114,7 +114,8 @@ Class Helper{
         $weeklyReport->total = $weeklyReport->total + $order->real_price;
         $monthlyReport->total = $monthlyReport->total + $order->real_price;
 
-        if($order->user->presenter_id != '' && $order->user->presenter_id != $order->user->code){
+        $order->rewards = 0;
+        if($order->user->presenter_id != '' && $order->user->presenter_id != $order->user->code && $order->real_price >= 300){
             $rewards = Helper::payToPresenter($order->user->presenter_id);
             $dailyReport->rewards = $dailyReport->rewards + $rewards;
             $weeklyReport->rewards = $weeklyReport->rewards + $rewards;
@@ -122,6 +123,7 @@ Class Helper{
             $order->rewards = $rewards;
         }
 
+        $order->promotional = 0;
         if($order->promotion_code != ''){
             $coupon = Coupon::where('name', $order->promotion_code)->first();
             if($coupon){
