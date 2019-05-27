@@ -11,7 +11,7 @@
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">List News <a href="{{ url('/') }}/news/create" class="pull-right"><i class="fas fa-plus"></i> Add News</a> </h3>
+                <h3 class="panel-title">Danh sách tin tức <a href="{{ url('/') }}/news/create" class="pull-right"><i class="fas fa-plus"></i> Thêm mới</a> </h3>
             </div>
             <div class="panel-body">
             	<?php

@@ -11,7 +11,7 @@
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">List Orders </h3>
+                <h3 class="panel-title">Danh sách đơn mới</h3>
             </div>
             <div class="panel-body">
             	<?php
@@ -27,7 +27,7 @@
 
                 <div class="row order-row user-order-level-{{ $order_level }}">
                     <div class="title-order">
-                        <b><i>ORDER-{{ $order->id }}</i></b>
+                        <b><i>Mã đơn - {{ $order->id }}</i></b>
                     </div>
                     <div class="address">Số tiền: <b style="color: red;"><i>{{ $order->real_price / 1000 }} K</i></b></div>
                     <div class="address">Số tiền thực tế: <b style="color: red;"><i>{{ $order->real_price / 1000 }} K</i></b></div>

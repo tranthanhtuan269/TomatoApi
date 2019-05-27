@@ -13,13 +13,13 @@
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Order By Cooperators</h3>
+                <h3 class="panel-title">Cộng tác viên</h3>
             </div>
             <div class="panel-body">
                 <div class="col-sm-11">
                     {!! Form::open(['url' => url('/cooperators'), 'method' => 'get', 'class' => 'form-inline']) !!}
                       <div class="form-group">
-                        <label for="exampleInputName2">Presenter_id: </label>
+                        <label for="exampleInputName2">Mã người giới thiệu: </label>
                         <input type="text" class="form-control" name="search" value="{{ isset($_GET['search']) ? $_GET['search'] : '' }}">
                       </div>
                       <button type="submit" class="btn btn-default">Search</button>
@@ -28,7 +28,7 @@
                 <div class="col-sm-1 float-right">
                     {!! Form::open(['url' => url('/cooperators/pay'), 'method' => 'post', 'class' => 'form-inline']) !!}
                     <div class="form-group" style="display: none">
-                        <label for="exampleInputName2">Presenter_id: </label>
+                        <label for="exampleInputName2">Mã người giới thiệu: </label>
                         <input type="text" class="form-control" name="search" value="{{ isset($_GET['search']) ? $_GET['search'] : '' }}">
                     </div>
                     <button type="submit" class="btn btn-primary">Pay All</button>
@@ -41,9 +41,9 @@
                     <thead> 
                         <tr> 
                             <th>#</th> 
-                            <th>Order_id</th> 
-                            <th class="text-center">Cost</th> 
-                            <th>Created At</th>
+                            <th>Mã đơn hàng</th> 
+                            <th class="text-center">Giá</th> 
+                            <th>Ngày tạo</th>
                         </tr> 
                     </thead>
                     <tbody> 
@@ -62,7 +62,7 @@
                         </tr>
                         @endforeach
                         <tr> 
-                            <th colspan="2" scope="row">Total</th>
+                            <th colspan="2" scope="row">Tổng</th>
                             <td colspan="2" class="text-center"><b>{{ $total_price / 1000 }}</b> K</td>
                         </tr>
                     </tbody>

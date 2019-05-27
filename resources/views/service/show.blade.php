@@ -12,7 +12,7 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <?php $service = \App\Service::find($id); ?>
-                <h3 class="panel-title">List Package of "{{ $service->name }}" of "{{ $service->parent()->first()->name }}" <a href="{{ url('/') }}/packages/create" class="pull-right"><i class="fas fa-plus"></i> Add package</a></h3>
+                <h3 class="panel-title">Danh sách dịch vụ con của "{{ $service->name }}" of "{{ $service->parent()->first()->name }}" <a href="{{ url('/') }}/packages/create" class="pull-right"><i class="fas fa-plus"></i> Thêm dịch vụ con</a></h3>
             </div>
             <div class="panel-body">
             

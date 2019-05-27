@@ -12,21 +12,21 @@
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Edit News</h3>
+                <h3 class="panel-title">Sửa tin tức</h3>
             </div>
             <div class="panel-body">
                 {!! Form::open(['url' => 'news/' . $news->id, 'class' => 'form-horizontal']) !!}
                     @method('PUT')
 
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Title</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Tiêu đề</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="title" placeholder="Title" value="{{ $news->title }}">
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Content</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Nội dung</label>
                         <div class="col-sm-10">
                             <textarea name="content" id="editor">
                                 {{ $news->content }}
@@ -36,7 +36,7 @@
                     
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default">Save</button>
+                            <button type="submit" class="btn btn-default">Lưu lại</button>
                         </div>
                     </div>
                 {!! Form::close() !!}

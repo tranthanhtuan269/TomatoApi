@@ -14,11 +14,11 @@
         @method('PUT')
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Edit "{{ $_GET["type"] }}" Page</h3>
+                <h3 class="panel-title">Sửa trang "{{ $_GET["type"] }}"</h3>
             </div>
             <div class="panel-body">
                 <div class="form-group">
-                    <div class="col-sm-12" style="color:red;"><b><i>Vietnamese</i></b></div>
+                    <div class="col-sm-12" style="color:red;"><b><i>Tiếng việt</i></b></div>
                     <div class="col-sm-12">
                         <textarea name="content" id="editor">
                             {{ $page->content }}
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-12" style="color:red;"><b><i>English</i></b></div>
+                    <div class="col-sm-12" style="color:red;"><b><i>Tiếng Anh</i></b></div>
                     <div class="col-sm-12">
                         <textarea name="content_en" id="editor_en">
                             {{ $page->content_en }}
@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-12" style="color:red;"><b><i>Japan</i></b></div>
+                    <div class="col-sm-12" style="color:red;"><b><i>Tiếng Nhật</i></b></div>
                     <div class="col-sm-12">
                         <textarea name="content_ja" id="editor_ja">
                             {{ $page->content_ja }}
@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-12" style="color:red;"><b><i>Korea</i></b></div>
+                    <div class="col-sm-12" style="color:red;"><b><i>Tiếng Hàn</i></b></div>
                     <div class="col-sm-12">
                         <textarea name="content_ko" id="editor_ko">
                             {{ $page->content_ko }}
@@ -54,7 +54,7 @@
                     
         <div class="form-group">
             <div class="col-sm-12 text-center">
-                <button type="submit" class="btn btn-default">Save</button>
+                <button type="submit" class="btn btn-default">Lưu lại</button>
             </div>
         </div>
         {!! Form::close() !!}

@@ -11,7 +11,7 @@
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">List Package</h3>
+                <h3 class="panel-title">Danh sách dịch vụ con</h3>
             </div>
             <div class="panel-body">
             	<?php

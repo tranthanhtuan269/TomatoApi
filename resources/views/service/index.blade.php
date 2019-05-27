@@ -11,7 +11,7 @@
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">List Service <a href="{{ url('/') }}/services/create" class="pull-right"><i class="fas fa-plus"></i> Add Service</a> </h3>
+                <h3 class="panel-title">Danh sách dịch vụ <a href="{{ url('/') }}/services/create" class="pull-right"><i class="fas fa-plus"></i> Thêm dịch vụ</a> </h3>
             </div>
             <div class="panel-body">
             	<?php

@@ -11,24 +11,24 @@
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Weekly Report - Week: {{ date("W", strtotime($data->created_at)) }}</h3>
+                <h3 class="panel-title">Báo cáo tuần - Tuần: {{ date("W", strtotime($data->created_at)) }}</h3>
             </div>
             <div class="panel-body">
             <div class="row">
-                <div class="col-sm-3">Transaction Number: <b><i>{{ $data->number }}</i></b></div>
-                <div class="col-sm-3">Cash flow: <b><i>{{ $data->total / 1000 }}</i></b> K</div>
-                <div class="col-sm-3">Commission: <b><i>{{ $data->rewards / 1000 }}</i></b> K</div>
-                <div class="col-sm-3">Promotional: <b><i>{{ $data->promotional / 1000 }}</i></b> K</div>
+                <div class="col-sm-3">Số giao dịch: <b><i>{{ $data->number }}</i></b></div>
+                <div class="col-sm-3">Tổng thu: <b><i>{{ $data->total / 1000 }}</i></b> K</div>
+                <div class="col-sm-3">Tiền thưởng: <b><i>{{ $data->rewards / 1000 }}</i></b> K</div>
+                <div class="col-sm-3">Tiền khuyến mại: <b><i>{{ $data->promotional / 1000 }}</i></b> K</div>
             </div>
             	<table class="table table-striped">
                             <thead> 
                                 <tr> 
                                     <th>#</th> 
-                                    <th>Date</th> 
-                                    <th>Cash flow</th> 
-                                    <th>Commission</th> 
-                                    <th>Promotional</th> 
-                                    <th>Created At</th>
+                                    <th>Ngày</th> 
+                                    <th>Tổng thu</th> 
+                                    <th>Tiền thưởng</th> 
+                                    <th>Tiền khuyến mại</th> 
+                                    <th>Ngày tạo</th>
                                     <th></th>
                                 </tr> 
                             </thead>

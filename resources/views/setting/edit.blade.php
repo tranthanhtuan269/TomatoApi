@@ -13,7 +13,7 @@
         @method('POST')
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">HSP Setting</h3>
+                <h3 class="panel-title">Cấu hình</h3>
             </div>
             <div class="panel-body">
 
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 @endforeach
-                <b>Note:</b> <u><i>Multi emails: kiennv@hsp.com, tuantt@hsp.com, hai@hsp.com</i></u>
+                <b>Chú ý:</b> <u><i>Gửi nhiều người cùng lúc theo cú pháp: kiennv@hsp.com, tuantt@hsp.com, hai@hsp.com</i></u>
             </div>
         </div>
                     

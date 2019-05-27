@@ -11,17 +11,17 @@
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">List Partner <a href="{{ url('/') }}/partners/create" class="pull-right"><i class="fas fa-plus"></i> Add Partner</a> </h3>
+                <h3 class="panel-title">Danh sách đối tác <a href="{{ url('/') }}/partners/create" class="pull-right"><i class="fas fa-plus"></i> Thêm đối tác</a> </h3>
             </div>
             <div class="panel-body">
             	<table class="table table-striped">
                             <thead> 
                                 <tr> 
                                     <th>#</th> 
-                                    <th>Name</th> 
-                                    <th>Phone</th> 
+                                    <th>Tên đối tác</th> 
+                                    <th>Số điện thoại</th> 
                                     <th>Email</th> 
-                                    <th>Action</th> 
+                                    <th>Trạng thái</th> 
                                 </tr> 
                             </thead>
                             <tbody> 

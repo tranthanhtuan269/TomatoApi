@@ -12,13 +12,13 @@
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Edit Package</h3>
+                <h3 class="panel-title">Sửa dịch vụ con</h3>
             </div>
             <div class="panel-body">
                 {!! Form::open(['url' => 'packages/' . $package->id, 'class' => 'form-horizontal']) !!}
                     @method('PUT')
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Image</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Ảnh dịch vụ</label>
                         <div class="col-sm-10">
                             <div class="avatar">
                                 <input type="hidden" id="avatar" name="image" value="{{ $package->image }}">
@@ -29,45 +29,45 @@
                                     <img src="{{ url('/') }}/public/images/noimage.png" width="150" height="150" id="avatar-image" class="img">
                                 @endif
                             </div>
-                            <div class="btn btn-primary" id="change-avatar-btn">Change Image</div>
-                            <div class="text-warning"><b>Note: </b>Image should be between 160 x 160 — 3,000 x 3,000 pixels.</div>
+                            <div class="btn btn-primary" id="change-avatar-btn">Thay ảnh</div>
+                            <div class="text-warning"><b>Chú ý: </b>Ảnh phải có kích thước từ 160 x 160 đến 3,000 x 3,000 pixels.</div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Tên dịch vụ</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="name" placeholder="Name" value="{{ $package->name }}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">English Name</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Tên tiếng Anh</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="name_en" placeholder="ENGLISH Name" value="{{ $package->name_en }}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Japan Name</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Tên tiếng Nhật</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="name_ja" placeholder="JAPAN Name" value="{{ $package->name_ja }}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Korea Name</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Tên tiếng Hàn</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="name_ko" placeholder="KOREA Name" value="{{ $package->name_ko }}">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Price</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Giá</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="price" placeholder="Price" value="{{ $package->price }}">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Service</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Thuộc dịch vụ</label>
                         <div class="col-sm-10">
                             <select name="service_id" id="service" class="form-control">
                             <?php 
@@ -95,7 +95,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default">Save</button>
+                            <button type="submit" class="btn btn-default">Lưu lại</button>
                         </div>
                     </div>
                 {!! Form::close() !!}

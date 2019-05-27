@@ -11,19 +11,19 @@
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">List Coupon <a href="{{ url('/') }}/coupons/create" class="pull-right"><i class="fas fa-plus"></i> Add Coupon</a> </h3>
+                <h3 class="panel-title">Danh sách mã giảm giá <a href="{{ url('/') }}/coupons/create" class="pull-right"><i class="fas fa-plus"></i> Thêm mới</a> </h3>
             </div>
             <div class="panel-body">
             	<table class="table table-striped">
                             <thead> 
                                 <tr> 
                                     <th>#</th> 
-                                    <th>Name</th> 
-                                    <th>Service</th> 
-                                    <th>Value</th> 
-                                    <th>Expiration Date</th> 
-                                    <th>Created At</th> 
-                                    <th>Action</th> 
+                                    <th>Tên mã giảm giá</th> 
+                                    <th>Dịch vụ</th> 
+                                    <th>Giá trị</th> 
+                                    <th>Ngày hết hạn</th> 
+                                    <th>Ngày tạo</th> 
+                                    <th>Xử lý</th> 
                                 </tr> 
                             </thead>
                             <tbody> 

@@ -12,13 +12,13 @@
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Edit Service</h3>
+                <h3 class="panel-title">Sửa dịch vụ</h3>
             </div>
             <div class="panel-body">
                 {!! Form::open(['url' => 'services/' . $service->id, 'class' => 'form-horizontal']) !!}
                     @method('PUT')
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Image</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Ảnh dịch vụ</label>
                         <div class="col-sm-10">
                             <div class="avatar">
                                 <input type="hidden" id="avatar" name="icon" value="{{ $service->icon }}">
@@ -29,38 +29,38 @@
                                     <img src="{{ url('/') }}/public/images/noimage.png" width="150" height="150" id="avatar-image" class="img">
                                 @endif
                             </div>
-                            <div class="btn btn-primary" id="change-avatar-btn">Change Image</div>
-                            <div class="text-warning"><b>Note: </b>Image should be between 160 x 160 — 3,000 x 3,000 pixels.</div>
+                            <div class="btn btn-primary" id="change-avatar-btn">Thay ảnh</div>
+                            <div class="text-warning"><b>Chú ý: </b>Ảnh phải có kích cỡ từ 160 x 160 đến 3,000 x 3,000 pixels.</div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Tên dịch vụ</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="name" placeholder="Name" value="{{ $service->name }}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">English Name</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Tên tiếng Anh</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="name_en" placeholder="Name" value="{{ $service->name_en }}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Japan Name</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Tên tiếng Nhật</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="name_ja" placeholder="Name" value="{{ $service->name_ja }}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Korea Name</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Tên tiếng Hàn</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="name_ko" placeholder="Name" value="{{ $service->name_ko }}">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Parent Id</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Dịch vụ cha</label>
                         <div class="col-sm-10">
                             <select name="parent_id" id="service" class="form-control">
                             <?php 
@@ -90,7 +90,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Partner</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Đối tác</label>
                         <div class="col-sm-10">
                         {!! Form::select('partner_id', $partnerList, $service->partner_id, ['placeholder' => 'Pick a partner...', 'class' => 'form-control']) !!}
                         </div>
@@ -98,7 +98,7 @@
                     
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default">Save</button>
+                            <button type="submit" class="btn btn-default">Lưu lại</button>
                         </div>
                     </div>
                 {!! Form::close() !!}
@@ -115,7 +115,7 @@
         <form id="form" >
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Select new avatar</h4>
+                <h4 class="modal-title">Chọn ảnh mới</h4>
             </div>
             <div class="modal-body">
                 <div class="progress">
@@ -128,9 +128,9 @@
                 <div id="views"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-info" id="load-btn">Load image</button>
-                <button type="button" class="btn btn-primary hide" id="submit-btn">Submit</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info" id="load-btn">Chọn ảnh mới</button>
+                <button type="button" class="btn btn-primary hide" id="submit-btn">Chọn</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
             </div>
         </form>
     </div>
@@ -146,7 +146,7 @@
             var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
             if ($.inArray($($file).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
                 swal({
-                    html: '<div class="alert-danger">Only formats are allowed : '+fileExtension.join(', ')+'</div>',
+                    html: '<div class="alert-danger">Chỉ những định dạng sau đây được cho phép : '+fileExtension.join(', ')+'</div>',
                   })
                 return;
             }
@@ -215,7 +215,7 @@
             // if(image.width < 160 || image.height < 160 || image.width > 3000 || image.height > 3000){
             //     $("#views").empty();
             //     swal({
-            //         html: '<div class="alert-danger">Image must be between 160 x 160 — 3,000 x 3,000 pixels. Please select a different image.</div>',
+            //         html: '<div class="alert-danger">Ảnh phải có kích cỡ từ 160 x 160 đến 3,000 x 3,000 pixels. Please select a different image.</div>',
             //     });
             // }else{
                 $('#change-avatar').modal('show');
@@ -310,7 +310,7 @@
                     $("#views").empty();
                 }else{
                     swal({
-                        html: '<div class="alert-danger">An error occurred during save process, please try again</div>',
+                        html: '<div class="alert-danger">Có một lỗi xảy ra trong quá trình xử lý, hãy thử lại!</div>',
                       })
                     return;
                 }

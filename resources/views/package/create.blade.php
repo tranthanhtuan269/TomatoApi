@@ -14,58 +14,58 @@
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Add Package</h3>
+                <h3 class="panel-title">Tạo dịch vụ con</h3>
             </div>
             <div class="panel-body">
                 {!! Form::open(['url' => 'packages', 'class' => 'form-horizontal']) !!}
                     @method('POST')
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Image</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Ảnh dịch vụ</label>
                         <div class="col-sm-10">
                             <div class="avatar">
                                 <input type="hidden" id="avatar" name="image" value="">
                                 <img id="image-loading" src="{{ asset('images/general/bx_loader.gif') }}" width="50" height="50" style="display: none;">
                                 <img src="{{ url('/') }}/public/images/noimage.png" width="150" height="150" id="avatar-image" class="img">
                             </div>
-                            <div class="btn btn-primary" id="change-avatar-btn">Change Image</div>
-                            <div class="text-warning"><b>Note: </b>Image should be between 160 x 160 — 3,000 x 3,000 pixels.</div>
+                            <div class="btn btn-primary" id="change-avatar-btn">Thay ảnh</div>
+                            <div class="text-warning"><b>Chú ý: </b>Ảnh nên có độ rộng từ 160 x 160 đến 3,000 x 3,000 pixels.</div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Tên dịch vụ</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="name" placeholder="Name" value="">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">English Name</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Tên tiếng Anh</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="name_en" placeholder="ENGLISH Name" value="">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Japan Name</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Tên tiếng Nhật</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="name_ja" placeholder="JAPAN Name" value="">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Korea Name</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Tên tiếng Hàn</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="name_ko" placeholder="KOREA Name" value="">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Price</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Giá</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="price" placeholder="Price" value="">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Service</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Thuộc dịch vụ</label>
                         <div class="col-sm-10">
                             <select name="service_id" id="service" class="form-control">
                             <?php 
@@ -89,7 +89,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default">Save</button>
+                            <button type="submit" class="btn btn-default">Lưu lại</button>
                         </div>
                     </div>
                 {!! Form::close() !!}
@@ -106,7 +106,7 @@
         <form id="form" >
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Select new image</h4>
+                <h4 class="modal-title">Chọn ảnh</h4>
             </div>
             <div class="modal-body">
                 <div class="progress">
@@ -119,9 +119,9 @@
                 <div id="views"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-info" id="load-btn">Load image</button>
-                <button type="button" class="btn btn-primary hide" id="submit-btn">Submit</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info" id="load-btn">Chọn lại ảnh</button>
+                <button type="button" class="btn btn-primary hide" id="submit-btn">Chọn</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
             </div>
         </form>
     </div>
@@ -206,7 +206,7 @@
             if(image.width < 160 || image.height < 160 || image.width > 3000 || image.height > 3000){
                 $("#views").empty();
                 swal({
-                    html: '<div class="alert-danger">Image must be between 160 x 160 — 3,000 x 3,000 pixels. Please select a different image.</div>',
+                    html: '<div class="alert-danger">Ảnh phải có kích cỡ từ 160 x 160 đến 3,000 x 3,000 pixels. Xin hãy chọn 1 ảnh khác.</div>',
                 });
               }else{
                 $('#change-avatar').modal('show');
@@ -301,7 +301,7 @@
                     $("#views").empty();
                 }else{
                     swal({
-                        html: '<div class="alert-danger">An error occurred during save process, please try again</div>',
+                        html: '<div class="alert-danger">Có một lỗi xảy ra trong quá trình xử lý. Xin hãy thực hiện lại.</div>',
                       })
                     return;
                 }
