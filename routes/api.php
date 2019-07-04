@@ -15,9 +15,10 @@ use Illuminate\Http\Request;
 
 Route::post('login', 'AuthController@login');
 Route::post('signup', 'AuthController@signup');
+Route::get('best-score', 'UserController@best');
 
 Route::group([
-  'middleware' => 'auth:api'
+  	'middleware' => 'auth:api'
 ], function() {
 	Route::apiResource('users', 'UserController');
 	Route::apiResource('questions', 'QuestionController');

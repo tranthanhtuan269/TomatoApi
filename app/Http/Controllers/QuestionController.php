@@ -54,8 +54,7 @@ class QuestionController extends Controller
             'answerOne' => 'required|string|max:500',
             'answerTwo' => 'required|string|max:500',
             'answerThree' => 'required|string|max:500',
-            'answerFour' => 'required|string|max:500',
-            'trueAnswer' => 'required|string|max:1'
+            'answerFour' => 'required|string|max:500'
         ]);
 
         if ($validator->fails()) {
@@ -72,25 +71,13 @@ class QuestionController extends Controller
             'answerTwo' => $request->answerTwo,
             'answerThree' => $request->answerThree,
             'answerFour' => $request->answerFour,
-            'trueAnswer' => $request->trueAnswer
+            'trueAnswer' => 1
         ]);
 
         if($question->save()){
-            $item = fractal()
-                ->item($question)
-                ->transformWith(new QuestionTransformer)
-                ->toArray();
-
-            return response()->json([
-                'status_code' => 201,
-                'message' => 'The question has been created',
-                'question' => $item
-            ], 201);    
+            return \Response::json(array('status' => '201', 'message' => 'The question has been created'));   
         }else{
-            return response()->json([
-                'status_code' => 204,
-                'message' => 'Failed to create a new question.',
-            ], 200);
+            return \Response::json(array('status' => '204', 'message' => 'Failed to create a new question'));   
         }
     }
 

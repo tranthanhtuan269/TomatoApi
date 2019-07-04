@@ -154,4 +154,21 @@ class UserController extends Controller
             ], 200);
         }
     }
+
+    public function best(Request $request){
+        $users = User::orderBy('score', 'desc')
+               ->take(10)
+               ->get();
+
+        $users = fractal()
+                ->collection($users)
+                ->transformWith(new UserTransformer)
+                ->toArray();
+
+        return response()->json([
+            'status_code' => 200,
+            'message' => 'List users of best',
+            'users' => $users
+        ], 200);
+    }
 }
