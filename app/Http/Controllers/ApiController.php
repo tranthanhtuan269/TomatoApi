@@ -58,11 +58,6 @@ class ApiController extends Controller
      */
     public function serviceIndex(Request $request)
     {
-        $service = fractal()
-                ->collection(Service::where('active', 1)->get())
-                ->transformWith(new ServiceTransformer)
-                ->toArray();
-
         return response()->json([
             'status_code' => 200,
             'message' => 'List service',
