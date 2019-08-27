@@ -16,21 +16,46 @@ use Illuminate\Http\Request;
 Route::post('login', 'AuthController@login');
 Route::post('signup', 'AuthController@signup');
 
-Route::group([
-  'middleware' => 'auth:api'
-], function() {
-	
-	Route::apiResource('users', 'UserController');
-    Route::get('users/{id}/groups', 'UserController@groups');
+Route::get('users', 'ApiController@userIndex');
+Route::get('users/orders', 'ApiController@userOrders');
+Route::get('users/neworders', 'ApiController@userNewOrders');
+Route::get('users/oldorders', 'ApiController@userOldOrders');
+Route::get('users/{id}', 'ApiController@userShow');
+Route::post('users/{id}', 'ApiController@userUpdate');
+Route::post('users/{id}/info', 'ApiController@userUpdateIOS');
 
-	Route::apiResource('groups', 'GroupController');
-    Route::get('groups/{id}/users', 'GroupController@users');
-    Route::get('groups/{id}/wait', 'GroupController@wait');
-    Route::post('groups/{id}/join', 'GroupController@join');
-    Route::post('groups/{id}/leave', 'GroupController@leave');
-	
-    Route::post('admin/accept', 'AdminController@accept');
-    Route::post('admin/reject', 'AdminController@reject');
+Route::get('services', 'ApiController@serviceIndex');
+Route::get('services/{id}', 'ApiController@serviceShow');
+Route::get('services/{id}/subservice', 'ApiController@subservice');
 
-    Route::post('logout', 'AuthController@logout');
-});
+Route::post('orders', 'ApiController@orderStore');
+Route::post('orders/{id}/update', 'ApiController@orderUpdate');
+Route::post('orders/{id}/addImage', 'ApiController@orderUploadImage');
+Route::post('orders/{id}/pushImage', 'ApiController@orderUploadImageIOS');
+Route::put('orders/{id}', 'ApiController@orderUpdate');
+Route::post('orders/{id}', 'ApiController@orderDestroy');
+Route::delete('orders/{id}', 'ApiController@orderDestroy');
+
+Route::get('coupons/checkCoupon', 'ApiController@checkCoupon');
+
+
+Route::get('news', 'ApiController@newsIndex');
+Route::get('news/{id}', 'ApiController@newsShow');
+
+Route::get('why-use', 'ApiController@whyUse');
+Route::get('best-practices', 'ApiController@bestPractices');
+Route::get('faqs', 'ApiController@faqs');
+Route::get('coupon', 'ApiController@coupon');
+Route::get('report-and-feedback', 'ApiController@reportAndFeedback');
+Route::get('contact', 'ApiController@contact');
+Route::get('legal', 'ApiController@legal');
+Route::get('about', 'ApiController@about');
+Route::get('favorite-tasker', 'ApiController@favoriteTasker');
+Route::get('hspinfo', 'ApiController@hspinfo');
+
+Route::get('get-content', 'ApiController@getContent');
+Route::post('uploadImage', 'ApiController@uploadImageApi');
+Route::post('feedbacks', 'ApiController@feedbacks');
+
+Route::get('test', 'ApiController@test');
+Route::get('wallpaper', 'ApiController@wallpaper');

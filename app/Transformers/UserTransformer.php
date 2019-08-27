@@ -4,11 +4,11 @@ namespace App\Transformers;
 
 use App\User;
 use League\Fractal\TransformerAbstract;
-use App\Transformers\GroupTransformer;
+use App\Transformers\OrderTransformer;
 
 class UserTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['group'];
+    protected $availableIncludes = ['orders'];
     /**
      * A Fractal transformer.
      *
@@ -17,18 +17,21 @@ class UserTransformer extends TransformerAbstract
     public function transform(User $user)
     {
         return [
-            'user_id' => $user->id,
-            'user_name' => $user->user_name,
+            'id' => $user->id,
+            'name' => $user->name,
             'display_name' => $user->display_name,
             'avatar' => $user->avatar,
             'email' => $user->email,
-            'phone_number' => $user->phone_number,
+            'phone' => $user->phone . "",
+            'coin' => $user->coin . "",
+            'code' => $user->code . "",
+            'presenter_id' => $user->presenter_id . "",
             'role_id' => $user->role_id
         ];
     }
 
-    public function includeGroup(User $user)
+    public function includeOrders(User $user)
     {
-        return $this->collection($user->group, new GroupTransformer);
+        return $this->collection($user->orders, new OrderTransformer);
     }
 }

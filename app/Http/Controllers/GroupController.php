@@ -30,7 +30,7 @@ class GroupController extends Controller
             ], 200);
         }else{
             $groups = fractal()
-                    ->collection(Group::where('group_name', 'like', '%' . $request->search . '%')->get())
+                    ->collection(Group::where('name', 'like', '%' . $request->search . '%')->get())
                     ->parseIncludes(['usersActive'])
                     ->transformWith(new GroupTransformer)
                     ->toArray();
@@ -52,7 +52,7 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $validator = \Validator::make($request->all(), [
-            'group_name' => 'required|string|max:255'
+            'name' => 'required|string|max:255'
         ]);
 
         if ($validator->fails()) {
@@ -64,7 +64,7 @@ class GroupController extends Controller
         }
 
         $group = new Group([
-            'group_name' => $request->group_name
+            'name' => $request->name
         ]);
 
         if($group->save()){
@@ -125,7 +125,7 @@ class GroupController extends Controller
     public function update(Request $request, $id)
     {
         $validator = \Validator::make($request->all(), [
-            'group_name' => 'required|string|max:255'
+            'name' => 'required|string|max:255'
         ]);
 
         if ($validator->fails()) {
@@ -139,7 +139,7 @@ class GroupController extends Controller
         $group = Group::find($id);
 
         if($group){
-            $group->group_name = $request->group_name;
+            $group->name = $request->name;
             
             if($group->save()){
                 $updated = fractal()

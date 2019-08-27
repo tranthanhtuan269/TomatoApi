@@ -6,16 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'group_name'
+        'name'
     ];
-
-    public function users(){
-        return $this->belongsToMany('App\User');
+    
+    public function packages(){
+        return $this->hasMany('App\Package');
     }
 }
