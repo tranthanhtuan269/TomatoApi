@@ -71,6 +71,26 @@ class ApiController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function serviceIndex2(Request $request)
+    {
+        dd(Service::where('active', 1)->toArray());
+        $service = fractal()
+                ->collection(Service::where('active', 1)->get())
+                ->transformWith(new ServiceTransformer)
+                ->toArray();
+
+        return response()->json([
+            'status_code' => 200,
+            'message' => 'List service',
+            'service' => $this->services
+        ], 200);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
