@@ -77,7 +77,7 @@ class ApiController extends Controller
      */
     public function serviceIndex2(Request $request)
     {
-        dd(Service::where('active', 1)->all()->toJson());
+        dd(Service::where('active', 1)->get()->toJson());
         $service = fractal()
                 ->collection(Service::where('active', 1)->get())
                 ->transformWith(new ServiceTransformer)
