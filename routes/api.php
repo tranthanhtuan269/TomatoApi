@@ -28,6 +28,8 @@ Route::get('services', 'ApiController@serviceIndex');
 Route::get('services/{id}', 'ApiController@serviceShow');
 Route::get('services/{id}/subservice', 'ApiController@subservice');
 
+Route::get('services2', 'ApiController@serviceIndex2');
+
 Route::post('orders', 'ApiController@orderStore');
 Route::post('orders/{id}/update', 'ApiController@orderUpdate');
 Route::post('orders/{id}/addImage', 'ApiController@orderUploadImage');
