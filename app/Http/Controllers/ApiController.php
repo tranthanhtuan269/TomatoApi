@@ -77,17 +77,7 @@ class ApiController extends Controller
      */
     public function serviceIndex2(Request $request)
     {
-        return Service::where('active', 1)->get()->toJson();
-        $service = fractal()
-                ->collection(Service::where('active', 1)->get())
-                ->transformWith(new ServiceTransformer)
-                ->toArray();
-
-        return response()->json([
-            'status_code' => 200,
-            'message' => 'List service',
-            'service' => $this->services
-        ], 200);
+        return Service::where('active', 1)->select('id', 'name', 'icon')->get()->toJson();
     }
 
     /**
