@@ -8,6 +8,7 @@ use App\Transformers\ServiceTransformer;
 use App\Transformers\OrderTransformer;
 use App\Transformers\NewsTransformer;
 use App\Transformers\UserTransformer;
+use App\Transformers\CityTransformer;
 use App\Common\Helper;
 use Carbon\Carbon;
 use App\Feedback;
@@ -27,6 +28,7 @@ use Mail;
 class ApiController extends Controller
 {
     
+    private $cities;
     private $services;
     private $parentServices;
 
@@ -36,6 +38,10 @@ class ApiController extends Controller
         // Cache::forget('parentServices');
         $this->parentServices = Cache::remember('parentServices', 1440, function() {
             return Service::where('parent_id', 0)->where('active', 1)->orderBy('index', 'asc')->get();
+        });
+
+        $this->cities = Cache::remember('cities', 1440, function() {
+            return City::where('active', 1)->get();
         });
 
         $this->services = Cache::remember('services', 1440, function() {
@@ -1216,7 +1222,15 @@ class ApiController extends Controller
     }
 
     public function getCities(Request $request){
-        $cities = City::get();
-        dd($cities);
+        $cities = fractal()
+                ->collection($this->cities)
+                ->transformWith(new CityTransformer)
+                ->toArray();
+
+        return response()->json([
+            'status_code' => 200,
+            'message' => 'List cities',
+            'cities' => $cities
+        ], 200);
     }
 }
