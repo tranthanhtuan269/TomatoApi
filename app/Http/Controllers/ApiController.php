@@ -19,6 +19,7 @@ use App\News;
 use App\Order;
 use App\User;
 use App\Page;
+use App\City;
 use Validator;
 use Cache;
 use Mail;
@@ -1212,5 +1213,10 @@ class ApiController extends Controller
         });
 
         echo $json;die;
+    }
+
+    public function getCities(Request $request){
+        $cities = City::get();
+        dd($cities);
     }
 }
