@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class City extends Model
+class Product extends Model
 {
     public $timestamps = false;
     /**
@@ -15,10 +15,11 @@ class City extends Model
     protected $fillable = [
         'name',
         'image',
+        'price',
         'active'
     ];
     
-    public function products(){
-        return $this->hasMany('App\Products');
+    public function cities(){
+        return $this->belongsTo('App\City');
     }
 }
