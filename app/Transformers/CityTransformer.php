@@ -2,6 +2,7 @@
 
 namespace App\Transformers;
 
+use App\City;
 use League\Fractal\TransformerAbstract;
 
 class CityTransformer extends TransformerAbstract
@@ -12,13 +13,12 @@ class CityTransformer extends TransformerAbstract
      *
      * @return array
      */
-    public function transform(Product $product)
+    public function transform(City $city)
     {
         return [
-            'id' => $product->id,
-            'name' => $product->name,
-            'price' => $product->price,
-            'image' => $product->image
+            'id' => $city->id,
+            'name' => $city->name,
+            'image' => $city->image
         ];
     }
 
