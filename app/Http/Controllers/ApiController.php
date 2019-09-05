@@ -1224,6 +1224,7 @@ class ApiController extends Controller
     public function getCities(Request $request){
         $cities = fractal()
                 ->collection($this->cities)
+                ->parseIncludes(['products'])
                 ->transformWith(new CityTransformer)
                 ->toArray();
 
