@@ -4,6 +4,7 @@ namespace App\Transformers;
 
 use App\City;
 use League\Fractal\TransformerAbstract;
+use App\Transformers\ProductTransformer;
 
 class CityTransformer extends TransformerAbstract
 {
