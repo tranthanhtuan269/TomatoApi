@@ -1189,39 +1189,6 @@ class ApiController extends Controller
         return \Response::json(array('code' => '403', 'message' => 'unsuccess'));
     }
 
-    public function wallpaper(Request $request){
-        // param
-        $id = 1;
-        if(isset($_GET['id'])){
-            $id = $_GET['id'];
-        }
-
-        $page = 1;
-        if(isset($_GET['page'])){
-            $page = $_GET['page'];
-        }
-
-        $method = 'category';
-        if(isset($_GET['method'])){
-            $method = $_GET['method'];
-        }
-
-        $sort = 'newest';
-        if(isset($_GET['sort'])){
-            $sort = $_GET['sort'];
-        }
-        // end param
-
-        $request = 'id_' . $id . '__' . 'page_' . $page . '__' . 'method_' . $method . '__' . 'sort_' . $sort;
-        $link = "https://wall.alphacoders.com/api2.0/get.php?auth=e298f7de7d3856a0e3f7382d8e8f061e&method=".$method."&id=".$id."&page=".$page."&sort=".$sort."&info_level=3";
-
-        $json = Cache::remember($request, 3600, function() use ($link) {
-            return file_get_contents($link);
-        });
-
-        echo $json;die;
-    }
-
     public function getCities(Request $request){
         $cities = fractal()
                 ->collection($this->cities)
@@ -1233,6 +1200,22 @@ class ApiController extends Controller
             'status_code' => 200,
             'message' => 'List cities',
             'cities' => $cities
+        ], 200);
+    }
+
+    public function getCity(Request $request, $id){
+        $city = City::find($id);
+
+        $finder = fractal()
+            ->item($city)
+            ->parseIncludes(['products'])
+            ->transformWith(new CityTransformer)
+            ->toArray();
+
+        return response()->json([
+            'status_code' => 200,
+            'message' => 'OK',
+            'city' => $finder
         ], 200);
     }
 }
