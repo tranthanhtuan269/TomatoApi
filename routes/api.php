@@ -27,6 +27,9 @@ Route::post('users/{id}/info', 'ApiController@userUpdateIOS');
 Route::get('cities', 'ApiController@getCities');
 Route::get('cities/{id}', 'ApiController@getCity');
 
+Route::get('categories', 'ApiController@getCategories');
+Route::get('categories/{id}', 'ApiController@getCategory');
+
 
 Route::get('services', 'ApiController@serviceIndex');
 Route::get('services2', 'ApiController@serviceIndex2');

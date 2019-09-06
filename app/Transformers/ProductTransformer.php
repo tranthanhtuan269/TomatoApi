@@ -4,11 +4,11 @@ namespace App\Transformers;
 
 use App\Product;
 use League\Fractal\TransformerAbstract;
-use App\Transformers\CityTransformer;
+use App\Transformers\CategoryTransformer;
 
 class ProductTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['city'];
+    protected $availableIncludes = ['category'];
     /**
      * A Fractal transformer.
      *
@@ -20,12 +20,12 @@ class ProductTransformer extends TransformerAbstract
             'id' => $product->id,
             'name' => $product->name,
             'price' => $product->price,
-            'image' => $product->image
+            'image' => $product->image,
         ];
     }
 
-    public function includeCity(Product $product)
+    public function includeCategory(Product $product)
     {
-        return $this->item($product->city, new CityTransformer);
+        return $this->item($product->category, new CategoryTransformer);
     }
 }

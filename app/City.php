@@ -18,7 +18,7 @@ class City extends Model
         'active'
     ];
     
-    public function products(){
-        return $this->hasMany('App\Product');
+    public function categories(){
+        return $this->hasMany('App\Category');
     }
 }

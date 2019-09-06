@@ -1192,7 +1192,7 @@ class ApiController extends Controller
     public function getCities(Request $request){
         $cities = fractal()
                 ->collection($this->cities)
-                ->parseIncludes(['products'])
+                // ->parseIncludes(['products'])
                 ->transformWith(new CityTransformer)
                 ->toArray();
 
@@ -1208,7 +1208,7 @@ class ApiController extends Controller
 
         $finder = fractal()
             ->item($city)
-            ->parseIncludes(['products'])
+            ->parseIncludes(['categories'])
             ->transformWith(new CityTransformer)
             ->toArray();
 
@@ -1216,6 +1216,36 @@ class ApiController extends Controller
             'status_code' => 200,
             'message' => 'OK',
             'city' => $finder
+        ], 200);
+    }
+
+    public function getCategories(Request $request, $city_id){
+        $categories = fractal()
+                ->collection(Category::where('city_id', $city_id)->get())
+                // ->parseIncludes(['products'])
+                ->transformWith(new CategoryTransformer)
+                ->toArray();
+
+        return response()->json([
+            'status_code' => 200,
+            'message' => 'List category',
+            'categories' => $categories
+        ], 200);
+    }
+
+    public function getCategory(Request $request, $category_id){
+        $category = Category::find($category_id);
+
+        $finder = fractal()
+            ->item($category)
+            ->parseIncludes(['products'])
+            ->transformWith(new CategoryTransformer)
+            ->toArray();
+
+        return response()->json([
+            'status_code' => 200,
+            'message' => 'OK',
+            'category' => $finder
         ], 200);
     }
 }
