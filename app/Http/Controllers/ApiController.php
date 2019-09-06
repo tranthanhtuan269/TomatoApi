@@ -34,6 +34,7 @@ class ApiController extends Controller
 
     public function __construct()
     {        
+        Cache::forget('cities');
         // Cache::forget('services');
         // Cache::forget('parentServices');
         $this->parentServices = Cache::remember('parentServices', 1440, function() {
