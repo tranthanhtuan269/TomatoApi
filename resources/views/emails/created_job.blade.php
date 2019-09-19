@@ -8,17 +8,6 @@
 	<h3 style="margin-left: 10px;">Chi tiết yêu cầu như sau:</h3>
 	<div class="jobs-component">
 		<div style="font-size: 16px; line-height: 25px;" class="job-component">
-			<div style="width: 20%; float: left;">
-				@if(null != \App\Service::find($job->service_id))
-					@if(null != \App\Service::find($job->service_id)->icon)
-						<img src="http://hspvietnam.com/public/images/{{ \App\Order::getServiceInfo($job->id)->icon }}" class="img-responsive" alt="http://hspvietnam.com/public/images/{{ \App\Order::getServiceInfo($job->id)->icon }}" style="width: 100%;border: 5px solid #eee;border-radius: 5px;">
-					@else
-						<img src="http://hspvietnam.com/public/images/giatui.png" class="img-responsive" alt="http://hspvietnam.com/public/images/giatui.png" style="width: 100%;border: 5px solid #eee;border-radius: 5px;">
-					@endif
-				@else
-					<img src="http://hspvietnam.com/public/images/giatui.png" class="img-responsive" alt="http://hspvietnam.com/public/images/giatui.png" style="width: 100%;border: 5px solid #eee;border-radius: 5px;">
-				@endif
-			</div>
 			<div style="width: 77%; float: left; margin-left: 3%;">
 				<div style="font-size: 26px; font-weight: bold; color:#ff00a3; margin-bottom: 5px;">
 					{{ $job->user->name }} 
@@ -32,8 +21,8 @@
 				<div style="">
 					Chi tiết đầu việc:
 					<ul style="margin:0; padding:0 15px;"> 
-					@foreach($job->packages as $package)
-			            <li>{{ $package->service->name }}: {{ $package->pivot->number }} {{ $package->name }}</li>
+					@foreach($job->products as $product)
+			            <li>{{ $product->name }}: {{ $product->pivot->number }}</li>
 			        @endforeach
 			    	</ul>
 				</div>
