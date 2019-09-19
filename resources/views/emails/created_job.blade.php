@@ -10,7 +10,7 @@
 		<div style="font-size: 16px; line-height: 25px;" class="job-component">
 			<div style="width: 77%; float: left; margin-left: 3%;">
 				<div style="font-size: 26px; font-weight: bold; color:#ff00a3; margin-bottom: 5px;">
-					
+					@if($job->user){{ $job->user->name }} @else echo "No name"; @endif
 				</div>
 				<div style="font-size: 26px; font-weight: bold; margin-bottom: 5px;">
 					<span style="text-transform: capitalize;">{{ $job->address }}</span>
