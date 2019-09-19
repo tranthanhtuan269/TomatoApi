@@ -16,8 +16,6 @@ class Order extends Model
         'address',
         'number_address',
         'note',
-        'start_time',
-        'end_time',
         'state',
         'price',
         'real_price',
@@ -28,10 +26,9 @@ class Order extends Model
         'promotion_code',
         'coupon_value',
         'image',
-        'list_packages',
-        'service_id'
+        'list_products'
     ];
-    
+
     /**
      * Get the post that owns the comment.
      */
