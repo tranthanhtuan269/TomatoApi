@@ -31,34 +31,12 @@ class Order extends Model
         'list_packages',
         'service_id'
     ];
-
+    
     /**
      * Get the post that owns the comment.
      */
-    public function user()
+    public function products()
     {
-        return $this->belongsTo('App\User');
-    }
-
-    /**
-     * Get the post that owns the comment.
-     */
-    public function packages()
-    {
-        return $this->belongsToMany('App\Package')->withPivot('number');
-    }
-
-    public static function getServiceInfo($id)
-    {
-        $order = Order::find($id);
-
-        if(isset($order)){
-            $object = $order->packages()->first();
-            if(isset($object)){
-                return Service::getServiceParent($object->service_id);    
-            }
-        }
-
-        return Service::find(1);
+        return $this->belongsToMany('App\Product')->withPivot('number');
     }
 }

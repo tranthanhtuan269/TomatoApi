@@ -22,8 +22,6 @@ class OrderTransformer extends TransformerAbstract
             'address' => $order->address,
             'number_address' => $order->number_address,
             'note' => $order->note,
-            'start_time' => $order->start_time,
-            'end_time' => $order->end_time,
             'state' => $order->state,
             'user' => $order->user,
             'price' => ($order->price * (100 - $order->coupon_value) / 100) . '', 
@@ -33,9 +31,7 @@ class OrderTransformer extends TransformerAbstract
             'image' => $order->image,
             'promotion_code' => $order->promotion_code,
             'coupon_value' => $order->coupon_value,
-            'list_package' => $order->list_packages,
-            'service' => Order::getServiceInfo($order->id),
-            'package' => $order->packages
+            'list_products' => $order->list_products
         ];
     }
 

@@ -50,7 +50,7 @@ class ApiController extends Controller
         $validator = \Validator::make($request->all(), [
             'address' => 'required|string|max:255',
             'price' => 'required',
-            'list_packages' => 'required|string|max:5000', 
+            'list_products' => 'required|string|max:5000', 
             'phone' => 'required|string|min:10|max:15',
             'username' => 'required|string|min:3|max:255',
         ]);
@@ -100,15 +100,15 @@ class ApiController extends Controller
                 'email' => $email,
                 'promotion_code' => $promotion_code,
                 'coupon_value' => isset($coupon) ? $coupon->value : 0,
-                'list_packages' => $request->list_packages,
+                'list_products' => $request->list_products,
                 'pay_type' => $request->pay_type
             ]);
 
             if($order->save()){
                 // add packages
-                $list_package = json_decode($request->list_packages);
-                foreach ($list_package as $package) {
-                    $order->packages()->attach($package->package_id, ['number' => $package->number]);
+                $list_products = json_decode($request->list_products);
+                foreach ($list_products as $product) {
+                    $order->products()->attach($product->product_id, ['number' => $product->number]);
                 }
 
                 $item = fractal()
