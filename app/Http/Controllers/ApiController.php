@@ -63,7 +63,7 @@ class ApiController extends Controller
                 ], 200);
         }
 
-        $user = Helper::checkAuth($request->phone);
+        $user = Helper::checkAuth($request->phone, $request->username);
         if($user){
             if(!isset($request->username)){
                 $username = "";

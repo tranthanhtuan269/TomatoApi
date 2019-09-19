@@ -11,12 +11,12 @@ use App\MonthlyReport;
 
 Class Helper{
 
-	public static function checkAuth($phone){
+	public static function checkAuth($phone, $username){
         $phone = Helper::removePlusInPhone($phone);
 		$user = User::where("phone", $phone)->first();
 		if(!isset($user)){
 			$user = new User;
-			$user->name = "";
+			$user->name = $username;
 			$user->display_name = "";
 			$user->avatar = "";
 			$user->email = "";
