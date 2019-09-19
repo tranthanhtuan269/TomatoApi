@@ -93,7 +93,6 @@ class ApiController extends Controller
                 'number_address' => $request->number_address,
                 'note' => $note,
                 'state' => 0,
-                'service_id' => $request->service_id,
                 'status_payment' => isset($request->status_payment) ? $request->status_payment : 0,
                 'price' => $request->price,
                 'real_price' => $request->price,
