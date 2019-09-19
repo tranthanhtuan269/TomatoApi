@@ -11,7 +11,7 @@ use App\MonthlyReport;
 
 Class Helper{
 
-	public static function checkAuth($phone, $access_token){
+	public static function checkAuth($phone){
         $phone = Helper::removePlusInPhone($phone);
 		$user = User::where("phone", $phone)->first();
 		if(!isset($user)){

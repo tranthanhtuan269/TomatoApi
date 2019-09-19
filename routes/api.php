@@ -13,39 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('login', 'AuthController@login');
-Route::post('signup', 'AuthController@signup');
-
-Route::get('users', 'ApiController@userIndex');
-Route::get('users/orders', 'ApiController@userOrders');
-Route::get('users/neworders', 'ApiController@userNewOrders');
-Route::get('users/oldorders', 'ApiController@userOldOrders');
-Route::get('users/{id}', 'ApiController@userShow');
-Route::post('users/{id}', 'ApiController@userUpdate');
-Route::post('users/{id}/info', 'ApiController@userUpdateIOS');
-
 Route::get('cities', 'ApiController@getCities');
 Route::get('cities/{id}', 'ApiController@getCity');
 
 Route::get('categories', 'ApiController@getCategories');
 Route::get('categories/{id}', 'ApiController@getCategory');
 
-
-Route::get('services', 'ApiController@serviceIndex');
-Route::get('services2', 'ApiController@serviceIndex2');
-Route::get('services/{id}', 'ApiController@serviceShow');
-Route::get('services/{id}/subservice', 'ApiController@subservice');
-
 Route::post('orders', 'ApiController@orderStore');
-Route::post('orders/{id}/update', 'ApiController@orderUpdate');
-Route::post('orders/{id}/addImage', 'ApiController@orderUploadImage');
-Route::post('orders/{id}/pushImage', 'ApiController@orderUploadImageIOS');
-Route::put('orders/{id}', 'ApiController@orderUpdate');
-Route::post('orders/{id}', 'ApiController@orderDestroy');
-Route::delete('orders/{id}', 'ApiController@orderDestroy');
-
 Route::get('coupons/checkCoupon', 'ApiController@checkCoupon');
-
 
 Route::get('news', 'ApiController@newsIndex');
 Route::get('news/{id}', 'ApiController@newsShow');
@@ -64,6 +39,3 @@ Route::get('hspinfo', 'ApiController@hspinfo');
 Route::get('get-content', 'ApiController@getContent');
 Route::post('uploadImage', 'ApiController@uploadImageApi');
 Route::post('feedbacks', 'ApiController@feedbacks');
-
-Route::get('test', 'ApiController@test');
-Route::get('wallpaper', 'ApiController@wallpaper');
