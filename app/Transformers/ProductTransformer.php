@@ -20,6 +20,7 @@ class ProductTransformer extends TransformerAbstract
             'id' => $product->id,
             'name' => $product->name,
             'price' => $product->price,
+            'sale' => $product->sale,
             'image' => url('/').'/public/images/'.$product->image,
             'address' => $product->address,
         ];
