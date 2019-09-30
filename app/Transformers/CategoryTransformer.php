@@ -9,7 +9,10 @@ use App\Category;
 
 class CategoryTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['city', 'products'];
+    protected $availableIncludes = ['city'];
+    protected $defaultIncludes = [
+        'products'
+    ];
     /**
      * A Fractal transformer.
      *
@@ -20,8 +23,7 @@ class CategoryTransformer extends TransformerAbstract
         return [
             'id' => $category->id,
             'name' => $category->name,
-            'city' => $category->city,
-            'products' => $category->products
+            'city' => $category->city
         ];
     }
 
