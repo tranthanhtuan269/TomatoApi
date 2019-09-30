@@ -32,6 +32,6 @@ class CategoryTransformer extends TransformerAbstract
 
     public function includeProducts(Category $category)
     {
-        return $this->item($category->products, new ProductTransformer);
+        return $this->collection($category->products, new ProductTransformer);
     }
 }
