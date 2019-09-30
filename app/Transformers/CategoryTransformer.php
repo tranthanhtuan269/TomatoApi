@@ -20,8 +20,7 @@ class CategoryTransformer extends TransformerAbstract
         return [
             'id' => $category->id,
             'name' => $category->name,
-            'city' => $category->city,
-            'products' => $category->products
+            'city' => $category->city
         ];
     }
 
