@@ -19,6 +19,8 @@ Route::get('cities/{id}', 'ApiController@getCity');
 Route::get('categories', 'ApiController@getCategories');
 Route::get('categories/{id}', 'ApiController@getCategory');
 
+Route::get('products/{id}', 'ApiController@getProduct');
+
 Route::post('orders', 'ApiController@orderStore');
 Route::get('coupons/checkCoupon', 'ApiController@checkCoupon');
 

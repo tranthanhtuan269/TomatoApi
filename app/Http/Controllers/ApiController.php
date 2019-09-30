@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Transformers\PackageTransformer;
 use App\Transformers\ServiceTransformer;
+use App\Transformers\ProductTransformer;
 use App\Transformers\OrderTransformer;
 use App\Transformers\NewsTransformer;
 use App\Transformers\UserTransformer;
@@ -15,6 +16,7 @@ use App\Feedback;
 use App\Setting;
 use App\Service;
 use App\Package;
+use App\Product;
 use App\Coupon;
 use App\News;
 use App\Order;
@@ -485,5 +487,24 @@ class ApiController extends Controller
             'message' => 'OK',
             'category' => $finder
         ], 200);
+    }
+
+    public function getProduct(Request $request, $product_id){
+        
+        $item = Product::find($product_id);
+        if($item){
+            $product = fractal()
+                    ->item(Product::find($product_id))
+                    ->transformWith(new ProductTransformer)
+                    ->toArray();
+
+            return response()->json([
+                'status_code' => 200,
+                'message' => 'Show Product',
+                'product' => $product
+            ], 200);
+        }else{
+            return \Response::json(array('code' => '404', 'message' => 'find not found'));
+        }
     }
 }
