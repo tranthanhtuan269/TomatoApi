@@ -19,6 +19,7 @@ class Product extends Model
         'sale',
         'category_id',
         'address',
+        'unit',
         'active'
     ];
     
