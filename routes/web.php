@@ -12,27 +12,6 @@
 */
 Route::get('/', 'ReportController@daily');
 
-Route::get('/terms', function () {
-    return view('terms');
-});
-
-Route::get('/test', function () {
-    // send email to setting
-    $emaiSetting = \App\Setting::where('key', 'adminEmail')->first();
-
-    $emaiSetting->value = str_replace(" ","",$emaiSetting->value);
-
-    $emailArray = explode(",",$emaiSetting->value);
-    $job = \App\Order::find(5);
-    \Mail::send('emails.created_job', ['job' => $job], function($message) use ($emailArray){
-        $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
-        $message->to($emailArray)->subject('HSP thông báo đăng ký thành công!');
-    });
-});
-Route::get('/privacy', function () {
-    return view('privacy');
-});
-
 Route::get('/services', 'ServiceController@indexWeb');
 Route::post('/services', 'ServiceController@storeWeb');
 Route::post('/services/sort', 'ServiceController@sortWeb');
