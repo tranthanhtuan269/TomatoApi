@@ -493,13 +493,12 @@ class ApiController extends Controller
     }
 
     public function checkCoupon(Request $request, $coupon){
-        $coupon = Coupon::where('name', $coupon)->first();
-        dd($coupon);
-        if($coupon){
+        $cpo = Coupon::where('name', $coupon)->first();
+        if($cpo){
             return response()->json([
                 'status_code' => 200,
                 'message' => 'Coupon value',
-                'coupon' => $coupon
+                'coupon' => $cpo
             ], 200);
         }else{
             return \Response::json(array('code' => '404', 'message' => 'find not found'));
