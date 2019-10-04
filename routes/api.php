@@ -22,7 +22,7 @@ Route::get('categories/{id}', 'ApiController@getCategory');
 Route::get('products/{id}', 'ApiController@getProduct');
 
 Route::post('orders', 'ApiController@orderStore');
-Route::get('coupons/checkCoupon', 'ApiController@checkCoupon');
+Route::get('coupons/{coupon}', 'ApiController@checkCoupon');
 
 Route::get('news', 'ApiController@newsIndex');
 Route::get('news/{id}', 'ApiController@newsShow');
