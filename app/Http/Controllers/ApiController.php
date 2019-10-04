@@ -413,23 +413,6 @@ class ApiController extends Controller
         return \Response::json(array('code' => '403', 'message' => 'unsuccess'));
     }
 
-    public function checkCoupon(Request $request){
-        if(isset($request->service_id) && isset($request->coupon)){
-            $coupon = Coupon::where('name', $request->coupon)->where('service_id', 0)->first();
-
-            if(isset($coupon)){
-                return \Response::json(array('code' => '200', 'message' => 'success', 'value' => $coupon->value));
-            }else{
-                $coupon = Coupon::where('name', $request->coupon)->where('service_id', $request->service_id)->first();
-                
-                if(isset($coupon)){
-                    return \Response::json(array('code' => '200', 'message' => 'success', 'value' => $coupon->value));
-                }
-            }
-        }
-        return \Response::json(array('code' => '403', 'message' => 'unsuccess'));
-    }
-
     public function getCities(Request $request){
         $cities = fractal()
                 ->collection($this->cities)
@@ -503,6 +486,19 @@ class ApiController extends Controller
                 'status_code' => 200,
                 'message' => 'Show Product',
                 'product' => $product
+            ], 200);
+        }else{
+            return \Response::json(array('code' => '404', 'message' => 'find not found'));
+        }
+    }
+
+    public function checkCoupon(Request $request, $coupon){
+        $coupon = Coupon::where('name', $coupon)->first();
+        if($coupon){
+            return response()->json([
+                'status_code' => 200,
+                'message' => 'Coupon value',
+                'coupon' => $coupon
             ], 200);
         }else{
             return \Response::json(array('code' => '404', 'message' => 'find not found'));

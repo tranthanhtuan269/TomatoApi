@@ -13,16 +13,7 @@ class Coupon extends Model
      */
     protected $fillable = [
         'name', 
-        'service_id', 
         'value', 
         'expiration_date'
     ];
-
-    /**
-     * Get the post that owns the comment.
-     */
-    public function service()
-    {
-        return $this->belongsTo('App\Service');
-    }
 }
