@@ -1,7 +1,7 @@
 <?php
 
 	$list = [
-        ['services', 'Dịch vụ'],
+        ['products', 'Sản phẩm'],
         ['news', 'Tin tức'],
         ['users', 'Tài khoản'],
         ['coupons', 'Mã giảm giá'],
@@ -88,42 +88,42 @@
 	<li class="list-group-item active">Các trang</li>
 	<li class="list-group-item menu-link">
 		<a href="{{ url('/') }}/pages?type=whyUse" class="text-capitalize">
-    		Tại sao sử dụng HSP
+    		Tại sao sử dụng
     	</a>
 	</li>
     <li class="list-group-item menu-link">
+        <a href="{{ url('/') }}/pages?type=legal" class="text-capitalize">
+            Điều khoản sử dụng
+        </a>
+    </li>
+    <li class="list-group-item menu-link">
+        <a href="{{ url('/') }}/pages?type=about" class="text-capitalize">
+            Về chúng tôi
+        </a>
+    </li>
+    <!-- <li class="list-group-item menu-link">
         <a href="{{ url('/') }}/pages?type=invite" class="text-capitalize">
             Mời bạn
         </a>
-    </li>
-	<li class="list-group-item menu-link">
+    </li> -->
+	<!-- <li class="list-group-item menu-link">
 		<a href="{{ url('/') }}/pages?type=warranties" class="text-capitalize">
     		Bảo hành
     	</a>
-	</li>
-	<li class="list-group-item menu-link">
+	</li> -->
+	<!-- <li class="list-group-item menu-link">
 		<a href="{{ url('/') }}/pages?type=bestPractices" class="text-capitalize">
     		Trải nghiệm tốt
     	</a>
-	</li>
-	<li class="list-group-item menu-link">
+	</li> -->
+	<!-- <li class="list-group-item menu-link">
 		<a href="{{ url('/') }}/pages?type=faqs" class="text-capitalize">
     		Câu hỏi và trả lời
     	</a>
-	</li>
-	<li class="list-group-item menu-link">
+	</li> -->
+	<!-- <li class="list-group-item menu-link">
 		<a href="{{ url('/') }}/pages?type=Contact" class="text-capitalize">
     		Liên hệ
     	</a>
-	</li>
-	<li class="list-group-item menu-link">
-		<a href="{{ url('/') }}/pages?type=legal" class="text-capitalize">
-    		Điều khoản sử dụng
-    	</a>
-	</li>
-	<li class="list-group-item menu-link">
-		<a href="{{ url('/') }}/pages?type=about" class="text-capitalize">
-    		Về chúng tôi
-    	</a>
-	</li>
+	</li> -->
 </ul>
