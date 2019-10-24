@@ -36,10 +36,10 @@ class ApiController extends Controller
 
     public function __construct()
     {   
-        Cache::forget('cities');
-        $this->cities = Cache::remember('cities', 1440, function() {
-            return City::where('active', 1)->get();
-        });
+        // Cache::forget('cities');
+        // $this->cities = Cache::remember('cities', 1440, function() {
+        //     return City::where('active', 1)->get();
+        // });
     }
 
     /**
@@ -415,7 +415,7 @@ class ApiController extends Controller
 
     public function getCities(Request $request){
         $cities = fractal()
-                ->collection($this->cities)
+                ->collection(City::where('active', 1)->get())
                 // ->parseIncludes(['products'])
                 ->transformWith(new CityTransformer)
                 ->toArray();
