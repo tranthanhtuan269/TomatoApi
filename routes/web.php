@@ -33,6 +33,10 @@ Route::get('/privacy', function () {
     return view('privacy');
 });
 
+
+
+Route::get('/products', 'ProductController@indexWeb');
+
 Route::get('/services', 'ServiceController@indexWeb');
 Route::post('/services', 'ServiceController@storeWeb');
 Route::post('/services/sort', 'ServiceController@sortWeb');

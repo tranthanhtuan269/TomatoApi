@@ -44,7 +44,7 @@ class ExcelExport implements FromQuery, WithHeadings, WithMapping, ShouldAutoSiz
                                             ->leftjoin('services', 'services.id', '=', 'orders.service_id')
         			     ->select(
                                                     'services.name as name',
-                                                    'orders.start_time as start_time',
+                                                    'orders.created_at as created_at',
                                                     'orders.price as price',
                                                     'orders.real_price as real_price',
                                                     'orders.rewards as rewards',
@@ -52,8 +52,8 @@ class ExcelExport implements FromQuery, WithHeadings, WithMapping, ShouldAutoSiz
                                                     'orders.promotional as promotional',
                                                     'orders.promotion_code as promotional_code'
         				)
-        			->where('orders.start_time', '>', strtotime($this->fromDate . ' 00:00:00')*1000)
-        			->where('orders.start_time', '<=', strtotime($this->toDate . ' 23:59:59')*1000)
+        			->where('orders.created_at', '>', strtotime($this->fromDate . ' 00:00:00')*1000)
+        			->where('orders.created_at', '<=', strtotime($this->toDate . ' 23:59:59')*1000)
         			->where('orders.state', '=', 2);
 
         if($this->serviceId != 0){
@@ -70,7 +70,7 @@ class ExcelExport implements FromQuery, WithHeadings, WithMapping, ShouldAutoSiz
         setlocale(LC_MONETARY, 'it_IT');
         return [
             $order->name,
-            gmdate("H:i:s d-m-Y", $order->start_time/1000),
+            gmdate("H:i:s d-m-Y", $order->created_at/1000),
             number_format($order->price,2,",","."),
             number_format($order->real_price,2,",","."),
             number_format($order->rewards,2,",","."),

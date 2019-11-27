@@ -68,9 +68,9 @@ Class Helper{
     }
 
     public static function calculator($order){
-        $today = date('Y-m-d', $order->start_time / 1000);
-        $week = date('Y-W', $order->start_time / 1000);
-        $month = date('Y-m', $order->start_time / 1000);
+        $today = date('Y-m-d', $order->created_at);
+        $week = date('Y-W', $order->created_at);
+        $month = date('Y-m', $order->created_at);
         $dailyReport = DailyReport::where('name', $today)->first();
         $weeklyReport = WeeklyReport::where('name', $week)->first();
         $monthlyReport = MonthlyReport::where('name', $month)->first();
@@ -141,9 +141,9 @@ Class Helper{
     }
 
     public static function rollback($order){
-        $today = date('Y-m-d', $order->start_time / 1000);
-        $week = date('Y-W', $order->start_time / 1000);
-        $month = date('Y-m', $order->start_time / 1000);
+        $today = date('Y-m-d', $order->created_at);
+        $week = date('Y-W', $order->created_at);
+        $month = date('Y-m', $order->created_at);
         $dailyReport = DailyReport::where('name', $today)->first();
         $weeklyReport = WeeklyReport::where('name', $week)->first();
         $monthlyReport = MonthlyReport::where('name', $month)->first();

@@ -42,7 +42,7 @@
                                     <td class="text-center"><b>{{ $order->price / 1000 }}</b> K</td> 
                                     <td class="text-center"><b>{{ $order->rewards / 1000 }}</b> K</td> 
                                     <td class="text-center"><b>{{ $order->promotional / 1000 }}</b> K</td> 
-                                    <td>{{ date("H:i:s", strtotime($order->created_at)) }}</td> 
+                                    <td>{{ date("H:i:s", $order->created_at) }}</td> 
                                     <td><a href="{{ url('/') }}/orders/{{ $order->id }}"><i class="fas fa-info-circle"></i></a></td> 
                                 </tr>
                                 @endforeach

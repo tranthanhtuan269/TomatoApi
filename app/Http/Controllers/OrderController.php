@@ -31,7 +31,7 @@ class OrderController extends Controller
      */
     public function indexWeb()
     {
-        $orders = Order::orderBy('start_time', 'desc')->paginate(15);
+        $orders = Order::orderBy('created_at', 'desc')->paginate(15);
         return view('order.index', ['orders' => $orders]);
     }
 
@@ -42,7 +42,7 @@ class OrderController extends Controller
      */
     public function newOrder()
     {
-        $orders = Order::orderBy('start_time', 'desc')->where('state', 0)->paginate(15);
+        $orders = Order::orderBy('created_at', 'desc')->where('state', 0)->paginate(15);
         foreach ($orders as $order) {
             if($order->promotion_code != ''){
                 if($order->service_id != 0){
@@ -86,7 +86,7 @@ class OrderController extends Controller
      */
     public function acceptedOrder()
     {
-        $orders = Order::orderBy('start_time', 'desc')->where('state', 1)->paginate(15);
+        $orders = Order::orderBy('created_at', 'desc')->where('state', 1)->paginate(15);
         return view('order.accept', ['orders' => $orders]);
     }
 
@@ -97,7 +97,7 @@ class OrderController extends Controller
      */
     public function paidOrder()
     {
-        $orders = Order::orderBy('start_time', 'desc')->where('state', 2)->paginate(15);
+        $orders = Order::orderBy('created_at', 'desc')->where('state', 2)->paginate(15);
         return view('order.paid', ['orders' => $orders]);
     }
 
@@ -108,7 +108,7 @@ class OrderController extends Controller
      */
     public function cancelOrder()
     {
-        $orders = Order::orderBy('start_time', 'desc')->where('state', 3)->paginate(15);
+        $orders = Order::orderBy('created_at', 'desc')->where('state', 3)->paginate(15);
         return view('order.cancel', ['orders' => $orders]);
     }
 
