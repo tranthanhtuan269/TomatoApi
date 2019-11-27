@@ -33,22 +33,21 @@ Route::get('/privacy', function () {
     return view('privacy');
 });
 
-Route::get('/services', 'ServiceController@indexWeb');
-Route::post('/services', 'ServiceController@storeWeb');
-Route::post('/services/sort', 'ServiceController@sortWeb');
-Route::post('/services/active', 'ServiceController@activeWeb');
-Route::get('/services/{id}/edit', 'ServiceController@editWeb');
-Route::get('/services/create', 'ServiceController@createWeb');
-Route::get('/services/{id}', 'ServiceController@viewWeb');
-Route::put('/services/{id}', 'ServiceController@updateWeb');
-Route::delete('/services/{id}', 'ServiceController@destroyWeb');
+Route::get('/products', 'ProductController@index');
+Route::get('/products/create', 'ProductController@create');
+Route::post('/products', 'ProductController@store');
+Route::get('/products/{id}', 'ProductController@view');
+Route::get('/products/{id}/edit', 'ProductController@edit');
+Route::put('/products/{id}', 'ProductController@update');
+Route::delete('/products/{id}', 'ProductController@destroy');
 
-Route::get('/packages', 'PackageController@indexWeb');
-Route::post('/packages', 'PackageController@storeWeb');
-Route::get('/packages/{id}/edit', 'PackageController@editWeb');
-Route::get('/packages/create', 'PackageController@createWeb');
-Route::put('/packages/{id}', 'PackageController@updateWeb');
-Route::delete('/packages/{id}', 'PackageController@destroyWeb');
+Route::get('/categories', 'CategoryController@index');
+Route::post('/categories', 'CategoryController@store');
+Route::get('/categories/{id}', 'CategoryController@view');
+Route::get('/categories/{id}/edit', 'CategoryController@edit');
+Route::get('/categories/create', 'CategoryController@create');
+Route::put('/categories/{id}', 'CategoryController@update');
+Route::delete('/categories/{id}', 'CategoryController@destroy');
 
 Route::get('/news', 'NewsController@indexWeb');
 Route::post('/news', 'NewsController@storeWeb');

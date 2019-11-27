@@ -1,11 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="http://jcrop-cdn.tapmodo.com/v0.9.12/js/jquery.Jcrop.min.js"></script>
 <div class="container-fluid">
-    <div class="col-sm-12"><h2 class="text-center">HSP Administrator</h2><a class="btn btn-default logout" href="{{ url('logout') }}">Logout</a></div>
+    <div class="col-sm-12"><h2 class="text-center">DSC Administrator</h2><a class="btn btn-default logout" href="{{ url('logout') }}">Logout</a></div>
     <div class="clearfix"></div>
     <div class="col-sm-3">
         @component('components.menuleft', ['active' => 'packages'])
@@ -14,75 +12,104 @@
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Tạo dịch vụ con</h3>
+                <h3 class="panel-title">Sửa sản phẩm</h3>
             </div>
             <div class="panel-body">
-                {!! Form::open(['url' => 'packages', 'class' => 'form-horizontal']) !!}
-                    @method('POST')
+                {!! Form::open(['url' => 'products/' . $product->id, 'class' => 'form-horizontal']) !!}
+                    @method('PUT')
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Ảnh dịch vụ</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Ảnh sản phẩm</label>
                         <div class="col-sm-10">
                             <div class="avatar">
-                                <input type="hidden" id="avatar" name="image" value="">
+                                <input type="hidden" id="image" name="image" value="{{ $product->image }}">
                                 <img id="image-loading" src="{{ asset('images/general/bx_loader.gif') }}" width="50" height="50" style="display: none;">
-                                <img src="{{ url('/') }}/public/images/noimage.png" width="150" height="150" id="avatar-image" class="img">
+                                @if(strlen($product->image) > 0)
+                                    <img src="{{ url('/') }}/images/{{ $product->image }}" id="product-image" class="img" width="150" height="150">
+                                @else
+                                    <img src="{{ url('/') }}/images/noimage.png" width="150" height="150" id="product-image" class="img">
+                                @endif
                             </div>
-                            <div class="btn btn-primary" id="change-avatar-btn">Thay ảnh</div>
-                            <div class="text-warning"><b>Chú ý: </b>Ảnh nên có độ rộng từ 160 x 160 đến 3,000 x 3,000 pixels.</div>
+                            <div class="btn btn-primary" id="change-image-btn">Thay ảnh</div>
+                            <div class="text-warning"><b>Chú ý: </b>Ảnh phải có kích thước từ 160 x 160 đến 3,000 x 3,000 pixels.</div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Tên dịch vụ</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Tên sản phẩm</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="name" placeholder="Name" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Tên tiếng Anh</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="name_en" placeholder="ENGLISH Name" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Tên tiếng Nhật</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="name_ja" placeholder="JAPAN Name" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Tên tiếng Hàn</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="name_ko" placeholder="KOREA Name" value="">
+                            <input type="text" class="form-control" name="name" placeholder="Name" value="{{ $product->name }}">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Giá</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Giá gốc</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="price" placeholder="Price" value="">
+                            <input type="text" class="form-control" name="price" placeholder="Giá gốc" value="{{ $product->price }}">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Thuộc dịch vụ</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Giá sale</label>
                         <div class="col-sm-10">
-                            <select name="service_id" id="service" class="form-control">
+                            <input type="text" class="form-control" name="sale" placeholder="Giá sale" value="{{ $product->sale }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Đơn vị 1 sản phẩm</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="unit"" placeholder="Đơn vị 1 sản phẩm" value="{{ $product->unit }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Mô tả sản phẩm</label>
+                        <div class="col-sm-10">
+                            <textarea id="editor" class="form-control" name="address" placeholder="Mô tả sản phẩm">
+                                {{ $product->address }}
+                            </textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Thuộc vùng</label>
+                        <div class="col-sm-10">
+                            <select name="city_id" id="city_id" class="form-control">
                             <?php 
-                                foreach ($serviceList as $serviceObj) {
-                                    echo '<optgroup label="'.$serviceObj->name.'">';
-                                    $serviceChildList = \App\Service::where('parent_id', $serviceObj->id)->get();
-                                    foreach($serviceChildList as $serviceChild){
-                                        echo '<optgroup label="--- '.$serviceChild->name.'">';
-                                        $serviceChildList2 = \App\Service::where('parent_id', $serviceChild->id)->get();
-                                        foreach($serviceChildList2 as $serviceChild2){
-                                            echo '<option value="'.$serviceChild2->id.'">--- '.$serviceChild2->name.'</option>';
-                                        }
-                                        echo '</optgroup>';
-                                    }
-                                    echo '</optgroup>';
+                                foreach ($cities as $cityObj) {
+                                    if($cityObj->id == $product->category->city->id)
+                                    echo '<option value="'.$cityObj->id.'" selected>'.$cityObj->name.'</option>';
+                                    else
+                                    echo '<option value="'.$cityObj->id.'">'.$cityObj->name.'</option>';
                                 }
                             ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Thuộc loại</label>
+                        <div class="col-sm-10">
+                            <select name="category_id" id="category_id" class="form-control">
+                                <?php 
+                                    $categories = $cities[0]->categories;
+                                    foreach ($categories as $category) {
+                                        if($category->id == $product->category->id)
+                                        echo '<option value="'.$category->id.'" selected>'.$category->name.'</option>';
+                                        else
+                                        echo '<option value="'.$category->id.'">'.$category->name.'</option>';
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Trạng thái</label>
+                        <div class="col-sm-10">
+                            <select name="active" id="active"" class="form-control">
+                                <option value="0" @if($product->active == 0) selected @endif>Đăng bán</option>
+                                <option value="1" @if($product->active == 1) selected @endif>Dừng bán</option>
                             </select>
                         </div>
                     </div>
@@ -98,7 +125,7 @@
     </div>
 </div>
 <!-- Modal -->
-<div id="change-avatar" class="modal fade" role="dialog">
+<div id="change-image" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg modal-image">
 
     <!-- Modal content-->
@@ -106,7 +133,7 @@
         <form id="form" >
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Chọn ảnh</h4>
+                <h4 class="modal-title">Chọn 1 ảnh mới</h4>
             </div>
             <div class="modal-body">
                 <div class="progress">
@@ -119,9 +146,9 @@
                 <div id="views"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-info" id="load-btn">Chọn lại ảnh</button>
-                <button type="button" class="btn btn-primary hide" id="submit-btn">Chọn</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-info" id="load-btn">Chọn ảnh mới</button>
+                <button type="button" class="btn btn-primary hide" id="submit-btn">Lưu lại</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng lại</button>
             </div>
         </form>
     </div>
@@ -131,13 +158,23 @@
 <link rel="stylesheet" href="http://jcrop-cdn.tapmodo.com/v0.9.12/css/jquery.Jcrop.min.css" type="text/css" />
 
 <script type="text/javascript">
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .then( editor => {
+            console.log( editor );
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
     $(document).ready(function(){
-        $('#change-avatar').on('shown.bs.modal', function (e) {
+        $('#change-image').on('shown.bs.modal', function (e) {
             e.preventDefault();
-            var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+            var fileExtension = ['jpeg', 'jpg', 'png'];
             if ($.inArray($($file).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
                 swal({
-                    html: '<div class="alert-danger">Only formats are allowed : '+fileExtension.join(', ')+'</div>',
+                    text: 'Định dạng hợp lệ bao gồm : '+fileExtension.join(', '),
+                    title: "Thông báo lỗi",
+                    icon: "error",
                   })
                 return;
             }
@@ -153,7 +190,7 @@
 
         var prefsize;
 
-        $('#avatar-image').click(function(){
+        $('#product-image').click(function(){
             $('#file').val("");
             $('#file').click();
         });
@@ -168,11 +205,11 @@
 
         $('#load-btn').click(function(){
             $('#file').val("");
-            $('#change-avatar').modal('hide');
+            $('#change-image').modal('hide');
             $('#file').click();
         });
 
-        $('#change-avatar-btn').click(function(){
+        $('#change-image-btn').click(function(){
             $('#file').val("");
             $('#file').click();
         });
@@ -206,10 +243,12 @@
             if(image.width < 160 || image.height < 160 || image.width > 3000 || image.height > 3000){
                 $("#views").empty();
                 swal({
-                    html: '<div class="alert-danger">Ảnh phải có kích cỡ từ 160 x 160 đến 3,000 x 3,000 pixels. Xin hãy chọn 1 ảnh khác.</div>',
+                    text: 'Ảnh chỉ nên để ở độ phân giải 160 x 160 — 3,000 x 3,000 pixels. Xin hãy chọn 1 ảnh khác',
+                    title: "Thông báo lỗi",
+                    icon: "error",
                 });
               }else{
-                $('#change-avatar').modal('show');
+                $('#change-image').modal('show');
                 restartJcrop();
               }
         }
@@ -270,7 +309,7 @@
 
         $("#form").submit(function(e) {
           e.preventDefault();
-          $('#change-avatar').modal('hide');
+          $('#change-image').modal('hide');
           formData = new FormData($(this)[0]);
           // var blob = dataURLtoBlob(canvas.toDataURL('image/png'));
           //---Add file blob to the form data
@@ -295,17 +334,19 @@
             success: function(data) {
                 $("#image-loading").hide();
                 if(data.code == 200){
-                    $('#avatar-image').attr('src', "{{ url('/') }}/public/images/" + data.image_url);
-                    $('#avatar').val(data.image_url);
-                    $('#change-avatar').modal('hide');
+                    $('#product-image').attr('src', "{{ url('/') }}/images/" + data.image_url);
+                    $('#image').val(data.image_url);
+                    $('#change-image').modal('hide');
                     $("#views").empty();
                 }else{
                     swal({
-                        html: '<div class="alert-danger">Có một lỗi xảy ra trong quá trình xử lý. Xin hãy thực hiện lại.</div>',
+                        text: 'Có lỗi xảy ra trong quá trình xử lý, hãy thử lại!',
+                        title: "Thông báo lỗi",
+                        icon: "error",
                       })
                     return;
                 }
-                $('#avatar-image').on('load', function () {
+                $('#product-image').on('load', function () {
                     $("#image-loading").hide();
                 });
             },

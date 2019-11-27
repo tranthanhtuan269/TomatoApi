@@ -128,7 +128,9 @@
             var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
             if ($.inArray($($file).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
                 swal({
-                    html: '<div class="alert-danger">Chỉ những định dạng sau được cho phép : '+fileExtension.join(', ')+'</div>',
+                    text: 'Chỉ những định dạng sau được cho phép : '+fileExtension.join(', '),
+                    title: "Thông báo lỗi",
+                    icon: "error",
                   })
                 return;
             }
@@ -197,7 +199,7 @@
             // if(image.width < 160 || image.height < 160 || image.width > 3000 || image.height > 3000){
             //     $("#views").empty();
             //     swal({
-            //         html: '<div class="alert-danger">Ảnh phải thuộc kích cỡ từ 160 x 160 đến 3,000 x 3,000 pixels. Please select a different image.</div>',
+            //         text: 'Ảnh phải thuộc kích cỡ từ 160 x 160 đến 3,000 x 3,000 pixels. Please select a different image',
             //     });
             // }else{
                 $('#change-avatar').modal('show');
@@ -292,7 +294,9 @@
                     $("#views").empty();
                 }else{
                     swal({
-                        html: '<div class="alert-danger">Có lỗi xảy ra trong quá trình xử lý, hãy thử lại!</div>',
+                        html: 'Có lỗi xảy ra trong quá trình xử lý, hãy thử lại!',
+                        title: "Thông báo lỗi",
+                        icon: "error",
                       })
                     return;
                 }

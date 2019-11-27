@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>hspvietnam.com</title>
+    <title>DSC Administrator</title>
 
-    <meta name="keywords" content="HSP, dịch vụ gia đình, mọi lúc mọi nơi">
-    <meta name="description" content="HSP, dịch vụ gia đình, mọi lúc mọi nơi">
+    <meta name="keywords" content="DSC, dịch vụ ẩm thực, mọi lúc mọi nơi">
+    <meta name="description" content="DSC, dịch vụ ẩm thực, mọi lúc mọi nơi">
 
     <meta name="robots" content="noodp,index,follow" />
     <meta http-equiv="content-language" content="vi" />
@@ -17,7 +17,7 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{{ url('/') }}/public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ url('/') }}/css/style.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -26,6 +26,9 @@
     <![endif]-->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{{ url('/') }}/js/script.js"></script>
   </head>
   <body>
     @yield('content')
