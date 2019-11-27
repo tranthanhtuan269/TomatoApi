@@ -44,9 +44,17 @@
 	position: relative;
 	background-color: #ddd;
 	margin:10px 0px;
-	padding: 8px;
+	padding: 16px 6px;;
 	border-radius: 8px;
 	font-size: 16px;
+}
+
+.service-parent.active{
+	background-color: #c8ffca;
+}
+
+.service-parent.inactive{
+	background-color: #ffc8c8;
 }
  
 .service-parent img{
@@ -55,15 +63,15 @@
 
 .service-parent .group-control{
 	position: absolute;
-	right: 15px;
-	top: 22px;
+	right: 0;
+	top: 0;
 	font-size: 16px;
 }
 
 .package-list .group-control{
 	position: absolute;
-	right: 15px;
-	top: 9px;
+	right: 0;
+	top: 0;
 	font-size: 16px;
 }
 
@@ -109,6 +117,7 @@
 
 .delete-btn{
 	border: none;
+	background-color: #ffffff00;
 }
 
 .group-control{
