@@ -17,17 +17,8 @@ Route::get('/terms', function () {
 });
 
 Route::get('/test', function () {
-    // send email to setting
-    $emaiSetting = \App\Setting::where('key', 'adminEmail')->first();
-
-    $emaiSetting->value = str_replace(" ","",$emaiSetting->value);
-
-    $emailArray = explode(",",$emaiSetting->value);
-    $job = \App\Order::find(5);
-    \Mail::send('emails.created_job', ['job' => $job], function($message) use ($emailArray){
-        $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
-        $message->to($emailArray)->subject('HSP thông báo đăng ký thành công!');
-    });
+    $order = \App\Order::find(3);
+    \App\Common\Helper::sendEmailAlert($order);
 });
 Route::get('/privacy', function () {
     return view('privacy');
@@ -115,4 +106,3 @@ Route::get('/logout', 'HomeController@logout')->name('logout');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/test', 'HomeController@test')->name('test');
