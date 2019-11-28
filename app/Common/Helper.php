@@ -227,4 +227,16 @@ Class Helper{
             return Helper::getParentService($service->parent_id);
         }
     }
+
+    public static function sendEmailAlert($order){
+        $emaiSetting = \App\Setting::where('key', 'adminEmail')->first();
+
+        $emaiSetting->value = str_replace(" ","",$emaiSetting->value);
+
+        $emailArray = explode(",",$emaiSetting->value);
+        \Mail::send('emails.created_job', ['order' => $order], function($message) use ($emailArray){
+            $message->from('admin@dacsanchat.com', 'dacsanchat.com');
+            $message->to($emailArray)->subject('DSC thông báo đăng ký thành công!');
+        });
+    }
 }
