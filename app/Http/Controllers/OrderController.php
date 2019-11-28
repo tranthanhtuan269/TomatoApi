@@ -42,7 +42,8 @@ class OrderController extends Controller
      */
     public function newOrder()
     {
-        $orders = Order::orderBy('start_time', 'desc')->where('state', 0)->paginate(15);
+        $orders = Order::orderBy('created_at', 'desc')->where('state', 0)->paginate(15);
+
         foreach ($orders as $order) {
             if($order->promotion_code != ''){
                 if($order->service_id != 0){
@@ -67,14 +68,14 @@ class OrderController extends Controller
                 }
             }
 
-            if(isset($order->user->presenter_id) && $order->user->presenter_id != ''){
-                $user = User::where('code', $order->user->presenter_id)->first();
-                if($user){
-                    $rewards = Setting::where('key', 'rewards')->first();
-                    $order->rewards = intval($rewards->value);
-                    $order->save();
-                }
-            }
+            // if(isset($order->user->presenter_id) && $order->user->presenter_id != ''){
+            //     $user = User::where('code', $order->user->presenter_id)->first();
+            //     if($user){
+            //         $rewards = Setting::where('key', 'rewards')->first();
+            //         $order->rewards = intval($rewards->value);
+            //         $order->save();
+            //     }
+            // }
         }
         return view('order.new', ['orders' => $orders]);
     }
@@ -86,7 +87,7 @@ class OrderController extends Controller
      */
     public function acceptedOrder()
     {
-        $orders = Order::orderBy('start_time', 'desc')->where('state', 1)->paginate(15);
+        $orders = Order::orderBy('created_at', 'desc')->where('state', 1)->paginate(15);
         return view('order.accept', ['orders' => $orders]);
     }
 
@@ -97,7 +98,7 @@ class OrderController extends Controller
      */
     public function paidOrder()
     {
-        $orders = Order::orderBy('start_time', 'desc')->where('state', 2)->paginate(15);
+        $orders = Order::orderBy('created_at', 'desc')->where('state', 2)->paginate(15);
         return view('order.paid', ['orders' => $orders]);
     }
 
@@ -108,48 +109,16 @@ class OrderController extends Controller
      */
     public function cancelOrder()
     {
-        $orders = Order::orderBy('start_time', 'desc')->where('state', 3)->paginate(15);
+        $orders = Order::orderBy('created_at', 'desc')->where('state', 3)->paginate(15);
         return view('order.cancel', ['orders' => $orders]);
     }
 
     public function acceptWeb($id){
         $order = Order::find($id);
         if(isset($order)){
-            
             $order->state = 1;
-            $order->service_id = Helper::getService($order);
-
             $order->updated_at = date("Y-m-d H:i:s");
             $order->save();
-
-            // send email to Admin
-            \Mail::send('emails.created_job', ['job' => $order], function($message) use ($order){
-                $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
-                $message->to('tran.thanh.tuan269@gmail.com')->subject('HSP thông báo đăng ký thành công!');
-            });
-
-            // send email to setting            
-            $emaiSetting = \App\Setting::where('key', 'adminEmail')->first();
-            $emaiSetting->value = str_replace(" ","",$emaiSetting->value);
-            $emailArray = explode(",",$emaiSetting->value);
-
-            \Mail::send('emails.created_job', ['job' => $order], function($message) use ($emailArray){
-                $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
-                $message->to($emailArray)->subject('HSP thông báo đăng ký thành công!');
-            });
-
-            // send email to Partner
-            $service = Service::find($order->service_id);
-            if(null != $service){
-                if(null != $service->partner){
-                    if(null != $service->partner->email){
-                        \Mail::send('emails.created_job', ['job' => $order], function($message) use ($service){
-                            $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
-                            $message->to($service->partner->email)->subject('HSP thông báo đăng ký thành công!');
-                        });
-                    }
-                }
-            }
         }
         return back();
     }
@@ -164,12 +133,6 @@ class OrderController extends Controller
             $order->state = 2;
             $order->updated_at = date("Y-m-d H:i:s");
             $order->save();
-
-            // send email to Admin
-            \Mail::send('emails.created_job', ['job' => $order], function($message) use ($order){
-                $message->from('postmaster@hspvietnam.com', 'hspvietnam.com');
-                $message->to('tran.thanh.tuan269@gmail.com')->subject('HSP thông báo đăng ký thành công!');
-            });
         }
         return back();
     }

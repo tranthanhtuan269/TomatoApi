@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="col-sm-12"><h2 class="text-center">HSP Administrator</h2><a class="btn btn-default logout" href="{{ url('logout') }}">Logout</a></div>
+    <div class="col-sm-12"><h2 class="text-center">DSC Administrator</h2><a class="btn btn-default logout" href="{{ url('logout') }}">Logout</a></div>
     <div class="clearfix"></div>
     <div class="col-sm-3">
         @component('components.menuleft', ['active' => 'cancel'])
@@ -43,7 +43,7 @@
                     <div class="promotion_code">Mã giảm giá: <b><i>@if(isset($order->promotion_code)) {{ $order->promotion_code }} @else Không có @endif</i></b></div>
                     <div class="list_packages">
                         <ul>
-                            @foreach($order->packages as $package)
+                            @foreach($order->products as $package)
                             <li>{{ $package->pivot->number }} {{ $package->name }}</li>
                             @endforeach
                         </ul>

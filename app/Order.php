@@ -36,4 +36,11 @@ class Order extends Model
     {
         return $this->belongsToMany('App\Product')->withPivot('number');
     }
+    /**
+     * Get the post that owns the comment.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }
