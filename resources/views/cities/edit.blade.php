@@ -167,17 +167,17 @@
         }
 
         function restartJcropOpen() {
-            if(image.width < 160 || image.height < 160 || image.width > 3000 || image.height > 3000){
-                $("#views").empty();
-                swal({
-                    text: 'Ảnh chỉ nên để ở độ phân giải 160 x 160 — 3,000 x 3,000 pixels. Xin hãy chọn 1 ảnh khác',
-                    title: "Thông báo lỗi",
-                    icon: "error",
-                });
-              }else{
+            // if(image.width < 160 || image.height < 160 || image.width > 3000 || image.height > 3000){
+            //     $("#views").empty();
+            //     swal({
+            //         text: 'Ảnh chỉ nên để ở độ phân giải 160 x 160 — 3,000 x 3,000 pixels. Xin hãy chọn 1 ảnh khác',
+            //         title: "Thông báo lỗi",
+            //         icon: "error",
+            //     });
+            //   }else{
                 $('#change-image').modal('show');
                 restartJcrop();
-              }
+            //   }
         }
 
         function restartJcrop() {
