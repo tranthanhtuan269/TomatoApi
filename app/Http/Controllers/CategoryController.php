@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Transformers\ProductTransformer;
-use App\Product;
 use App\Category;
 use App\City;
 use Cache;
@@ -22,57 +20,45 @@ class CategoryController extends Controller
     }
 
     public function index(){
-        return view('products.index');
+        return view('categories.index');
     }
 
     public function view($id){
         $category = Category::find($id);
-        return view('products.index', ['category' => $category]);
+        return view('categories.index', ['category' => $category]);
     }
 
     public function create(){
-        $cities = City::where('active', 1)->get();
-        return view('products.create', ['cities' => $cities]);
+        $cities = City::get();
+        return view('categories.create', ['cities' => $cities]);
     }
 
     public function store(Request $request){
-        $product = new Product;
-        $product->name          = $request->name;
-        $product->price         = $request->price;
-        $product->sale          = $request->sale;
-        $product->image         = $request->image;
-        $product->address       = $request->address;
-        $product->unit          = $request->unit;
-        $product->category_id   = $request->category_id;
-        $product->active        = $request->active;
-        $product->save();
-        return redirect('/products');
+        $category               = new Category;
+        $category->name         = $request->name;
+        $category->city_id       = $request->city_id;
+        $category->save();
+        return redirect('/categories');
     }
 
     public function edit($id){
-        $cities = City::where('active', 1)->get();
-        $product = Product::find($id);
-        return view('products.edit', ['cities' => $cities, 'product' => $product]);
+        $cities = City::get();
+        $category = Category::find($id);
+        return view('categories.edit', ['cities' => $cities, 'category' => $category]);
     }
 
     public function update(Request $request, $id){
-        $product = Product::find($id);
-        $product->name          = $request->name;
-        $product->price         = $request->price;
-        $product->sale          = $request->sale;
-        $product->image         = $request->image;
-        $product->address       = $request->address;
-        $product->unit          = $request->unit;
-        $product->category_id   = $request->category_id;
-        $product->active        = $request->active;
-        $product->save();
-        return redirect('/products');
+        $category               = Category::find($id);
+        $category->name         = $request->name;
+        $category->city_id      = $request->city_id;
+        $category->save();
+        return redirect('/categories');
     }
 
     public function destroy($id){
-        $product = Product::find($id);
-        if(isset($product)){
-            $product->delete();
+        $category = Category::find($id);
+        if(isset($category)){
+            $category->delete();
         }
         return back();
     }
