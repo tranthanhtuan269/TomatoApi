@@ -99,8 +99,8 @@
                         <label for="inputEmail3" class="col-sm-2 control-label">Trạng thái</label>
                         <div class="col-sm-10">
                             <select name="active" id="active"" class="form-control">
-                                <option value="0">Đăng bán</option>
-                                <option value="1">Dừng bán</option>
+                                <option value="1">Đăng bán</option>
+                                <option value="0">Dừng bán</option>
                             </select>
                         </div>
                     </div>

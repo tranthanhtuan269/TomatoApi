@@ -17,19 +17,27 @@
             </div>
             <div class="panel-body">
                 {!! Form::open(['url' => url('/reports/export'), 'method' => 'post', 'class' => 'form-inline']) !!}
-                  <div class="form-group">
-                    <label for="exampleInputName2">Từ ngày: </label>
-                    <input type="text" class="form-control datepicker" name="from">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail2">Tới ngày: </label>
-                    <input type="text" class="form-control datepicker" name="to">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail2">Dịch vụ: </label>
-                    {!! Form::select('service', $services, null, ['placeholder' => 'All', 'class' => 'form-control']) !!}
-                  </div>
-                  <button type="submit" class="btn btn-default">Xuất báo cáo</button>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="exampleInputName2">Từ ngày: </label>
+                            <input type="text" class="form-control datepicker" name="from">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail2">Tới ngày: </label>
+                            <input type="text" class="form-control datepicker" name="to">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail2">Dịch vụ: </label>
+                            {!! Form::select('service', $services, null, ['placeholder' => 'All', 'class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-sm-12 text-center">
+                        <button type="submit" class="btn btn-primary">Xuất báo cáo</button>
+                    </div>
+                </div>
                 {!! Form::close() !!}
             </div>
         </div>

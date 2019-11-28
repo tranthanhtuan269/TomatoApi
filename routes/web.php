@@ -42,12 +42,20 @@ Route::put('/products/{id}', 'ProductController@update');
 Route::delete('/products/{id}', 'ProductController@destroy');
 
 Route::get('/categories', 'CategoryController@index');
+Route::get('/categories/create', 'CategoryController@create');
 Route::post('/categories', 'CategoryController@store');
 Route::get('/categories/{id}', 'CategoryController@view');
 Route::get('/categories/{id}/edit', 'CategoryController@edit');
-Route::get('/categories/create', 'CategoryController@create');
 Route::put('/categories/{id}', 'CategoryController@update');
 Route::delete('/categories/{id}', 'CategoryController@destroy');
+
+Route::get('/cities', 'CityController@index');
+Route::get('/cities/create', 'CityController@create');
+Route::post('/cities', 'CityController@store');
+Route::get('/cities/{id}', 'CityController@view');
+Route::get('/cities/{id}/edit', 'CityController@edit');
+Route::put('/cities/{id}', 'CityController@update');
+Route::delete('/cities/{id}', 'CityController@destroy');
 
 Route::get('/news', 'NewsController@indexWeb');
 Route::post('/news', 'NewsController@storeWeb');

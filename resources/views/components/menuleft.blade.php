@@ -2,6 +2,8 @@
 
 	$list = [
         ['products', 'Sản phẩm'],
+        ['categories', 'Danh mục'],
+        ['cities', 'Vùng'],
         ['news', 'Tin tức'],
         ['users', 'Tài khoản'],
         ['coupons', 'Mã giảm giá'],

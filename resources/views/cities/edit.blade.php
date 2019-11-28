@@ -6,27 +6,27 @@
     <div class="col-sm-12"><h2 class="text-center">DSC Administrator</h2><a class="btn btn-default logout" href="{{ url('logout') }}">Logout</a></div>
     <div class="clearfix"></div>
     <div class="col-sm-3">
-        @component('components.menuleft', ['active' => 'packages'])
+        @component('components.menuleft', ['active' => 'city'])
         @endcomponent
     </div>
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Sửa sản phẩm</h3>
+                <h3 class="panel-title">Sửa vùng</h3>
             </div>
             <div class="panel-body">
-                {!! Form::open(['url' => 'products/' . $product->id, 'class' => 'form-horizontal']) !!}
+                {!! Form::open(['url' => 'cities/' . $city->id, 'class' => 'form-horizontal']) !!}
                     @method('PUT')
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Ảnh sản phẩm</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Ảnh vùng</label>
                         <div class="col-sm-10">
                             <div class="avatar">
-                                <input type="hidden" id="image" name="image" value="{{ $product->image }}">
+                                <input type="hidden" id="image" name="image" value="{{ $city->image }}">
                                 <img id="image-loading" src="{{ asset('images/general/bx_loader.gif') }}" width="50" height="50" style="display: none;">
-                                @if(strlen($product->image) > 0)
-                                    <img src="{{ url('/') }}/images/{{ $product->image }}" id="product-image" class="img" width="150" height="150">
+                                @if(strlen($city->image) > 0)
+                                    <img src="{{ url('/') }}/images/{{ $city->image }}" id="city-image" class="img" width="150" height="150">
                                 @else
-                                    <img src="{{ url('/') }}/images/noimage.png" width="150" height="150" id="product-image" class="img">
+                                    <img src="{{ url('/') }}/images/noimage.png" width="150" height="150" id="city-image" class="img">
                                 @endif
                             </div>
                             <div class="btn btn-primary" id="change-image-btn">Thay ảnh</div>
@@ -35,82 +35,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Tên sản phẩm</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Tên vùng</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="name" placeholder="Name" value="{{ $product->name }}">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Giá gốc</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="price" placeholder="Giá gốc" value="{{ $product->price }}">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Giá sale</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="sale" placeholder="Giá sale" value="{{ $product->sale }}">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Đơn vị 1 sản phẩm</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="unit"" placeholder="Đơn vị 1 sản phẩm" value="{{ $product->unit }}">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Mô tả sản phẩm</label>
-                        <div class="col-sm-10">
-                            <textarea id="editor" class="form-control" name="address" placeholder="Mô tả sản phẩm">
-                                {{ $product->address }}
-                            </textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Thuộc vùng</label>
-                        <div class="col-sm-10">
-                            <select name="city_id" id="city_id" class="form-control">
-                            <?php 
-                                foreach ($cities as $cityObj) {
-                                    if($cityObj->id == $product->category->city->id)
-                                    echo '<option value="'.$cityObj->id.'" selected>'.$cityObj->name.'</option>';
-                                    else
-                                    echo '<option value="'.$cityObj->id.'">'.$cityObj->name.'</option>';
-                                }
-                            ?>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Thuộc loại</label>
-                        <div class="col-sm-10">
-                            <select name="category_id" id="category_id" class="form-control">
-                                <?php 
-                                    $categories = $cities[0]->categories;
-                                    foreach ($categories as $category) {
-                                        if($category->id == $product->category->id)
-                                        echo '<option value="'.$category->id.'" selected>'.$category->name.'</option>';
-                                        else
-                                        echo '<option value="'.$category->id.'">'.$category->name.'</option>';
-                                    }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Trạng thái</label>
-                        <div class="col-sm-10">
-                            <select name="active" id="active"" class="form-control">
-                                <option value="0" @if($product->active == 1) selected @endif>Đăng bán</option>
-                                <option value="1" @if($product->active == 0) selected @endif>Dừng bán</option>
-                            </select>
+                            <input type="text" class="form-control" name="name" placeholder="Name" value="{{ $city->name }}">
                         </div>
                     </div>
 
@@ -190,7 +117,7 @@
 
         var prefsize;
 
-        $('#product-image').click(function(){
+        $('#city-image').click(function(){
             $('#file').val("");
             $('#file').click();
         });
@@ -334,7 +261,7 @@
             success: function(data) {
                 $("#image-loading").hide();
                 if(data.code == 200){
-                    $('#product-image').attr('src', "{{ url('/') }}/images/" + data.image_url);
+                    $('#city-image').attr('src', "{{ url('/') }}/images/" + data.image_url);
                     $('#image').val(data.image_url);
                     $('#change-image').modal('hide');
                     $("#views").empty();
@@ -346,7 +273,7 @@
                       })
                     return;
                 }
-                $('#product-image').on('load', function () {
+                $('#city-image').on('load', function () {
                     $("#image-loading").hide();
                 });
             },

@@ -23,7 +23,7 @@
                     $products = App\Product::orderBy('id', 'desc')->get();
             		foreach($products as $productView){
 						?>
-						@if($productView->active == 1)
+						@if($productView->active == 0)
 						<div class="row service-parent inactive" data-name="{{ strtolower($productView->name) }}" data-category="{{ strtolower($productView->category->name) }}" data-city="{{ strtolower($productView->category->city->name) }}">
 						@else
 						<div class="row service-parent active" data-name="{{ strtolower($productView->name) }}" data-category="{{ strtolower($productView->category->name) }}" data-city="{{ strtolower($productView->category->city->name) }}">
@@ -64,4 +64,25 @@
         </div>
     </div>
 </div>
+<script>
+	$(document).ready(function(){
+		$("input[name=product_search], input[name=category_search], input[name=city_search]").keyup(function() {
+			var product_search  = $('input[name=product_search]').val().toLowerCase()
+			var category_search = $('input[name=category_search]').val().toLowerCase()
+			var city_search     = $('input[name=city_search]').val().toLowerCase()
+
+			$(".service-parent").each(function( index ) {
+				if (
+					$( this ).attr('data-name').toLowerCase().indexOf(product_search) < 0 || 
+					$( this ).attr('data-category').toLowerCase().indexOf(category_search) < 0 || 
+					$( this ).attr('data-city').toLowerCase().indexOf(city_search) < 0
+				){
+					$( this ).addClass('hide');
+				}else{
+					$( this ).removeClass('hide');
+				}
+			});
+		});
+	})
+</script>
 @endsection

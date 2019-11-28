@@ -1,116 +1,41 @@
 @extends('layouts.app')
 
 @section('content')
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="http://jcrop-cdn.tapmodo.com/v0.9.12/js/jquery.Jcrop.min.js"></script>
 <div class="container-fluid">
     <div class="col-sm-12"><h2 class="text-center">DSC Administrator</h2><a class="btn btn-default logout" href="{{ url('logout') }}">Logout</a></div>
     <div class="clearfix"></div>
     <div class="col-sm-3">
-        @component('components.menuleft', ['active' => 'packages'])
+        @component('components.menuleft', ['active' => 'city'])
         @endcomponent
     </div>
     <div class="col-sm-9"> 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Sửa sản phẩm</h3>
+                <h3 class="panel-title">Tạo vùng</h3>
             </div>
             <div class="panel-body">
-                {!! Form::open(['url' => 'products/' . $product->id, 'class' => 'form-horizontal']) !!}
-                    @method('PUT')
+                {!! Form::open(['url' => 'cities', 'class' => 'form-horizontal']) !!}
+                    @method('POST')
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Ảnh sản phẩm</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Ảnh vùng</label>
                         <div class="col-sm-10">
                             <div class="avatar">
-                                <input type="hidden" id="image" name="image" value="{{ $product->image }}">
+                                <input type="hidden" id="image" name="image" value="">
                                 <img id="image-loading" src="{{ asset('images/general/bx_loader.gif') }}" width="50" height="50" style="display: none;">
-                                @if(strlen($product->image) > 0)
-                                    <img src="{{ url('/') }}/images/{{ $product->image }}" id="product-image" class="img" width="150" height="150">
-                                @else
-                                    <img src="{{ url('/') }}/images/noimage.png" width="150" height="150" id="product-image" class="img">
-                                @endif
+                                <img src="{{ url('/') }}/public/images/noimage.png" width="150" height="150" id="product-image" class="img">
                             </div>
                             <div class="btn btn-primary" id="change-image-btn">Thay ảnh</div>
-                            <div class="text-warning"><b>Chú ý: </b>Ảnh phải có kích thước từ 160 x 160 đến 3,000 x 3,000 pixels.</div>
+                            <div class="text-warning"><b>Chú ý: </b>Ảnh nên có độ rộng từ 160 x 160 đến 3,000 x 3,000 pixels.</div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Tên sản phẩm</label>
+                        <label for="inputEmail3" class="col-sm-2 control-label">Tên vùng</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="name" placeholder="Name" value="{{ $product->name }}">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Giá gốc</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="price" placeholder="Giá gốc" value="{{ $product->price }}">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Giá sale</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="sale" placeholder="Giá sale" value="{{ $product->sale }}">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Đơn vị 1 sản phẩm</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="unit"" placeholder="Đơn vị 1 sản phẩm" value="{{ $product->unit }}">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Mô tả sản phẩm</label>
-                        <div class="col-sm-10">
-                            <textarea id="editor" class="form-control" name="address" placeholder="Mô tả sản phẩm">
-                                {{ $product->address }}
-                            </textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Thuộc vùng</label>
-                        <div class="col-sm-10">
-                            <select name="city_id" id="city_id" class="form-control">
-                            <?php 
-                                foreach ($cities as $cityObj) {
-                                    if($cityObj->id == $product->category->city->id)
-                                    echo '<option value="'.$cityObj->id.'" selected>'.$cityObj->name.'</option>';
-                                    else
-                                    echo '<option value="'.$cityObj->id.'">'.$cityObj->name.'</option>';
-                                }
-                            ?>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Thuộc loại</label>
-                        <div class="col-sm-10">
-                            <select name="category_id" id="category_id" class="form-control">
-                                <?php 
-                                    $categories = $cities[0]->categories;
-                                    foreach ($categories as $category) {
-                                        if($category->id == $product->category->id)
-                                        echo '<option value="'.$category->id.'" selected>'.$category->name.'</option>';
-                                        else
-                                        echo '<option value="'.$category->id.'">'.$category->name.'</option>';
-                                    }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Trạng thái</label>
-                        <div class="col-sm-10">
-                            <select name="active" id="active"" class="form-control">
-                                <option value="0" @if($product->active == 1) selected @endif>Đăng bán</option>
-                                <option value="1" @if($product->active == 0) selected @endif>Dừng bán</option>
-                            </select>
+                            <input type="text" class="form-control" name="name" placeholder="Tên vùng" value="">
                         </div>
                     </div>
 
@@ -126,35 +51,34 @@
 </div>
 <!-- Modal -->
 <div id="change-image" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg modal-image">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-        <form id="form" >
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Chọn 1 ảnh mới</h4>
-            </div>
-            <div class="modal-body">
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped active" role="progressbar"
-                    aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:80%">
-                        80%
-                    </div>
+    <div class="modal-dialog modal-lg modal-image">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+            <form id="form" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Chọn ảnh</h4>
                 </div>
-                <input id="file" type="file" class="hide" accept="image/*">
-                <div id="views"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-info" id="load-btn">Chọn ảnh mới</button>
-                <button type="button" class="btn btn-primary hide" id="submit-btn">Lưu lại</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng lại</button>
-            </div>
-        </form>
+                <div class="modal-body">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar"
+                        aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:80%">
+                            80%
+                        </div>
+                    </div>
+                    <input id="file" type="file" class="hide" accept="image/*">
+                    <div id="views"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" id="load-btn">Chọn lại ảnh</button>
+                    <button type="button" class="btn btn-primary hide" id="submit-btn">Chọn</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
-
 <link rel="stylesheet" href="http://jcrop-cdn.tapmodo.com/v0.9.12/css/jquery.Jcrop.min.css" type="text/css" />
 
 <script type="text/javascript">
@@ -169,13 +93,13 @@
     $(document).ready(function(){
         $('#change-image').on('shown.bs.modal', function (e) {
             e.preventDefault();
-            var fileExtension = ['jpeg', 'jpg', 'png'];
+            var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
             if ($.inArray($($file).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
                 swal({
-                    text: 'Định dạng hợp lệ bao gồm : '+fileExtension.join(', '),
+                    text: 'Only formats are allowed : '+fileExtension.join(', '),
                     title: "Thông báo lỗi",
                     icon: "error",
-                  })
+                })
                 return;
             }
             loadImage($file);
@@ -243,7 +167,7 @@
             if(image.width < 160 || image.height < 160 || image.width > 3000 || image.height > 3000){
                 $("#views").empty();
                 swal({
-                    text: 'Ảnh chỉ nên để ở độ phân giải 160 x 160 — 3,000 x 3,000 pixels. Xin hãy chọn 1 ảnh khác',
+                    text: 'Ảnh phải có kích cỡ từ 160 x 160 đến 3,000 x 3,000 pixels. Xin hãy chọn 1 ảnh khác',
                     title: "Thông báo lỗi",
                     icon: "error",
                 });
@@ -340,7 +264,7 @@
                     $("#views").empty();
                 }else{
                     swal({
-                        text: 'Có lỗi xảy ra trong quá trình xử lý, hãy thử lại!',
+                        text: 'Có một lỗi xảy ra trong quá trình xử lý. Xin hãy thực hiện lại',
                         title: "Thông báo lỗi",
                         icon: "error",
                       })
