@@ -135,7 +135,7 @@ class ApiController extends Controller
                 //     $message->to($emailArray)->subject('HSP thông báo đăng ký thành công!');
                 // });
 
-                Helper::sendEmailAlert($order);
+                // Helper::sendEmailAlert($order);
 
                 return response()->json([
                     'status_code' => 201,
