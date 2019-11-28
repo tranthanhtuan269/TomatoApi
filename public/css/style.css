@@ -147,7 +147,7 @@
 }
 
 .order-row{
-	margin: 10px;
+	margin: 0px;
 }
 
 .hint-child,
@@ -172,7 +172,7 @@
 
 .user-order-level-0{
 	background-color: #eeeeee;
-	padding: 8px;
+	padding: 16px;
 	border-radius: 8px;
 }
 
