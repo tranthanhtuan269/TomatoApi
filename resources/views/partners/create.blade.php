@@ -16,6 +16,15 @@
                 <h3 class="panel-title">Thêm đối tác</h3>
             </div>
             <div class="panel-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 {!! Form::open(['url' => 'partners', 'class' => 'form-horizontal']) !!}
                     @method('POST')
                     <div class="form-group">

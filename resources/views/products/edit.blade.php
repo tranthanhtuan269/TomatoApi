@@ -15,6 +15,17 @@
                 <h3 class="panel-title">Sửa sản phẩm</h3>
             </div>
             <div class="panel-body">
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 {!! Form::open(['url' => 'products/' . $product->id, 'class' => 'form-horizontal']) !!}
                     @method('PUT')
                     <div class="form-group">
@@ -100,6 +111,22 @@
                                         echo '<option value="'.$category->id.'">'.$category->name.'</option>';
                                     }
                                 ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Nhà cung cấp</label>
+                        <div class="col-sm-10">
+                            <select name="partner_id" id="partner_id" class="form-control">
+                            <?php 
+                                foreach ($partners as $partnerObj) {
+                                    if($partnerObj->id == $product->partner->id)
+                                    echo '<option value="'.$partnerObj->id.'" selected>'.$partnerObj->name.'</option>';
+                                    else
+                                    echo '<option value="'.$partnerObj->id.'">'.$partnerObj->name.'</option>';
+                                }
+                            ?>
                             </select>
                         </div>
                     </div>

@@ -14,6 +14,16 @@
                 <h3 class="panel-title">Sửa danh mục</h3>
             </div>
             <div class="panel-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 {!! Form::open(['url' => 'categories/' . $category->id, 'class' => 'form-horizontal']) !!}
                     @method('PUT')
 

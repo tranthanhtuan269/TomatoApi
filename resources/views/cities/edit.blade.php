@@ -15,6 +15,17 @@
                 <h3 class="panel-title">Sửa vùng</h3>
             </div>
             <div class="panel-body">
+                
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 {!! Form::open(['url' => 'cities/' . $city->id, 'class' => 'form-horizontal']) !!}
                     @method('PUT')
                     <div class="form-group">
