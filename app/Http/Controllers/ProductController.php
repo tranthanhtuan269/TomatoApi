@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Transformers\ProductTransformer;
 use App\Product;
+use App\Partner;
 use App\Category;
 use App\City;
 use Cache;
@@ -26,11 +27,31 @@ class ProductController extends Controller
     }
 
     public function create(){
-        $cities = City::where('active', 1)->get();
-        return view('products.create', ['cities' => $cities]);
+        $cities         = City::where('active', 1)->get();
+        $partners       = Partner::get();
+        return view('products.create', ['cities' => $cities, 'partners' => $partners]);
     }
 
     public function store(Request $request){
+
+        $validator = \Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'price' => 'required|string|max:15',
+            'image' => 'required|string|max:255'
+        ], [
+            'name.required' => 'Tên sản phẩm không được bỏ trống',
+            'name.max' => 'Tên sản phẩm không dài quá 255 ký tự',
+            'price.required' => 'Giá không được bỏ trống',
+            'price.max' => 'Giá không dài hơn 15 ký tự',
+            'image.required' => 'Sản phẩm phải có ảnh'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('products/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $product = new Product;
         $product->name          = $request->name;
         $product->price         = $request->price;
@@ -45,12 +66,31 @@ class ProductController extends Controller
     }
 
     public function edit($id){
-        $cities = City::where('active', 1)->get();
-        $product = Product::find($id);
-        return view('products.edit', ['cities' => $cities, 'product' => $product]);
+        $cities         = City::where('active', 1)->get();
+        $partners       = Partner::get();
+        $product        = Product::find($id);
+        return view('products.edit', ['cities' => $cities, 'partners' => $partners, 'product' => $product]);
     }
 
     public function update(Request $request, $id){
+        $validator = \Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'price' => 'required|string|max:15',
+            'image' => 'required|string|max:255'
+        ], [
+            'name.required' => 'Tên sản phẩm không được bỏ trống',
+            'name.max' => 'Tên sản phẩm không dài quá 255 ký tự',
+            'price.required' => 'Giá không được bỏ trống',
+            'price.max' => 'Giá không dài hơn 15 ký tự',
+            'image.required' => 'Sản phẩm phải có ảnh'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('products/'.$id.'/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $product = Product::find($id);
         $product->name          = $request->name;
         $product->price         = $request->price;

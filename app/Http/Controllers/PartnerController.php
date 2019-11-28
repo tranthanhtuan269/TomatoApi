@@ -48,16 +48,21 @@ class PartnerController extends Controller
     {
         $validator = \Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
+            'phone' => 'required|string|max:15',
             'email' => 'required|string|max:255'
+        ], [
+            'name.required' => 'Tên nhà cung cấp không được bỏ trống',
+            'name.max' => 'Tên nhà cung cấp không dài quá 255 ký tự',
+            'phone.required' => 'Số điện thoại không được bỏ trống',
+            'phone.max' => 'Số điện thoại không dài hơn 15 ký tự',
+            'email.required' => 'Email không được bỏ trống',
+            'email.max' => 'Email không dài hơn 255 ký tự'
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                    'status_code' => 422,
-                    'message' => 'Failed to create the partner.',
-                    'errors' => $validator->errors()->all()
-                ], 200);
+            return redirect('partners/create')
+                        ->withErrors($validator)
+                        ->withInput();
         }else{
             $partner = new Partner;
             $partner->name = $request->name;
@@ -105,14 +110,19 @@ class PartnerController extends Controller
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:255',
             'email' => 'required|string|max:255',
+        ], [
+            'name.required' => 'Tên nhà cung cấp không được bỏ trống',
+            'name.max' => 'Tên nhà cung cấp không dài quá 255 ký tự',
+            'phone.required' => 'Số điện thoại không được bỏ trống',
+            'phone.max' => 'Số điện thoại không dài hơn 15 ký tự',
+            'email.required' => 'Email không được bỏ trống',
+            'email.max' => 'Email không dài hơn 255 ký tự'
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                    'status_code' => 422,
-                    'message' => 'Failed to create the partner.',
-                    'errors' => $validator->errors()->all()
-                ], 200);
+            return redirect('partners/'.$id.'/edit')
+                        ->withErrors($validator)
+                        ->withInput();
         }else{
             $partner = Partner::find($id);
             $partner->name = $request->name;

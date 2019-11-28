@@ -27,8 +27,8 @@ class Partner extends Model
     /**
      * The roles that belong to the user.
      */
-    public function services()
+    public function products()
     {
-        return $this->hasMany('App\Service', 'service_id');
+        return $this->hasMany('App\Product', 'product_id');
     }
 }

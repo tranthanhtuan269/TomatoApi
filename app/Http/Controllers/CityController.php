@@ -33,6 +33,21 @@ class CityController extends Controller
     }
 
     public function store(Request $request){
+        $validator = \Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'image' => 'required|string|max:255'
+        ], [
+            'name.required' => 'Tên vùng không được bỏ trống',
+            'name.max' => 'Tên vùng không dài quá 255 ký tự',
+            'image.required' => 'Vùng phải có ảnh'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('cities/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $city               = new City;
         $city->name         = $request->name;
         $city->image        = $request->image;
@@ -46,6 +61,22 @@ class CityController extends Controller
     }
 
     public function update(Request $request, $id){
+
+        $validator = \Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'image' => 'required|string|max:255'
+        ], [
+            'name.required' => 'Tên vùng không được bỏ trống',
+            'name.max' => 'Tên vùng không dài quá 255 ký tự',
+            'image.required' => 'Vùng phải có ảnh'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('cities/'.$id.'/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $city               = City::find($id);
         $city->name         = $request->name;
         $city->image        = $request->image;

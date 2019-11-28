@@ -34,6 +34,19 @@ class CategoryController extends Controller
     }
 
     public function store(Request $request){
+        $validator = \Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+        ], [
+            'name.required' => 'Tên danh mục không được bỏ trống',
+            'name.max' => 'Tên danh mục không dài quá 255 ký tự',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('categories/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $category               = new Category;
         $category->name         = $request->name;
         $category->city_id       = $request->city_id;
@@ -48,6 +61,19 @@ class CategoryController extends Controller
     }
 
     public function update(Request $request, $id){
+        $validator = \Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+        ], [
+            'name.required' => 'Tên danh mục không được bỏ trống',
+            'name.max' => 'Tên danh mục không dài quá 255 ký tự',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('categories/'. $id . '/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $category               = Category::find($id);
         $category->name         = $request->name;
         $category->city_id      = $request->city_id;
