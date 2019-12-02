@@ -114,7 +114,7 @@ $( function() {
             			$listChild1 = App\Service::where('parent_id', $serviceChild1->id)->get();
             			?>
             			<div class="row service-parent">
-            				<img src="{{ url('/') }}/public/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild1->name }}
+            				<img src="{{ url('/') }}/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild1->name }}
                             <div class="group-control">
 
                             <span id="active-{{ $serviceChild1->id }}" data-id="{{ $serviceChild1->id }}" class="active @if($serviceChild1->active == 0) hidden @endif"><i class="fas fa-check" style="color:#00cc00"></i></span>
@@ -137,7 +137,7 @@ $( function() {
                             $listChild2 = App\Service::where('parent_id', $serviceChild2->id)->orderBy('index', 'asc')->get();
                                        ?>
             				<div class="row service-child">
-            					<img src="{{ url('/') }}/public/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild2->name }}
+            					<img src="{{ url('/') }}/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild2->name }}
             					<div class="group-control">
                                     <span id="active-{{ $serviceChild2->id }}" data-id="{{ $serviceChild2->id }}" class="active  @if($serviceChild2->active == 0) hidden @endif"><i class="fas fa-check" style="color:#00cc00"></i></span>
                                     <span id="unactive-{{ $serviceChild2->id }}" data-id="{{ $serviceChild2->id }}" class="unactive  @if($serviceChild2->active == 1) hidden @endif"><i class="fas fa-check"></i></span>
@@ -158,7 +158,7 @@ $( function() {
                                 foreach($listChild2 as $serviceChild3){
                                     ?>
                                     <div class="row service-object service-child2" data-parent-1="{{ $serviceChild1->id }}" data-parent-2="{{ $serviceChild2->id }}" data-id="{{ $serviceChild3->id }}">
-                                        <img src="{{ url('/') }}/public/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild3->name }}
+                                        <img src="{{ url('/') }}/images/{{ $serviceChild1->icon }}" width="50px">{{ $serviceChild3->name }}
                                         <div class="group-control">
                                             <span id="active-{{ $serviceChild3->id }}" data-id="{{ $serviceChild3->id }}" class="active  @if($serviceChild3->active == 0) hidden @endif"><i class="fas fa-check" style="color:#00cc00"></i></span>
                                             <span id="unactive-{{ $serviceChild3->id }}" data-id="{{ $serviceChild3->id }}" class="unactive  @if($serviceChild3->active == 1) hidden @endif"><i class="fas fa-check"></i></span>

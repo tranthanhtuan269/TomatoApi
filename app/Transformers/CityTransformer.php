@@ -19,7 +19,7 @@ class CityTransformer extends TransformerAbstract
         return [
             'id' => $city->id,
             'name' => $city->name,
-            'image' => url('/').'/public/images/'.$city->image
+            'image' => url('/').'/images/'.$city->image
         ];
     }
 

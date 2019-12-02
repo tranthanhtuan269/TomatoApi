@@ -26,7 +26,7 @@
         	    ?>
         	    <div class="row order-row user-order-level-{{ $order_level }}">
                     <div class="col-sm-4 user-image">
-                        <img src="{{ url('/') }}/public/images/{{ $user->avatar }}" width="200" height="200">
+                        <img src="{{ url('/') }}/images/{{ $user->avatar }}" width="200" height="200">
                     </div>
                     <div class="col-sm-8 user-info">
                         <div class="title-order"><b><i>USER-{{ $user->id }}</i></b></div>

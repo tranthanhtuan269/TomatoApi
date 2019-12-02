@@ -22,9 +22,9 @@
                             <div class="avatar">
                                 <img id="image-loading" src="{{ asset('images/general/bx_loader.gif') }}" width="50" height="50" style="display: none;">
                                 @if(strlen($order->image) > 0)
-                                    <img src="{{ url('/') }}/public/images/{{ $order->image }}" id="avatar-image" class="img" width="150" height="150">
+                                    <img src="{{ url('/') }}/images/{{ $order->image }}" id="avatar-image" class="img" width="150" height="150">
                                 @else
-                                    <img src="{{ url('/') }}/public/images/300px-No_image_available.svg.png" width="150" height="150" id="avatar-image" class="img">
+                                    <img src="{{ url('/') }}/images/300px-No_image_available.svg.png" width="150" height="150" id="avatar-image" class="img">
                                 @endif
                             </div>
                         </div>

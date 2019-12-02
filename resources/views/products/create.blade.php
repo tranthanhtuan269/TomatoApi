@@ -36,7 +36,7 @@
                             <div class="avatar">
                                 <input type="hidden" id="image" name="image" value="">
                                 <img id="image-loading" src="{{ asset('images/general/bx_loader.gif') }}" width="50" height="50" style="display: none;">
-                                <img src="{{ url('/') }}/public/images/noimage.png" width="150" height="150" id="product-image" class="img">
+                                <img src="{{ url('/') }}/images/noimage.png" width="150" height="150" id="product-image" class="img">
                             </div>
                             <div class="btn btn-primary" id="change-image-btn">Thay ảnh</div>
                             <div class="text-warning"><b>Chú ý: </b>Ảnh nên có độ rộng từ 160 x 160 đến 3,000 x 3,000 pixels.</div>

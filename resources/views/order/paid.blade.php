@@ -52,9 +52,9 @@
                     </div>
                     <div class="col-sm-4">
                         @if(strlen($order->image) > 0)
-                        <img src="{{ url('/') }}/public/images/{{ $order->image }}" width="100%">
+                        <img src="{{ url('/') }}/images/{{ $order->image }}" width="100%">
                         @else 
-                        <img src="{{ url('/') }}/public/images/300px-No_image_available.svg.png" width="100%">
+                        <img src="{{ url('/') }}/images/300px-No_image_available.svg.png" width="100%">
                         @endif
                     </div>
                     <hr />
